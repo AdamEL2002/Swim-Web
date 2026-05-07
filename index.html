@@ -361,12 +361,22 @@
       <div class="section-header">
         <div class="section-label">Get In Touch</div>
         <h2 class="section-title" id="register-title">Register Your Interest</h2>
-        <p class="section-sub">Fill in your details and we’ll be in touch shortly to confirm availability and next steps.</p>
+        <p class="section-sub">Tell us a little about the swimmer and we’ll help you find the right lesson option.</p>
       </div>
       <div class="register-grid">
         <div class="register-info">
-          <h3>Prefer to message us directly?</h3>
-          <p>Send us a WhatsApp message and we’ll get back to you as soon as possible.</p>
+          <h3>What happens next?</h3>
+          <p>We’ll check availability, answer any questions, and help you choose a lesson format that suits the swimmer’s confidence and ability.</p>
+          <ol class="next-steps">
+            <li><span>1</span><strong>Send your details</strong><small>Share your preferred lesson type and time.</small></li>
+            <li><span>2</span><strong>We confirm availability</strong><small>We’ll reply with the best available session.</small></li>
+            <li><span>3</span><strong>Start swimming</strong><small>Join us on Saturday at Queen Elizabeth’s Girls’ School.</small></li>
+          </ol>
+          <div class="register-highlights" aria-label="Lesson highlights">
+            <span>Saturday lessons</span>
+            <span>Small groups</span>
+            <span>All abilities</span>
+          </div>
           <a class="register-wa"
              href="https://wa.me/447412064746?text=Hi%2C%20I%27m%20interested%20in%20swimming%20lessons%20at%20Barnet%20Premier%20Swim.%20Could%20you%20tell%20me%20more%3F"
              target="_blank" rel="noopener noreferrer">
@@ -385,11 +395,11 @@
               <input type="text" id="fname" name="name" required placeholder="Your full name" />
             </div>
             <div class="form-group">
-              <label for="cname">Child's Name <span style="font-weight:400;color:var(--grey-400)">(if applicable)</span></label>
+              <label for="cname">Swimmer’s Name <span style="font-weight:400;color:var(--grey-400)">(if different)</span></label>
               <input type="text" id="cname" name="child_name" placeholder="Leave blank if for yourself" />
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
+              <label for="email">Email Address</label>
               <input type="email" id="email" name="email" required placeholder="your@email.com" />
             </div>
             <div class="form-group">
@@ -397,7 +407,7 @@
               <input type="tel" id="phone" name="phone" required placeholder="07xxx xxx xxx" />
             </div>
             <div class="form-group">
-              <label for="lesson">Lesson Type</label>
+              <label for="lesson">Preferred Lesson Type</label>
               <select id="lesson" name="lesson_type" required>
                 <option value="" disabled selected>Choose a lesson type</option>
                 <option value="Private 1-1 (£50)">Private 1-1 (£50)</option>
@@ -416,11 +426,11 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="msg">Anything else?</label>
-              <textarea id="msg" name="message" placeholder="Any questions or additional info (optional)"></textarea>
+              <label for="msg">Questions Or Notes</label>
+              <textarea id="msg" name="message" placeholder="Tell us about swimming ability, goals, or anything we should know"></textarea>
             </div>
-            <button type="submit" class="form-submit" id="submitBtn">Send</button>
-            <p class="form-note">We aim to reply within 24 hours. By submitting, you agree that we can use your details to respond to your enquiry.</p>
+            <button type="submit" class="form-submit" id="submitBtn">Register Interest</button>
+            <p class="form-note">We aim to reply within 24 hours and only use your details to respond to your enquiry.</p>
           </form>
         </div>
       </div>
