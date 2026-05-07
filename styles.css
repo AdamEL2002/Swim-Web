@@ -580,9 +580,9 @@ nav {
 
 .location-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-  gap: 28px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
+  gap: 24px 28px;
+  align-items: start;
   max-width: 960px;
   margin: 0 auto;
 }
@@ -594,12 +594,15 @@ nav {
 .location-address-card {
   display: flex;
   gap: 16px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1 / -1;
   padding: 24px;
   background: var(--white);
   border: 1px solid var(--grey-200);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  text-align: center;
 }
 .location-address-card svg {
   flex-shrink: 0;
@@ -661,7 +664,10 @@ nav {
 @media (max-width: 768px) {
   .location-grid { grid-template-columns: 1fr; }
   .location-info-list { grid-template-columns: 1fr; }
-  .location-address-card { padding: 20px; }
+  .location-address-card {
+    flex-direction: column;
+    padding: 20px;
+  }
   .map-frame { justify-self: center; max-width: 420px; }
 }
 .map-frame {
