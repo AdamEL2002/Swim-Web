@@ -485,7 +485,7 @@ nav {
   padding-top: clamp(44px, 6vw, 72px);
 }
 #register .section-header {
-  margin-bottom: clamp(24px, 4vw, 36px);
+  margin-bottom: clamp(16px, 3vw, 26px);
 }
 .register-grid {
   display: grid;
