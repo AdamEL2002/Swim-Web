@@ -797,6 +797,7 @@ footer {
 .thanks-logo {
   max-width: 220px;
   margin: 0 auto 24px;
+  border-radius: var(--radius-sm);
 }
 .thanks-shell .section-sub {
   margin-bottom: 28px;
