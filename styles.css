@@ -538,22 +538,6 @@ nav {
   font-size: 0.84rem;
   line-height: 1.5;
 }
-.register-highlights {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 0 0 24px;
-}
-.register-highlights span {
-  padding: 7px 12px;
-  border-radius: 50px;
-  background: rgba(27,107,147,0.08);
-  color: var(--blue);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
 .register-wa {
   display: inline-flex;
   align-items: center;
@@ -805,7 +789,6 @@ footer {
       .form-card { padding: 24px 20px; }
       .register-info { text-align: center; }
       .next-steps li { text-align: left; }
-      .register-highlights { justify-content: center; }
       .register-wa { width: 100%; max-width: 300px; justify-content: center; }
   .footer-inner { flex-direction: column; align-items: center; text-align: center; }
   .footer-links { justify-content: center; }
