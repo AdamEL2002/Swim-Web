@@ -479,64 +479,23 @@ nav {
   line-height: 1.7;
 }
 
+#register {
+  min-height: auto;
+  align-items: flex-start;
+  padding-top: clamp(44px, 6vw, 72px);
+}
+#register .section-header {
+  margin-bottom: clamp(24px, 4vw, 36px);
+}
 .register-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: minmax(0, 680px);
+  justify-content: center;
+  gap: 20px;
   align-items: start;
 }
 @media (max-width: 768px) {
-  .register-grid { grid-template-columns: 1fr; gap: 32px; }
-}
-.register-info h3 {
-  font-family: var(--ff-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 12px;
-}
-.register-info p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-.next-steps {
-  display: grid;
-  gap: 14px;
-  margin: 24px 0;
-  counter-reset: none;
-}
-.next-steps li {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 10px 14px;
-  align-items: start;
-  padding: 16px;
-  background: var(--white);
-  border: 1px solid var(--grey-200);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 2px 10px rgba(11,37,69,0.04);
-}
-.next-steps span {
-  grid-row: span 2;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--navy);
-  color: var(--aqua);
-  font-weight: 700;
-}
-.next-steps strong {
-  color: var(--navy);
-  font-size: 0.95rem;
-}
-.next-steps small {
-  color: var(--text-muted);
-  font-size: 0.84rem;
-  line-height: 1.5;
+  .register-grid { grid-template-columns: 1fr; }
 }
 .register-wa {
   display: inline-flex;
@@ -553,6 +512,15 @@ nav {
 .register-wa:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+}
+.register-direct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 .form-card {
   background: var(--white);
@@ -786,16 +754,7 @@ footer {
   .time-card { width: 100%; max-width: 280px; }
   .faq-q { padding: 16px 18px; font-size: 0.88rem; }
   .faq-a-inner { padding: 0 18px 16px; font-size: 0.85rem; }
-  .form-card { padding: 24px 20px; order: 1; }
-  .register-info {
-    order: 2;
-    text-align: center;
-  }
-  .register-info h3,
-  .register-info p,
-  .next-steps {
-    display: none;
-  }
+  .form-card { padding: 24px 20px; }
   .register-wa { width: 100%; max-width: 300px; justify-content: center; }
   .footer-inner { flex-direction: column; align-items: center; text-align: center; }
   .footer-links { justify-content: center; }
