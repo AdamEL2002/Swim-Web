@@ -276,41 +276,56 @@ nav {
 .section--dark .section-title { color: var(--white); }
 .section--dark .section-sub { color: rgba(255,255,255,0.65); }
 
-.features-grid {
+#about {
+  align-items: flex-start;
+  padding-top: clamp(44px, 6vw, 72px);
+}
+#about .section-header {
+  margin-bottom: clamp(24px, 4vw, 36px);
+}
+.coach-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
-.feature-card {
+.coach-card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 32px 28px;
+  overflow: hidden;
   box-shadow: var(--shadow);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.feature-card:hover {
+.coach-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
-.feature-icon {
-  width: 44px; height: 44px;
-  border-radius: 10px;
-  background: rgba(27,107,147,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  color: var(--blue);
+.coach-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
 }
-.feature-card h3 {
+.coach-copy {
+  padding: 24px;
+}
+.coach-copy span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.coach-copy h3 {
   font-family: var(--ff-display);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--navy);
   margin-bottom: 8px;
 }
-.feature-card p {
-  font-size: 0.92rem;
+.coach-copy p {
+  font-size: 0.94rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -786,9 +801,9 @@ footer {
     max-width: 400px;
     margin: 0 auto;
   }
-  .features-grid {
+  .coach-grid {
     grid-template-columns: 1fr;
-    max-width: 480px;
+    max-width: 560px;
     margin: 0 auto;
   }
   .location-grid { grid-template-columns: 1fr; }
@@ -806,7 +821,7 @@ footer {
   .btn { width: 100%; max-width: 300px; justify-content: center; padding: 14px 24px; }
   .section-title { font-size: clamp(1.4rem, 5.5vw, 1.8rem); }
   .section-sub { font-size: 0.9rem; }
-  .feature-card { padding: 24px 20px; }
+  .coach-copy { padding: 20px; }
   .price-card { padding: 24px 20px; }
   .price-amount { font-size: 2rem; }
   .time-slots { flex-direction: column; align-items: center; }
