@@ -56,13 +56,16 @@ nav {
   height: 64px;
 }
 .nav-brand {
-  font-family: var(--ff-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  min-width: 96px;
 }
-.nav-brand span { color: var(--aqua); }
+.nav-logo {
+  width: 118px;
+  height: auto;
+  max-height: 44px;
+  object-fit: contain;
+}
 .nav-links {
   display: flex;
   align-items: center;
@@ -752,7 +755,8 @@ footer {
   .footer-inner { flex-direction: column; align-items: center; text-align: center; }
   .footer-links { justify-content: center; }
   .map-frame { aspect-ratio: 1/1; }
-  .nav-brand { font-size: 1rem; }
+  .nav-brand { min-width: 82px; }
+  .nav-logo { width: 96px; max-height: 38px; }
   .wa-float-wrap { bottom: 16px; right: 16px; }
   .wa-bubble { max-width: 170px; font-size: 0.75rem; padding: 8px 12px; }
 }
