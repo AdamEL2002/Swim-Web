@@ -32,6 +32,24 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const slides = Array.from(carousel.querySelectorAll('.venue-slide'));
+  const prev = carousel.querySelector('[data-carousel-prev]');
+  const next = carousel.querySelector('[data-carousel-next]');
+  let current = slides.findIndex(slide => slide.classList.contains('is-active'));
+  if (current < 0) current = 0;
+
+  const showSlide = index => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === current);
+    });
+  };
+
+  prev?.addEventListener('click', () => showSlide(current - 1));
+  next?.addEventListener('click', () => showSlide(current + 1));
+});
+
 window.addEventListener('scroll', () => {
   document.querySelector('nav').style.boxShadow =
     window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.3)' : 'none';
