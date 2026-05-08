@@ -50,6 +50,30 @@ document.querySelectorAll('[data-carousel]').forEach(carousel => {
   next?.addEventListener('click', () => showSlide(current + 1));
 });
 
+const bookingModal = document.getElementById('bookingModal');
+if (bookingModal) {
+  const closeBookingModal = () => {
+    bookingModal.classList.remove('open');
+    bookingModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (window.location.search.includes('booking=success')) {
+      history.replaceState(null, '', `${window.location.pathname}#pricing`);
+    }
+  };
+
+  if (new URLSearchParams(window.location.search).get('booking') === 'success') {
+    bookingModal.classList.add('open');
+    bookingModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  bookingModal.querySelector('.booking-modal-close')?.addEventListener('click', closeBookingModal);
+  bookingModal.querySelector('.booking-modal-btn')?.addEventListener('click', closeBookingModal);
+  bookingModal.addEventListener('click', event => {
+    if (event.target === bookingModal) closeBookingModal();
+  });
+}
+
 window.addEventListener('scroll', () => {
   document.querySelector('nav').style.boxShadow =
     window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.3)' : 'none';
