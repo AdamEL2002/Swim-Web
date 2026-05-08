@@ -781,27 +781,10 @@ nav {
   color: var(--blue);
   margin-bottom: 16px;
 }
-.venue-highlights {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
+.parking-info p {
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 18px;
-  font-weight: 700;
-}
-.venue-highlights li {
-  display: inline-flex;
-  align-items: center;
-}
-.venue-highlights li:not(:last-child)::after {
-  content: "";
-  width: 5px;
-  height: 5px;
-  margin-left: 10px;
-  border-radius: 50%;
-  background: var(--blue);
-  flex: 0 0 auto;
 }
 .parking-link {
   color: var(--blue);
@@ -1079,8 +1062,28 @@ footer {
   max-width: 280px;
   margin: 0 auto 20px;
 }
-.hero-parking {
+.hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
   margin: 10px auto 28px;
+  color: var(--white);
+  font-weight: 700;
+  text-align: center;
+}
+.hero-highlights li {
+  display: inline-flex;
+  align-items: center;
+}
+.hero-highlights li:not(:last-child)::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: 0 0 auto;
 }
 
 .thanks-page {
