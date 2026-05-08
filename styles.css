@@ -770,10 +770,6 @@ nav {
   background: var(--white);
   color: var(--navy);
 }
-.parking-info svg {
-  color: var(--blue);
-  margin-bottom: 16px;
-}
 .pool-specs,
 .parking-photo-card figcaption {
   color: var(--text);
