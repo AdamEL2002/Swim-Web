@@ -419,14 +419,25 @@ nav {
 .payment-warning {
   max-width: 740px;
   margin: 0 auto 24px;
-  padding: 14px 18px;
-  border: 1px solid rgba(79,192,208,0.38);
+  padding: 16px 20px;
+  border: 2px solid #E5484D;
   border-radius: var(--radius-sm);
-  background: rgba(79,192,208,0.1);
-  color: var(--white);
+  background: var(--white);
+  color: var(--text);
   text-align: center;
-  font-weight: 700;
   line-height: 1.55;
+}
+.payment-warning strong {
+  display: block;
+  color: #B42318;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.payment-warning span {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 .price-card {
   background: rgba(255,255,255,0.06);
