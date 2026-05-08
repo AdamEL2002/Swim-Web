@@ -331,11 +331,15 @@ nav {
 .coach-social {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   margin-bottom: 10px;
   color: var(--blue);
   font-size: 0.82rem;
   font-weight: 700;
+}
+.instagram-icon {
+  flex-shrink: 0;
+  border-radius: 5px;
 }
 .coach-social:hover {
   color: var(--navy);
