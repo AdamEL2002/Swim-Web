@@ -730,13 +730,6 @@ nav {
   object-fit: cover;
   filter: brightness(1.26) contrast(1.03) saturate(1.06);
 }
-.venue-slide figcaption {
-  padding: 12px 14px;
-  color: var(--text-muted);
-  font-size: 0.86rem;
-  line-height: 1.5;
-  background: var(--white);
-}
 .venue-arrow {
   position: absolute;
   top: 42%;
@@ -781,9 +774,29 @@ nav {
   color: var(--blue);
   margin-bottom: 16px;
 }
-.parking-info p {
+.pool-specs,
+.parking-photo-card figcaption {
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+.pool-specs {
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+.parking-photo-card {
+  margin: 0 0 18px;
+}
+.parking-photo-card img {
+  width: 100%;
+  max-height: 245px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 28%;
+  border-radius: var(--radius-sm);
+}
+.parking-photo-card figcaption {
+  margin-top: 10px;
   margin-bottom: 18px;
 }
 .parking-link {
