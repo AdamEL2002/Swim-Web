@@ -676,17 +676,17 @@ nav {
 }
 .venue-showcase {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.82fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
   gap: 24px;
   align-items: stretch;
-  max-width: 960px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 .venue-panel {
   background: var(--grey-100);
   border: 1px solid var(--grey-200);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 20px;
   box-shadow: var(--shadow);
 }
 .venue-panel-head {
@@ -726,9 +726,9 @@ nav {
 .venue-slide img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  max-height: 310px;
+  max-height: 340px;
   object-fit: cover;
-  filter: brightness(1.08) contrast(0.97) saturate(1.03);
+  filter: brightness(1.26) contrast(1.03) saturate(1.06);
 }
 .venue-slide figcaption {
   padding: 12px 14px;
@@ -771,8 +771,8 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 250px;
-  padding: 24px;
+  min-height: 285px;
+  padding: 30px;
   border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--navy);
@@ -1039,7 +1039,7 @@ footer {
   .form-card { padding: 24px 20px; }
   .register-wa { width: 100%; max-width: 300px; justify-content: center; }
   .venue-panel { padding: 14px; }
-  .venue-slide img { max-height: 260px; }
+  .venue-slide img { max-height: 285px; }
   .venue-arrow { width: 34px; height: 34px; }
   .parking-info { padding: 20px; }
   .footer-inner { flex-direction: column; align-items: center; text-align: center; }
