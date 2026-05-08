@@ -671,6 +671,26 @@ nav {
   margin-top: 12px;
 }
 
+.venue-section {
+  background: var(--white);
+}
+.venue-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 16px;
+}
+.venue-grid img {
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.venue-grid img:first-child {
+  grid-row: span 2;
+}
+
 .location-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
@@ -889,6 +909,12 @@ footer {
     max-width: 560px;
     margin: 0 auto;
   }
+  .venue-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .venue-grid img:first-child {
+    grid-row: auto;
+  }
   .location-grid { grid-template-columns: 1fr; }
   .register-grid { grid-template-columns: 1fr; gap: 32px; }
 }
@@ -914,6 +940,12 @@ footer {
   .faq-a-inner { padding: 0 18px 16px; font-size: 0.85rem; }
   .form-card { padding: 24px 20px; }
   .register-wa { width: 100%; max-width: 300px; justify-content: center; }
+  .venue-grid {
+    grid-template-columns: 1fr;
+  }
+  .venue-grid img {
+    min-height: 190px;
+  }
   .footer-inner { flex-direction: column; align-items: center; text-align: center; }
   .footer-links { justify-content: center; }
   .map-frame { aspect-ratio: 1/1; }
