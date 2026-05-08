@@ -781,10 +781,27 @@ nav {
   color: var(--blue);
   margin-bottom: 16px;
 }
-.parking-info p {
+.venue-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.6;
   margin-bottom: 18px;
+  font-weight: 700;
+}
+.venue-highlights li {
+  display: inline-flex;
+  align-items: center;
+}
+.venue-highlights li:not(:last-child)::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex: 0 0 auto;
 }
 .parking-link {
   color: var(--blue);
