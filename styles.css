@@ -457,23 +457,6 @@ nav {
   transform: translateY(-4px);
   border-color: rgba(79,192,208,0.3);
 }
-.price-card.popular {
-  border-color: var(--aqua);
-  background: rgba(79,192,208,0.06);
-  position: relative;
-}
-.popular-badge {
-  position: absolute;
-  top: -12px; left: 50%; transform: translateX(-50%);
-  background: var(--aqua);
-  color: var(--navy);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 4px 16px;
-  border-radius: 50px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
 .price-card h3 {
   font-family: var(--ff-display);
   font-size: 1.15rem;
