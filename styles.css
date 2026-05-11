@@ -1195,9 +1195,20 @@ footer {
   position: absolute;
   top: 12px;
   right: 14px;
+  background: transparent;
   color: var(--navy);
-  font-size: 1.6rem;
+  font-size: 1.75rem;
+  font-weight: 800;
   line-height: 1;
+  padding: 4px;
+  box-shadow: none;
+  outline: none;
+}
+.booking-modal-close:hover,
+.booking-modal-close:focus {
+  background: transparent;
+  color: var(--navy);
+  box-shadow: none;
 }
 .booking-modal-btn {
   display: inline-flex;
