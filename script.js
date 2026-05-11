@@ -57,7 +57,7 @@ if (bookingModal) {
     bookingModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     if (window.location.search.includes('booking=success')) {
-      history.replaceState(null, '', `${window.location.pathname}#pricing`);
+      history.replaceState(null, '', `${window.location.pathname}#location`);
     }
   };
 
