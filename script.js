@@ -74,6 +74,31 @@ if (bookingModal) {
   });
 }
 
+const paymentConfirmModal = document.getElementById('paymentConfirmModal');
+const confirmPayBtn = document.getElementById('confirmPayBtn');
+if (paymentConfirmModal && confirmPayBtn) {
+  const closePaymentConfirm = () => {
+    paymentConfirmModal.classList.remove('open');
+    paymentConfirmModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  document.querySelectorAll('[data-payment-link]').forEach(button => {
+    button.addEventListener('click', () => {
+      confirmPayBtn.href = button.dataset.paymentLink;
+      confirmPayBtn.textContent = button.dataset.paymentLabel || 'Continue to Payment';
+      paymentConfirmModal.classList.add('open');
+      paymentConfirmModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  paymentConfirmModal.querySelector('.booking-modal-close')?.addEventListener('click', closePaymentConfirm);
+  paymentConfirmModal.addEventListener('click', event => {
+    if (event.target === paymentConfirmModal) closePaymentConfirm();
+  });
+}
+
 window.addEventListener('scroll', () => {
   document.querySelector('nav').style.boxShadow =
     window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.3)' : 'none';

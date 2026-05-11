@@ -329,14 +329,14 @@
           <h3>Private 1-1</h3>
           <div class="price-desc">One-to-one lesson focused entirely on you and your progress</div>
           <div class="price-amount">£45 <span>/ lesson</span></div>
-          <a class="price-pay-btn" href="https://buy.stripe.com/fZu9AN16ibzGeTE5Oo04802">Book a 1-1 Lesson</a>
+          <button class="price-pay-btn" type="button" data-payment-link="https://buy.stripe.com/fZu9AN16ibzGeTE5Oo04802" data-payment-label="Book a 1-1 Lesson">Book a 1-1 Lesson</button>
         </div>
         <div class="price-card rv">
           <div class="price-swimmers">2 Swimmers</div>
           <h3>2-1 Lesson</h3>
           <div class="price-desc">Semi-private lesson tailored to both swimmers’ ability levels</div>
           <div class="price-amount">£35 <span>/ person</span></div>
-          <a class="price-pay-btn" href="https://buy.stripe.com/28EeV7eX86fmdPA6Ss04801">Book a 2-1 Lesson</a>
+          <button class="price-pay-btn" type="button" data-payment-link="https://buy.stripe.com/28EeV7eX86fmdPA6Ss04801" data-payment-label="Book a 2-1 Lesson">Book a 2-1 Lesson</button>
         </div>
       </div>
     </div>
@@ -618,6 +618,15 @@
       <h2 id="bookingModalTitle">Thank You for Booking</h2>
       <p>Your payment has been received. We’ll be in touch to confirm everything and we look forward to seeing you at your lesson.</p>
       <a href="#pricing" class="btn btn-primary booking-modal-btn">Back to Prices</a>
+    </div>
+  </div>
+
+  <div class="booking-modal" id="paymentConfirmModal" aria-hidden="true">
+    <div class="booking-modal-card payment-confirm-card" role="dialog" aria-modal="true" aria-labelledby="paymentConfirmTitle">
+      <button class="booking-modal-close" type="button" aria-label="Close payment warning">&times;</button>
+      <h2 id="paymentConfirmTitle">Before You Pay</h2>
+      <p>Please only pay once your lesson time and start date have been confirmed. If you haven’t spoken to us yet, please register your interest or message us on WhatsApp first. Thank you :)</p>
+      <a href="#" class="btn btn-primary confirm-pay-btn" id="confirmPayBtn">Continue to Payment</a>
     </div>
   </div>
 
