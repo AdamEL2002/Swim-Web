@@ -80,7 +80,7 @@ nav {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 22px;
 }
 .nav-links a {
   color: rgba(255,255,255,0.94);
@@ -98,6 +98,12 @@ nav {
   transition: background 0.2s, transform 0.2s !important;
 }
 .nav-cta:hover { background: var(--aqua-light) !important; transform: scale(1.03); }
+.nav-cta-secondary {
+  background: var(--white) !important;
+}
+.nav-cta-secondary:hover {
+  background: var(--grey-100) !important;
+}
 .hamburger {
   display: none;
   flex-direction: column;
