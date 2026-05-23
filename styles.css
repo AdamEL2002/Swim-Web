@@ -1185,33 +1185,45 @@ footer {
 .terms-shell {
   width: min(100%, 820px);
   margin: 0 auto;
-  padding: clamp(28px, 5vw, 52px);
+  padding: clamp(24px, 4vw, 44px);
   border-radius: var(--radius);
   background: var(--white);
   box-shadow: var(--shadow-lg);
+}
+.terms-shell .section-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
 }
 .terms-logo-link {
   display: block;
 }
 .terms-updated {
-  margin: 10px 0 30px;
+  margin: 8px 0 24px;
   color: var(--text-muted);
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 .terms-block {
-  padding: 22px 0;
+  padding: 18px 0;
   border-top: 1px solid var(--grey-200);
 }
 .terms-block h2 {
   font-family: var(--ff-display);
   color: var(--navy);
-  font-size: clamp(1.2rem, 3vw, 1.45rem);
-  margin-bottom: 8px;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  margin-bottom: 10px;
 }
-.terms-block p {
+.terms-block p,
+.terms-block li {
   color: var(--text-muted);
-  line-height: 1.75;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.terms-block ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+.terms-block li + li {
+  margin-top: 7px;
 }
 .terms-actions {
   display: flex;
