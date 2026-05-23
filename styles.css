@@ -445,6 +445,14 @@ nav {
   font-size: 0.9rem;
   font-weight: 600;
 }
+.payment-warning a,
+.booking-modal-card a:not(.btn),
+.form-note a {
+  color: var(--blue);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .price-card {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
@@ -1166,6 +1174,51 @@ footer {
 }
 .thanks-shell .section-sub {
   margin-bottom: 28px;
+}
+
+.terms-page {
+  min-height: 100vh;
+  padding: clamp(28px, 6vw, 64px) var(--section-px);
+  background: var(--grey-100);
+  color: var(--text);
+}
+.terms-shell {
+  width: min(100%, 820px);
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 52px);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+.terms-logo-link {
+  display: block;
+}
+.terms-updated {
+  margin: 10px 0 30px;
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.9rem;
+}
+.terms-block {
+  padding: 22px 0;
+  border-top: 1px solid var(--grey-200);
+}
+.terms-block h2 {
+  font-family: var(--ff-display);
+  color: var(--navy);
+  font-size: clamp(1.2rem, 3vw, 1.45rem);
+  margin-bottom: 8px;
+}
+.terms-block p {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+.terms-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
 }
 
 .booking-modal {
