@@ -1179,7 +1179,7 @@ footer {
 .terms-page {
   min-height: 100vh;
   padding: clamp(28px, 6vw, 64px) var(--section-px);
-  background: var(--grey-100);
+  background: var(--navy);
   color: var(--text);
 }
 .terms-shell {
