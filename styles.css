@@ -440,10 +440,19 @@ nav {
   font-weight: 800;
   margin-bottom: 4px;
 }
-.payment-warning span {
-  display: block;
+.payment-warning ul {
+  max-width: 620px;
+  margin: 6px auto 0;
+  padding-left: 18px;
+  text-align: left;
+}
+.payment-warning li {
   font-size: 0.9rem;
   font-weight: 600;
+  line-height: 1.55;
+}
+.payment-warning li + li {
+  margin-top: 6px;
 }
 .payment-warning a,
 .booking-modal-card a:not(.btn),
@@ -1293,6 +1302,16 @@ footer {
 }
 .payment-confirm-card h2 {
   color: #B42318;
+}
+.payment-confirm-list {
+  margin: 0 0 24px;
+  padding-left: 20px;
+  color: var(--text-muted);
+  text-align: left;
+  line-height: 1.65;
+}
+.payment-confirm-list li + li {
+  margin-top: 8px;
 }
 .confirm-pay-btn {
   width: 100%;
