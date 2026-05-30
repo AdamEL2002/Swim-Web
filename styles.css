@@ -441,8 +441,9 @@ nav {
   margin-bottom: 4px;
 }
 .payment-warning ul {
-  max-width: 760px;
-  margin: 6px 0 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 6px auto 0;
   padding-left: 20px;
   list-style: disc;
   text-align: left;
