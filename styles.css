@@ -438,7 +438,7 @@ nav {
 }
 .payment-warning strong {
   display: block;
-  color: #B42318;
+  color: var(--navy);
   font-size: 0.95rem;
   font-weight: 800;
   margin-bottom: 4px;
@@ -1450,7 +1450,7 @@ footer {
   border: 2px solid #E5484D;
 }
 .payment-confirm-card h2 {
-  color: #B42318;
+  color: var(--navy);
 }
 .payment-confirm-list {
   margin: 0 0 24px;
