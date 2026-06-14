@@ -521,6 +521,21 @@ nav {
   transform: translateY(-2px);
   background: var(--aqua);
 }
+.price-booking-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+.price-booking-options .price-pay-btn {
+  margin-top: 0;
+}
+.price-block-option span {
+  display: block;
+  margin-top: 8px;
+  color: var(--aqua);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
 .price-note {
   font-size: 0.82rem;
   color: rgba(255,255,255,0.45);
