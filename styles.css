@@ -529,7 +529,7 @@ nav {
 .price-booking-options .price-pay-btn {
   margin-top: 0;
 }
-.price-block-option span {
+.price-payment-option span {
   display: block;
   margin-top: 8px;
   color: var(--aqua);
