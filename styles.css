@@ -530,34 +530,14 @@ nav {
 .price-booking-options .price-pay-btn {
   margin-top: 0;
 }
-.price-payment-option > span:not(.price-value-badge) {
+.price-payment-option > span {
   display: block;
   margin-top: 8px;
   color: var(--aqua);
   font-size: 0.78rem;
   font-weight: 800;
 }
-.price-value-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--aqua);
-  color: var(--navy);
-  font-size: 0.72rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0;
-}
-.price-pay-btn--value {
-  background: var(--aqua);
-}
-.price-pay-btn--value:hover {
-  background: var(--white);
-}
-.price-pay-btn--value small {
+.price-pay-btn small {
   margin-top: 4px;
   font-size: 0.78rem;
   font-weight: 800;
