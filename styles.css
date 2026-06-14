@@ -509,13 +509,15 @@ nav {
   justify-content: center;
   width: 100%;
   margin-top: 22px;
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--navy);
   font-family: var(--ff-body);
   font-size: 0.88rem;
   font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
   transition: transform 0.2s, background 0.2s;
 }
 .price-pay-btn:hover {
@@ -537,11 +539,17 @@ nav {
   font-size: 0.78rem;
   font-weight: 800;
 }
+.price-pay-btn > span {
+  display: block;
+  text-align: center;
+}
 .price-pay-btn small {
-  margin-top: 4px;
+  display: block;
+  margin-top: 3px;
   font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.25;
+  text-align: center;
 }
 .price-note {
   font-size: 0.82rem;
