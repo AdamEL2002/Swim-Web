@@ -543,6 +543,15 @@ nav {
   display: block;
   text-align: center;
 }
+.price-pay-btn--package {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 76px;
+  padding: 12px 16px 10px;
+}
+.price-pay-btn--package > span {
+  align-self: center;
+}
 .price-pay-btn small {
   display: block;
   margin-top: 3px;
@@ -550,6 +559,9 @@ nav {
   font-weight: 800;
   line-height: 1.25;
   text-align: center;
+}
+.price-pay-btn--package small {
+  margin-top: 0;
 }
 .price-note {
   font-size: 0.82rem;
