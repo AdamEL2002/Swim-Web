@@ -536,8 +536,9 @@ nav {
   display: block;
   margin-top: 8px;
   color: var(--aqua);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 800;
+  line-height: 1.35;
 }
 .price-pay-btn > span {
   display: block;
