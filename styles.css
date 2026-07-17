@@ -605,6 +605,9 @@ nav {
   text-align: center;
   margin-bottom: 18px;
 }
+.time-day-heading-spaced {
+  margin-top: 28px;
+}
 .time-slots {
   display: flex;
   justify-content: center;
@@ -961,6 +964,9 @@ nav {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+.location-address-card .location-extra {
+  margin-top: 22px;
 }
 .location-address-card h3 {
   font-family: var(--ff-display);
