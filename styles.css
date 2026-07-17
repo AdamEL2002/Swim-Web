@@ -599,9 +599,9 @@ nav {
 }
 .timetable-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  max-width: 960px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 760px;
   margin: 0 auto;
 }
 .timetable-day {
@@ -609,18 +609,26 @@ nav {
 }
 .time-day-heading {
   font-family: var(--ff-display);
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-size: clamp(1.25rem, 2.6vw, 1.65rem);
   font-weight: 700;
   color: var(--navy);
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
+}
+.time-day-location {
+  margin: 0 0 12px;
+  color: var(--blue);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
 }
 .time-card {
   background: var(--white);
   border-radius: var(--radius);
   display: block;
   height: 100%;
-  padding: 18px 16px;
+  padding: 22px 20px;
   text-align: center;
   box-shadow: var(--shadow);
   color: inherit;
@@ -636,15 +644,15 @@ nav {
 }
 .time-card-time {
   font-family: var(--ff-display);
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
   font-weight: 700;
   color: var(--navy);
 }
 .time-card-note {
-  max-width: 240px;
-  margin: 8px auto 0;
+  max-width: 300px;
+  margin: 10px auto 0;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   line-height: 1.45;
 }
 
