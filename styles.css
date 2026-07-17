@@ -427,9 +427,9 @@ nav {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
-  max-width: 620px;
+  max-width: 960px;
   margin: 0 auto;
 }
 .payment-warning {
@@ -570,6 +570,32 @@ nav {
 }
 .price-pay-btn--package small {
   margin-top: 0;
+}
+.group-price-info {
+  margin-top: 22px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+}
+.group-price-info strong {
+  display: block;
+  color: var(--aqua);
+  font-size: 0.92rem;
+  margin-bottom: 6px;
+}
+.group-price-info p,
+.price-contact-note {
+  color: rgba(255,255,255,0.62);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.price-contact-btn {
+  text-decoration: none;
+  margin-top: 14px;
+}
+.price-contact-note {
+  margin-top: 10px;
 }
 .price-note {
   font-size: 0.82rem;
