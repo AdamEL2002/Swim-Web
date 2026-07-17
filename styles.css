@@ -299,7 +299,7 @@ nav {
 }
 .section--dark .section-label { color: var(--aqua); }
 .section--dark .section-title { color: var(--white); }
-.section--dark .section-sub { color: rgba(255,255,255,0.65); }
+.section--dark .section-sub { color: rgba(255,255,255,0.86); }
 #pricing {
   align-items: flex-start;
   padding-top: clamp(48px, 5vw, 72px);
@@ -494,7 +494,7 @@ nav {
 }
 .price-card .price-desc {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.82);
   margin-bottom: 20px;
 }
 .price-amount {
@@ -586,7 +586,7 @@ nav {
 }
 .group-price-info p,
 .price-contact-note {
-  color: rgba(255,255,255,0.62);
+  color: rgba(255,255,255,0.82);
   font-size: 0.84rem;
   line-height: 1.5;
 }
@@ -599,7 +599,7 @@ nav {
 }
 .price-note {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.78);
   margin-top: 8px;
 }
 .price-swimmers {
