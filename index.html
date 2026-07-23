@@ -391,14 +391,14 @@
     </div>
   </section>
 
-  <section class="section" id="group-lessons" aria-labelledby="group-lessons-title">
+  <section class="section section--dark" id="group-lessons" aria-labelledby="group-lessons-title">
     <div class="section-inner">
       <div class="section-header">
         <div class="section-label">Group Lessons</div>
         <h2 class="section-title" id="group-lessons-title">Book a Group Lesson</h2>
         <p class="section-sub">Group swimming lessons for children and adults at Whitings Hill Primary School. Group spaces are booked by term or half term, so please contact us first to confirm the right class and availability.</p>
       </div>
-      <div class="group-section-grid">
+      <div class="group-section-grid group-section-grid--single">
         <article class="group-info-card rv">
           <h3>Whitings Hill Primary School</h3>
           <ul class="group-list">
@@ -409,50 +409,13 @@
             <li>High demand may mean joining a waiting list</li>
           </ul>
           <p>We will confirm the right group, course dates, and price before any booking is completed.</p>
-          <a class="register-wa"
-             href="https://wa.me/447412064746?text=Hi%2C%20I%27m%20interested%20in%20group%20swimming%20lessons.%20The%20swimmer%27s%20age%20and%20ability%20is%3A"
-             target="_blank" rel="noopener noreferrer">Ask On WhatsApp</a>
+          <div class="group-actions">
+            <a href="#register" class="btn btn-primary">Contact Us</a>
+            <a class="btn btn-wa"
+               href="https://wa.me/447412064746?text=Hi%2C%20I%27m%20interested%20in%20group%20swimming%20lessons.%20The%20swimmer%27s%20age%20and%20ability%20is%3A"
+               target="_blank" rel="noopener noreferrer">Ask On WhatsApp</a>
+          </div>
         </article>
-        <div class="form-card rv">
-          <form action="https://formsubmit.co/adamelassri2002@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New Group Lesson Enquiry - Barnet Premier Swim" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://www.barnetpremierswim.com/thanks.html" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="enquiry_type" value="Group swimming lesson" />
-            <div class="form-group">
-              <label for="groupName">Your Name</label>
-              <input type="text" id="groupName" name="name" required placeholder="Your full name" />
-            </div>
-            <div class="form-group">
-              <label for="groupEmail">Email Address</label>
-              <input type="email" id="groupEmail" name="email" required placeholder="your@email.com" />
-            </div>
-            <div class="form-group">
-              <label for="groupPhone">Phone Number</label>
-              <input type="tel" id="groupPhone" name="phone" required placeholder="07xxx xxx xxx" />
-            </div>
-            <div class="form-group">
-              <label for="groupSwimmer">Swimmer Details</label>
-              <textarea id="groupSwimmer" name="swimmer_details" required placeholder="Age, current swimming level, confidence in the water, and whether this is for a child or adult"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="groupAvailability">Preferred Day</label>
-              <select id="groupAvailability" name="preferred_day">
-                <option value="">Select a preferred day</option>
-                <option>Monday</option>
-                <option>Thursday</option>
-                <option>Either Monday or Thursday</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="groupMessage">Anything Else We Should Know?</label>
-              <textarea id="groupMessage" name="message" placeholder="Goals, previous lessons, siblings, medical information, or any questions"></textarea>
-            </div>
-            <button type="submit" class="form-submit">Send Group Lesson Enquiry</button>
-            <p class="form-note">We will reply with available groups, course dates, and the next steps for booking.</p>
-          </form>
-        </div>
       </div>
     </div>
   </section>
