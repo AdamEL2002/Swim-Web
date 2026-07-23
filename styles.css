@@ -1723,6 +1723,22 @@ footer {
 .venue-detail-section {
   background: var(--grey-100);
 }
+.venue-media-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+  gap: 24px;
+  align-items: start;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.venue-media-layout .venue-panel {
+  height: 100%;
+}
+.venue-media-layout .venue-panel-head h2 {
+  font-family: var(--ff-display);
+  font-size: 1.35rem;
+  color: var(--navy);
+}
 .venue-detail-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1810,7 +1826,8 @@ footer {
     max-width: 680px;
   }
   .venue-card-grid,
-  .venue-detail-grid {
+  .venue-detail-grid,
+  .venue-media-layout {
     grid-template-columns: 1fr;
   }
   .venue-detail-gallery {
