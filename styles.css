@@ -727,6 +727,13 @@ nav {
 .group-list li + li {
   margin-top: 10px;
 }
+.group-term-note {
+  color: rgba(255,255,255,0.94) !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  line-height: 1.7 !important;
+  margin: 12px auto 18px !important;
+}
 .group-booking-note {
   display: inline-block;
   max-width: 620px;
