@@ -12,7 +12,7 @@
   --grey-600: #666;
   --grey-800: #333;
   --text: #1a1a1a;
-  --text-muted: #555;
+  --text-muted: #3f4650;
   --gold: #D4A853;
   --ff-display: 'Playfair Display', Georgia, serif;
   --ff-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -326,6 +326,7 @@ nav {
 .section-sub {
   font-size: 1rem;
   color: var(--text-muted);
+  font-weight: 500;
   max-width: 540px;
   margin: 12px auto 0;
   line-height: 1.6;
@@ -357,7 +358,10 @@ nav {
 }
 .section--dark .section-label { color: var(--aqua); }
 .section--dark .section-title { color: var(--white); }
-.section--dark .section-sub { color: rgba(255,255,255,0.86); }
+.section--dark .section-sub {
+  color: rgba(255,255,255,0.94);
+  font-weight: 600;
+}
 #pricing {
   align-items: flex-start;
   padding-top: clamp(48px, 5vw, 72px);
@@ -521,7 +525,8 @@ nav {
 }
 .price-card .price-desc {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.82);
+  color: rgba(255,255,255,0.94);
+  font-weight: 600;
   margin-bottom: 20px;
 }
 .price-amount {
@@ -533,8 +538,8 @@ nav {
 .price-amount span {
   font-family: var(--ff-body);
   font-size: 0.85rem;
-  font-weight: 400;
-  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
 }
 .price-pay-btn {
   display: inline-flex;
@@ -600,7 +605,8 @@ nav {
 }
 .price-note {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.92);
+  font-weight: 600;
   margin-top: 8px;
 }
 .price-swimmers {
@@ -643,15 +649,17 @@ nav {
   margin-bottom: 16px;
 }
 .group-info-card p {
-  color: rgba(255,255,255,0.84);
+  color: rgba(255,255,255,0.94);
   font-size: 0.92rem;
+  font-weight: 500;
   line-height: 1.65;
   margin: 18px 0;
 }
 .group-list {
   list-style: disc;
   padding-left: 20px;
-  color: rgba(255,255,255,0.86);
+  color: rgba(255,255,255,0.95);
+  font-weight: 600;
   text-align: left;
   width: fit-content;
   max-width: 100%;
@@ -1193,7 +1201,7 @@ nav {
 
 footer {
   background: var(--navy);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.78);
   padding: 40px var(--section-px) 24px;
 }
 .footer-inner {
@@ -1215,7 +1223,7 @@ footer {
 .footer-tagline {
   font-size: 0.82rem;
   margin-top: 4px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.78);
 }
 .footer-links {
   display: flex;
@@ -1224,6 +1232,7 @@ footer {
 }
 .footer-links a {
   font-size: 0.85rem;
+  font-weight: 600;
   transition: color 0.2s;
 }
 .footer-links a:hover { color: var(--white); }
@@ -1235,6 +1244,7 @@ footer {
   font-size: 0.78rem;
   text-align: center;
   line-height: 1.8;
+  color: rgba(255,255,255,0.72);
 }
 
 .wa-float-wrap {
@@ -1556,7 +1566,8 @@ footer {
 .service-hero p:not(.section-label) {
   max-width: 640px;
   margin: 0 auto 28px;
-  color: rgba(255,255,255,0.86);
+  color: rgba(255,255,255,0.94);
+  font-weight: 600;
   font-size: clamp(1rem, 2.2vw, 1.18rem);
   line-height: 1.7;
 }
