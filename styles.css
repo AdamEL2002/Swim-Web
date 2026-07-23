@@ -272,21 +272,23 @@ nav {
   z-index: 0;
 }
 .section::before {
-  opacity: 0.38;
-  mix-blend-mode: multiply;
+  opacity: 0.34;
   background:
-    url("images/bubble.jpeg") left -18px top 12% / 72px 72px no-repeat,
-    url("images/bubble.jpeg") right -24px top 18% / 92px 92px no-repeat,
-    url("images/bubble.jpeg") left -14px bottom 18% / 58px 58px no-repeat,
-    url("images/bubble.jpeg") right -16px bottom 20% / 64px 64px no-repeat;
+    url("images/bubble.png") left -18px top 12% / 72px 72px no-repeat,
+    url("images/bubble.png") right -24px top 18% / 92px 92px no-repeat,
+    url("images/bubble.png") left 20% top 18px / 46px 46px no-repeat,
+    url("images/bubble.png") right 24% top 28px / 58px 58px no-repeat,
+    url("images/bubble.png") left -14px bottom 18% / 58px 58px no-repeat,
+    url("images/bubble.png") right -16px bottom 20% / 64px 64px no-repeat;
 }
 .section::after {
-  opacity: 0.34;
-  mix-blend-mode: multiply;
+  opacity: 0.3;
   background:
-    url("images/bubble.jpeg") left 8% top 30% / 46px 46px no-repeat,
-    url("images/bubble.jpeg") right 8% top 52% / 52px 52px no-repeat,
-    url("images/bubble.jpeg") right 12% bottom 8% / 40px 40px no-repeat;
+    url("images/bubble.png") left 8% top 30% / 46px 46px no-repeat,
+    url("images/bubble.png") right 8% top 52% / 52px 52px no-repeat,
+    url("images/bubble.png") left 26% bottom 24px / 42px 42px no-repeat,
+    url("images/bubble.png") right 30% bottom 18px / 50px 50px no-repeat,
+    url("images/bubble.png") right 12% bottom 8% / 40px 40px no-repeat;
 }
 .section-inner {
   position: relative;
@@ -327,19 +329,23 @@ nav {
   color: var(--white);
 }
 .section--dark::before {
-  opacity: 0.46;
+  opacity: 0.56;
   background:
-    url("images/bubble.jpeg") left -18px top 12% / 72px 72px no-repeat,
-    url("images/bubble.jpeg") right -24px top 18% / 92px 92px no-repeat,
-    url("images/bubble.jpeg") left -14px bottom 18% / 58px 58px no-repeat,
-    url("images/bubble.jpeg") right -16px bottom 20% / 64px 64px no-repeat;
+    url("images/bubble.png") left -18px top 12% / 72px 72px no-repeat,
+    url("images/bubble.png") right -24px top 18% / 92px 92px no-repeat,
+    url("images/bubble.png") left 20% top 18px / 46px 46px no-repeat,
+    url("images/bubble.png") right 24% top 28px / 58px 58px no-repeat,
+    url("images/bubble.png") left -14px bottom 18% / 58px 58px no-repeat,
+    url("images/bubble.png") right -16px bottom 20% / 64px 64px no-repeat;
 }
 .section--dark::after {
-  opacity: 0.42;
+  opacity: 0.48;
   background:
-    url("images/bubble.jpeg") left 8% top 30% / 46px 46px no-repeat,
-    url("images/bubble.jpeg") right 8% top 52% / 52px 52px no-repeat,
-    url("images/bubble.jpeg") right 12% bottom 8% / 40px 40px no-repeat;
+    url("images/bubble.png") left 8% top 30% / 46px 46px no-repeat,
+    url("images/bubble.png") right 8% top 52% / 52px 52px no-repeat,
+    url("images/bubble.png") left 26% bottom 24px / 42px 42px no-repeat,
+    url("images/bubble.png") right 30% bottom 18px / 50px 50px no-repeat,
+    url("images/bubble.png") right 12% bottom 8% / 40px 40px no-repeat;
 }
 .section--dark .section-label { color: var(--aqua); }
 .section--dark .section-title { color: var(--white); }
@@ -347,6 +353,10 @@ nav {
 #pricing {
   align-items: flex-start;
   padding-top: clamp(48px, 5vw, 72px);
+}
+#pricing::before,
+#pricing::after {
+  opacity: 0.62;
 }
 #pricing .section-header {
   margin-bottom: clamp(22px, 3vw, 34px);
@@ -1339,16 +1349,19 @@ footer {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.46;
-  mix-blend-mode: multiply;
+  opacity: 0.58;
   background:
-    url("images/bubble.jpeg") left -18px top 10% / 70px 70px no-repeat,
-    url("images/bubble.jpeg") right -22px top 14% / 86px 86px no-repeat,
-    url("images/bubble.jpeg") left -12px bottom 18% / 54px 54px no-repeat,
-    url("images/bubble.jpeg") right -16px bottom 18% / 64px 64px no-repeat,
-    url("images/bubble.jpeg") left 7% top 38% / 42px 42px no-repeat,
-    url("images/bubble.jpeg") right 7% top 58% / 50px 50px no-repeat,
-    url("images/bubble.jpeg") right 14% bottom 6% / 38px 38px no-repeat;
+    url("images/bubble.png") left -18px top 10% / 70px 70px no-repeat,
+    url("images/bubble.png") right -22px top 14% / 86px 86px no-repeat,
+    url("images/bubble.png") left 20% top 18px / 44px 44px no-repeat,
+    url("images/bubble.png") right 24% top 28px / 56px 56px no-repeat,
+    url("images/bubble.png") left -12px bottom 18% / 54px 54px no-repeat,
+    url("images/bubble.png") right -16px bottom 18% / 64px 64px no-repeat,
+    url("images/bubble.png") left 7% top 38% / 42px 42px no-repeat,
+    url("images/bubble.png") right 7% top 58% / 50px 50px no-repeat,
+    url("images/bubble.png") left 26% bottom 20px / 40px 40px no-repeat,
+    url("images/bubble.png") right 30% bottom 18px / 48px 48px no-repeat,
+    url("images/bubble.png") right 14% bottom 6% / 38px 38px no-repeat;
 }
 .terms-shell {
   position: relative;
@@ -1423,16 +1436,19 @@ footer {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.44;
-  mix-blend-mode: multiply;
+  opacity: 0.58;
   background:
-    url("images/bubble.jpeg") left -18px top 14% / 70px 70px no-repeat,
-    url("images/bubble.jpeg") right -22px top 18% / 88px 88px no-repeat,
-    url("images/bubble.jpeg") left -12px bottom 16% / 56px 56px no-repeat,
-    url("images/bubble.jpeg") right -16px bottom 18% / 62px 62px no-repeat,
-    url("images/bubble.jpeg") left 8% top 44% / 44px 44px no-repeat,
-    url("images/bubble.jpeg") right 8% top 56% / 50px 50px no-repeat,
-    url("images/bubble.jpeg") right 14% bottom 8% / 38px 38px no-repeat;
+    url("images/bubble.png") left -18px top 14% / 70px 70px no-repeat,
+    url("images/bubble.png") right -22px top 18% / 88px 88px no-repeat,
+    url("images/bubble.png") left 20% top 18px / 44px 44px no-repeat,
+    url("images/bubble.png") right 24% top 28px / 56px 56px no-repeat,
+    url("images/bubble.png") left -12px bottom 16% / 56px 56px no-repeat,
+    url("images/bubble.png") right -16px bottom 18% / 62px 62px no-repeat,
+    url("images/bubble.png") left 8% top 44% / 44px 44px no-repeat,
+    url("images/bubble.png") right 8% top 56% / 50px 50px no-repeat,
+    url("images/bubble.png") left 26% bottom 20px / 40px 40px no-repeat,
+    url("images/bubble.png") right 30% bottom 18px / 48px 48px no-repeat,
+    url("images/bubble.png") right 14% bottom 8% / 38px 38px no-repeat;
 }
 .service-hero-bg {
   position: absolute;
