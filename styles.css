@@ -763,6 +763,8 @@ nav {
 }
 .timetable-day {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 .time-day-heading {
   font-family: var(--ff-display);
@@ -784,7 +786,7 @@ nav {
   background: var(--white);
   border-radius: var(--radius);
   display: block;
-  height: 100%;
+  flex: 1;
   padding: 22px 20px;
   text-align: center;
   box-shadow: var(--shadow);
@@ -1395,6 +1397,7 @@ footer {
   .timetable-grid {
     grid-template-columns: 1fr;
     max-width: 420px;
+    gap: 34px;
   }
 }
 
@@ -1424,7 +1427,16 @@ footer {
     max-width: 340px;
     margin-bottom: 18px;
   }
-  .time-card { width: 100%; max-width: 280px; margin: 0 auto; }
+  .timetable-grid { gap: 36px; }
+  .timetable-day { width: 100%; }
+  .time-day-heading { margin-bottom: 6px; }
+  .time-day-location { margin-bottom: 14px; }
+  .time-card {
+    flex: none;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
   .faq-q { padding: 16px 18px; font-size: 0.88rem; }
   .faq-a-inner { padding: 0 18px 16px; font-size: 0.85rem; }
   .form-card { padding: 24px 20px; }
