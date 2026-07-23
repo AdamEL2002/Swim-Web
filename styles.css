@@ -676,6 +676,7 @@ nav {
   text-align: center;
   box-shadow: none;
 }
+.group-info-card h2,
 .group-info-card h3 {
   font-family: var(--ff-display);
   color: var(--white);
