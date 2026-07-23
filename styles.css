@@ -254,14 +254,41 @@ nav {
 .btn-wa:hover { box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
 
 .section {
+  position: relative;
   padding: var(--section-py) var(--section-px);
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid rgba(79,192,208,0.2);
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.48), rgba(79,192,208,0.08) 42%, rgba(79,192,208,0) 70%);
+  box-shadow: inset -12px -14px 24px rgba(27,107,147,0.08);
+  z-index: 0;
+}
+.section::before {
+  width: clamp(72px, 10vw, 140px);
+  height: clamp(72px, 10vw, 140px);
+  top: clamp(28px, 8vw, 96px);
+  left: max(18px, calc((100vw - var(--max-w)) / 2 - 76px));
+}
+.section::after {
+  width: clamp(44px, 7vw, 92px);
+  height: clamp(44px, 7vw, 92px);
+  right: max(22px, calc((100vw - var(--max-w)) / 2 - 38px));
+  bottom: clamp(34px, 7vw, 92px);
 }
 .section-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-w);
   margin: 0 auto;
   width: 100%;
@@ -296,6 +323,12 @@ nav {
 .section--dark {
   background: var(--navy);
   color: var(--white);
+}
+.section--dark::before,
+.section--dark::after {
+  border-color: rgba(160,228,237,0.22);
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.22), rgba(79,192,208,0.14) 44%, rgba(79,192,208,0) 72%);
+  box-shadow: inset -12px -14px 24px rgba(160,228,237,0.06);
 }
 .section--dark .section-label { color: var(--aqua); }
 .section--dark .section-title { color: var(--white); }
@@ -1283,12 +1316,38 @@ footer {
 }
 
 .terms-page {
+  position: relative;
   min-height: 100vh;
   padding: clamp(28px, 6vw, 64px) var(--section-px);
   background: var(--navy);
   color: var(--text);
+  overflow-x: hidden;
+}
+.terms-page::before,
+.terms-page::after,
+.service-hero::before {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid rgba(160,228,237,0.2);
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.2), rgba(79,192,208,0.1) 45%, rgba(79,192,208,0) 72%);
+}
+.terms-page::before {
+  width: clamp(90px, 16vw, 190px);
+  height: clamp(90px, 16vw, 190px);
+  top: 90px;
+  left: clamp(16px, 8vw, 130px);
+}
+.terms-page::after {
+  width: clamp(54px, 10vw, 120px);
+  height: clamp(54px, 10vw, 120px);
+  right: clamp(18px, 9vw, 150px);
+  bottom: 70px;
 }
 .terms-shell {
+  position: relative;
+  z-index: 1;
   width: min(100%, 820px);
   margin: 0 auto;
   padding: clamp(24px, 4vw, 44px);
@@ -1353,9 +1412,18 @@ footer {
   color: var(--white);
   text-align: center;
 }
+.service-hero::before {
+  position: absolute;
+  z-index: 1;
+  width: clamp(76px, 13vw, 170px);
+  height: clamp(76px, 13vw, 170px);
+  right: max(20px, calc((100vw - var(--max-w)) / 2 - 50px));
+  bottom: 52px;
+}
 .service-hero-bg {
   position: absolute;
   inset: 0;
+  z-index: 0;
 }
 .service-hero-bg::after {
   content: "";
@@ -1370,7 +1438,7 @@ footer {
 }
 .service-hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 760px;
 }
 .service-hero h1 {
@@ -1393,6 +1461,8 @@ footer {
   flex-wrap: wrap;
 }
 .service-section {
+  position: relative;
+  overflow: hidden;
   background: var(--grey-100);
 }
 .service-grid {
