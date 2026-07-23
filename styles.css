@@ -684,18 +684,27 @@ nav {
   margin-bottom: 10px;
 }
 .group-price {
-  color: var(--aqua);
-  font-family: var(--ff-display);
-  font-size: clamp(2.2rem, 6vw, 3.1rem);
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  border: 1px solid rgba(160,228,237,0.35);
+  border-radius: 999px;
+  background: rgba(160,228,237,0.12);
 }
 .group-price span {
-  color: rgba(255,255,255,0.92);
-  font-family: var(--ff-body);
-  font-size: 0.95rem;
+  color: var(--aqua-light);
+  font-size: 0.78rem;
   font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.group-price strong {
+  color: var(--white);
+  font-size: clamp(1rem, 2.4vw, 1.18rem);
+  font-weight: 800;
+  line-height: 1.2;
 }
 .group-info-card p {
   color: rgba(255,255,255,0.94);
@@ -1404,6 +1413,11 @@ footer {
   .feature-card { padding: 22px 20px; }
   .price-card { padding: 24px 20px; }
   .price-amount { font-size: 2rem; }
+  .group-price {
+    flex-direction: column;
+    gap: 4px;
+    border-radius: var(--radius-sm);
+  }
   .lesson-quick-note {
     flex-direction: column;
     gap: 10px;
