@@ -528,10 +528,6 @@
               <input type="text" id="fname" name="name" required placeholder="Your full name" />
             </div>
             <div class="form-group">
-              <label for="cname">Swimmer’s Name <span style="font-weight:400;color:var(--grey-400)">(if different)</span></label>
-              <input type="text" id="cname" name="child_name" placeholder="Leave blank if for yourself" />
-            </div>
-            <div class="form-group">
               <label for="email">Email Address</label>
               <input type="email" id="email" name="email" required placeholder="your@email.com" />
             </div>
@@ -540,35 +536,18 @@
               <input type="tel" id="phone" name="phone" required placeholder="07xxx xxx xxx" />
             </div>
             <div class="form-group">
-              <label for="lesson">Preferred Lesson Type</label>
-              <select id="lesson" name="lesson_type" required>
-                <option value="" disabled selected>Choose a lesson type</option>
-                <option value="Private 1-1 (£45)">Private 1-1 (£45)</option>
-                <option value="2-1 Lesson (£35pp)">2-1 Lesson (£35pp)</option>
-                <option value="Group Lesson at Whitings Hill">Group Lesson at Whitings Hill</option>
+              <label for="session">Preferred Day</label>
+              <select id="session" name="preferred_day" required>
+                <option value="" disabled selected>Choose a preferred day</option>
+                <option value="Saturday, 4:00 PM - 7:00 PM, Queen Elizabeth's Girls' School">Saturday, 4:00 PM - 7:00 PM, Queen Elizabeth's Girls' School</option>
+                <option value="Monday, 3:45 PM - 5:45 PM, Whitings Hill Primary School">Monday, 3:45 PM - 5:45 PM, Whitings Hill Primary School</option>
+                <option value="Thursday, 3:45 PM - 5:45 PM, Whitings Hill Primary School">Thursday, 3:45 PM - 5:45 PM, Whitings Hill Primary School</option>
+                <option value="No preference">No preference</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="time">Preferred Time</label>
-              <select id="time" name="preferred_time" required>
-                <option value="" disabled selected>Choose a time</option>
-                <option value="4:30 PM Saturday">4:30 PM — Saturday</option>
-                <option value="5:00 PM Saturday">5:00 PM — Saturday</option>
-                <option value="5:30 PM Saturday">5:30 PM — Saturday</option>
-                <option value="3:45 PM Monday Whitings Hill">3:45 PM — Monday at Whitings Hill</option>
-                <option value="4:15 PM Monday Whitings Hill">4:15 PM — Monday at Whitings Hill</option>
-                <option value="4:45 PM Monday Whitings Hill">4:45 PM — Monday at Whitings Hill</option>
-                <option value="5:15 PM Monday Whitings Hill">5:15 PM — Monday at Whitings Hill</option>
-                <option value="3:45 PM Thursday Whitings Hill">3:45 PM — Thursday at Whitings Hill</option>
-                <option value="4:15 PM Thursday Whitings Hill">4:15 PM — Thursday at Whitings Hill</option>
-                <option value="4:45 PM Thursday Whitings Hill">4:45 PM — Thursday at Whitings Hill</option>
-                <option value="5:15 PM Thursday Whitings Hill">5:15 PM — Thursday at Whitings Hill</option>
-                <option value="Either">No preference</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="msg">Questions Or Notes</label>
-              <textarea id="msg" name="message" placeholder="Tell us about swimming ability, goals, or anything we should know"></textarea>
+              <label for="msg">Swimmer Details and Ability</label>
+              <textarea id="msg" name="swimmer_details" placeholder="Age, current swimming level, confidence in the water, and anything useful to know"></textarea>
             </div>
             <button type="submit" class="form-submit" id="submitBtn">Register Interest</button>
             <p class="form-note">By booking lessons with us, you agree to our <a href="terms.html">Terms and Conditions</a>.</p>
