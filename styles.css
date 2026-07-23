@@ -498,6 +498,43 @@ nav {
   max-width: 720px;
   margin: 0 auto;
 }
+.lesson-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 720px;
+  margin: -8px auto 24px;
+}
+.lesson-meta-item {
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.08);
+  text-align: center;
+}
+.lesson-meta-item span {
+  display: block;
+  color: var(--aqua);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.lesson-meta-item strong {
+  display: block;
+  color: var(--white);
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+.lesson-meta-item p {
+  margin-top: 4px;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
 .booking-modal-card a:not(.btn),
 .form-note a {
   color: var(--blue);
@@ -1343,6 +1380,11 @@ footer {
   .feature-card { padding: 22px 20px; }
   .price-card { padding: 24px 20px; }
   .price-amount { font-size: 2rem; }
+  .lesson-meta-strip {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin-bottom: 20px;
+  }
   .time-card { width: 100%; max-width: 280px; margin: 0 auto; }
   .faq-q { padding: 16px 18px; font-size: 0.88rem; }
   .faq-a-inner { padding: 0 18px 16px; font-size: 0.85rem; }
