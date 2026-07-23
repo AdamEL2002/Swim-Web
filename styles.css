@@ -1300,36 +1300,16 @@ footer {
 }
 
 .thanks-page {
-  position: relative;
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
   place-items: center;
   padding: var(--section-px);
-  overflow: hidden;
   background:
     linear-gradient(180deg, rgba(11,37,69,0.82), rgba(11,37,69,0.88)),
     url("images/swimpool.jpg") center / cover;
 }
-.thanks-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.44;
-  mix-blend-mode: multiply;
-  background:
-    url("images/bubble.jpeg") left -18px top 12% / 70px 70px no-repeat,
-    url("images/bubble.jpeg") right -22px top 16% / 88px 88px no-repeat,
-    url("images/bubble.jpeg") left -12px bottom 18% / 56px 56px no-repeat,
-    url("images/bubble.jpeg") right -16px bottom 20% / 62px 62px no-repeat,
-    url("images/bubble.jpeg") left 8% top 34% / 44px 44px no-repeat,
-    url("images/bubble.jpeg") right 8% top 54% / 50px 50px no-repeat,
-    url("images/bubble.jpeg") right 12% bottom 8% / 38px 38px no-repeat;
-}
 .thanks-shell {
-  position: relative;
-  z-index: 1;
   width: min(100%, 620px);
   padding: clamp(32px, 6vw, 56px);
   border-radius: var(--radius);
