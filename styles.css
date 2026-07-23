@@ -498,42 +498,40 @@ nav {
   max-width: 720px;
   margin: 0 auto;
 }
-.lesson-meta-strip {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+.lesson-quick-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   max-width: 720px;
-  margin: -8px auto 24px;
-}
-.lesson-meta-item {
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.08);
+  margin: -8px auto 20px;
+  color: rgba(255,255,255,0.94);
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.4;
   text-align: center;
 }
-.lesson-meta-item span {
-  display: block;
-  color: var(--aqua);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1.2;
-  margin-bottom: 5px;
-  text-transform: uppercase;
+.lesson-quick-note p {
+  margin: 0;
 }
-.lesson-meta-item strong {
-  display: block;
+.lesson-quick-note strong {
   color: var(--white);
-  font-size: 0.98rem;
-  line-height: 1.25;
+  font-weight: 800;
 }
-.lesson-meta-item p {
-  margin-top: 4px;
-  color: rgba(255,255,255,0.9);
-  font-size: 0.86rem;
-  font-weight: 600;
-  line-height: 1.35;
+.lesson-quick-note a {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: background 0.2s, transform 0.2s;
+}
+.lesson-quick-note a:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.18);
 }
 .booking-modal-card a:not(.btn),
 .form-note a {
@@ -1380,10 +1378,11 @@ footer {
   .feature-card { padding: 22px 20px; }
   .price-card { padding: 24px 20px; }
   .price-amount { font-size: 2rem; }
-  .lesson-meta-strip {
-    grid-template-columns: 1fr;
-    max-width: 360px;
-    margin-bottom: 20px;
+  .lesson-quick-note {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 340px;
+    margin-bottom: 18px;
   }
   .time-card { width: 100%; max-width: 280px; margin: 0 auto; }
   .faq-q { padding: 16px 18px; font-size: 0.88rem; }
