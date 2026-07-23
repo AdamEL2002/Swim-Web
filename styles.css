@@ -63,7 +63,8 @@ nav {
   padding: 0 var(--section-px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 18px;
   height: 64px;
 }
 .nav-brand {
@@ -80,7 +81,7 @@ nav {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .nav-links a {
   color: rgba(255,255,255,0.94);
@@ -138,6 +139,7 @@ nav {
   font-weight: 500;
 }
 @media (max-width: 768px) {
+  .nav-inner { justify-content: space-between; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
 }
