@@ -272,7 +272,8 @@ nav {
   z-index: 0;
 }
 .section::before {
-  opacity: 0.34;
+  opacity: 0.54;
+  filter: saturate(1.45) brightness(0.84) contrast(1.16);
   background:
     url("images/bubble.png") left -18px top 12% / 72px 72px no-repeat,
     url("images/bubble.png") right -24px top 18% / 92px 92px no-repeat,
@@ -282,7 +283,8 @@ nav {
     url("images/bubble.png") right -16px bottom 20% / 64px 64px no-repeat;
 }
 .section::after {
-  opacity: 0.3;
+  opacity: 0.48;
+  filter: saturate(1.45) brightness(0.84) contrast(1.16);
   background:
     url("images/bubble.png") left 8% top 30% / 46px 46px no-repeat,
     url("images/bubble.png") right 8% top 52% / 52px 52px no-repeat,
@@ -330,6 +332,7 @@ nav {
 }
 .section--dark::before {
   opacity: 0.56;
+  filter: none;
   background:
     url("images/bubble.png") left -18px top 12% / 72px 72px no-repeat,
     url("images/bubble.png") right -24px top 18% / 92px 92px no-repeat,
@@ -340,6 +343,7 @@ nav {
 }
 .section--dark::after {
   opacity: 0.48;
+  filter: none;
   background:
     url("images/bubble.png") left 8% top 30% / 46px 46px no-repeat,
     url("images/bubble.png") right 8% top 52% / 52px 52px no-repeat,
