@@ -64,7 +64,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 18px;
+  gap: 16px;
   height: 64px;
 }
 .nav-brand {
@@ -79,8 +79,10 @@ nav {
   object-fit: contain;
 }
 .nav-links {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
 }
 .nav-links a {
