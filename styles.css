@@ -1450,8 +1450,33 @@ footer {
   .map-frame { aspect-ratio: 1/1; }
   .nav-brand { min-width: 82px; }
   .nav-logo { width: 96px; max-height: 38px; }
-  .wa-float-wrap { bottom: 16px; right: 16px; }
-  .wa-bubble { max-width: 170px; font-size: 0.75rem; padding: 8px 12px; }
+  .wa-float-wrap {
+    bottom: 12px;
+    right: 12px;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 4px;
+  }
+  .wa-float {
+    width: 50px;
+    height: 50px;
+  }
+  .wa-bubble {
+    max-width: none;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(11,37,69,0.92);
+    color: var(--white);
+    font-size: 0;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+    animation: none;
+  }
+  .wa-bubble::after {
+    content: "WhatsApp us!";
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 380px) {
