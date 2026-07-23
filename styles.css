@@ -655,6 +655,18 @@ nav {
 .price-contact-note {
   margin-top: 10px;
 }
+.price-contact-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--aqua-light);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.price-contact-link:hover {
+  color: var(--white);
+}
 .price-note {
   font-size: 0.82rem;
   color: rgba(255,255,255,0.78);
