@@ -2001,6 +2001,21 @@ footer {
     min-height: auto;
     padding-top: 110px;
   }
+  .venue-detail-page .service-hero {
+    padding-top: 88px;
+    padding-bottom: 42px;
+  }
+  .venue-detail-page .service-hero h1 {
+    font-size: clamp(1.85rem, 10vw, 2.35rem);
+    margin-bottom: 12px;
+  }
+  .venue-detail-page .service-hero p:not(.section-label) {
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+  .venue-detail-page .service-scroll-cue {
+    margin-top: 8px;
+  }
   .service-hero-actions .btn,
   .venue-bottom-actions .btn {
     width: 100%;
