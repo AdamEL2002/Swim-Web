@@ -728,11 +728,44 @@ nav {
   margin-top: 10px;
 }
 .group-term-note {
-  color: rgba(255,255,255,0.94) !important;
-  font-size: 0.9rem !important;
-  font-weight: 700 !important;
-  line-height: 1.7 !important;
-  margin: 12px auto 18px !important;
+  display: grid;
+  gap: 10px;
+  max-width: 580px;
+  margin: 14px auto 18px;
+}
+.group-term-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 6px 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.95);
+  text-align: left;
+}
+.group-term-row strong {
+  color: var(--white);
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+.group-term-row span {
+  color: rgba(255,255,255,0.95);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.group-term-row b {
+  color: var(--aqua-light);
+  font-weight: 900;
+}
+.group-term-row small {
+  grid-column: 2;
+  color: rgba(255,255,255,0.84);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 .group-booking-note {
   display: inline-block;
@@ -1428,6 +1461,13 @@ footer {
     flex-direction: column;
     gap: 4px;
     border-radius: var(--radius-sm);
+  }
+  .group-term-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .group-term-row small {
+    grid-column: auto;
   }
   .lesson-quick-note {
     flex-direction: column;
