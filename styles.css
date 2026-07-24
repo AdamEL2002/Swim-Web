@@ -370,6 +370,12 @@ nav {
 #pricing::after {
   opacity: 0.62;
 }
+#group-lessons::before,
+#group-lessons::after,
+#pricing::before,
+#pricing::after {
+  display: none;
+}
 #pricing .section-header {
   margin-bottom: clamp(22px, 3vw, 34px);
 }
