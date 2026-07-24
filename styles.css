@@ -1871,8 +1871,37 @@ footer {
   background: linear-gradient(180deg, rgba(11,37,69,0.58), rgba(11,37,69,0.9));
 }
 .venue-detail-section {
+  position: relative;
   background: var(--grey-100);
   padding-bottom: clamp(36px, 6vw, 58px);
+}
+.venue-detail-section::before,
+.venue-detail-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.venue-detail-section::before {
+  opacity: 0.5;
+  filter: saturate(1.45) brightness(0.84) contrast(1.16);
+  background:
+    url("images/bubble.png") left -18px top 12% / 72px 72px no-repeat,
+    url("images/bubble.png") right -22px top 18% / 86px 86px no-repeat,
+    url("images/bubble.png") left -12px bottom 18% / 56px 56px no-repeat,
+    url("images/bubble.png") right -16px bottom 20% / 64px 64px no-repeat;
+}
+.venue-detail-section::after {
+  opacity: 0.44;
+  filter: saturate(1.45) brightness(0.84) contrast(1.16);
+  background:
+    url("images/bubble.png") left 7% top 46% / 42px 42px no-repeat,
+    url("images/bubble.png") right 7% top 54% / 48px 48px no-repeat;
+}
+.venue-detail-section .section-inner {
+  position: relative;
+  z-index: 1;
 }
 .venue-media-layout {
   display: grid;
