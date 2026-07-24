@@ -1780,7 +1780,7 @@ footer {
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 28px;
+  margin-top: 18px;
 }
 .service-scroll-cue {
   display: inline-flex;
@@ -1872,6 +1872,7 @@ footer {
 }
 .venue-detail-section {
   background: var(--grey-100);
+  padding-bottom: clamp(36px, 6vw, 58px);
 }
 .venue-media-layout {
   display: grid;
