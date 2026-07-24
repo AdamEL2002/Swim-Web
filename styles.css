@@ -1931,12 +1931,6 @@ footer {
 .venue-detail-gallery.single-photo img {
   aspect-ratio: 16 / 9;
 }
-.venue-page-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 26px;
-}
-
 @media (max-width: 900px) {
   .service-grid {
     grid-template-columns: 1fr;
