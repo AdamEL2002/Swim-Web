@@ -1932,10 +1932,19 @@ footer {
   height: auto;
 }
 .venue-detail-gallery figcaption {
-  padding: 12px 14px;
+  padding: 16px 18px 18px;
   color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.55;
+}
+.venue-detail-gallery figcaption h2 {
+  font-family: var(--ff-display);
+  color: var(--navy);
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+.venue-photo-specs {
+  margin-top: 0;
 }
 .venue-detail-feature {
   grid-column: span 2;
