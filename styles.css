@@ -1770,6 +1770,20 @@ footer {
   justify-content: center;
   flex-wrap: wrap;
 }
+.service-scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: rgba(255,255,255,0.94);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.24);
+}
+.service-scroll-cue span {
+  font-size: 1.2rem;
+  line-height: 1;
+}
 .service-section {
   position: relative;
   overflow: hidden;
