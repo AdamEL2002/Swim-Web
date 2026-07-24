@@ -1775,6 +1775,13 @@ footer {
   justify-content: center;
   flex-wrap: wrap;
 }
+.venue-bottom-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
 .service-scroll-cue {
   display: inline-flex;
   align-items: center;
@@ -1994,7 +2001,8 @@ footer {
     min-height: auto;
     padding-top: 110px;
   }
-  .service-hero-actions .btn {
+  .service-hero-actions .btn,
+  .venue-bottom-actions .btn {
     width: 100%;
     max-width: 300px;
     justify-content: center;
