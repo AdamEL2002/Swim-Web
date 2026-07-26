@@ -728,6 +728,9 @@ nav {
   background: rgba(127,226,241,0.22);
   color: var(--blue);
 }
+.new-venue-badge--spacer {
+  visibility: hidden;
+}
 .group-price {
   display: inline-flex;
   align-items: center;
@@ -910,6 +913,7 @@ nav {
   line-height: 1.45;
 }
 .time-card-list {
+  list-style: disc;
   max-width: 300px;
   margin: 12px auto 0;
   padding-left: 18px;
