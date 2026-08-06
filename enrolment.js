@@ -4,8 +4,6 @@ const dateOfBirth = document.getElementById('dateOfBirth');
 const signaturePad = document.getElementById('signaturePad');
 const clearSignature = document.getElementById('clearSignature');
 const enrolmentError = document.getElementById('enrolmentError');
-const printDocument = document.getElementById('printDocument');
-const printSignature = document.getElementById('printSignature');
 
 const formatToday = () => {
   const now = new Date();
@@ -80,6 +78,102 @@ clearSignature.addEventListener('click', resetSignature);
 
 resetSignature();
 
+const cleanFileName = value => String(value || '')
+  .trim()
+  .replace(/[^a-z0-9]+/gi, '-')
+  .replace(/^-+|-+$/g, '') || 'student';
+
+const downloadEnrolmentPdf = formData => {
+  if (!window.jspdf?.jsPDF) {
+    enrolmentError.textContent = 'The PDF download tool could not load. Please refresh the page and try again.';
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 44;
+  const contentWidth = pageWidth - margin * 2;
+  let y = 46;
+
+  const value = name => String(formData.get(name) || '').trim();
+  const ensureSpace = needed => {
+    if (y + needed <= pageHeight - margin) return;
+    doc.addPage();
+    y = margin;
+  };
+  const addTitle = text => {
+    ensureSpace(42);
+    doc.setFillColor(11, 37, 69);
+    doc.rect(margin, y, contentWidth, 30, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text(text, margin + 12, y + 20);
+    y += 44;
+  };
+  const addPair = (label, text) => {
+    const lines = doc.splitTextToSize(text || '-', contentWidth - 160);
+    const rowHeight = Math.max(24, lines.length * 14 + 8);
+    ensureSpace(rowHeight);
+    doc.setTextColor(11, 37, 69);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.text(label, margin, y + 13);
+    doc.setTextColor(26, 26, 26);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.text(lines, margin + 160, y + 13);
+    y += rowHeight;
+  };
+
+  doc.setTextColor(11, 37, 69);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.text('Swimming Lesson Enrolment Form', margin, y);
+  y += 20;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(63, 70, 80);
+  doc.text(`Barnet Premier Swim | Completed on ${value('completedDate')}`, margin, y);
+  y += 28;
+
+  addTitle('Student Details');
+  addPair('Student surname', value('studentSurname'));
+  addPair('First name', value('studentFirstName'));
+  addPair('Date of birth', value('dateOfBirth'));
+  addPair('Gender', value('gender'));
+  addPair('Swimming ability', value('swimmingAbility'));
+
+  addTitle('Home Address');
+  addPair('Address', value('address'));
+  addPair('Postcode', value('postcode'));
+
+  addTitle('Parent/Guardian Details');
+  addPair('Name', value('guardianName'));
+  addPair('Telephone number', value('guardianPhone'));
+  addPair('Email', value('guardianEmail'));
+
+  addTitle('Medical and Additional Information');
+  addPair('Details', value('medicalDetails'));
+
+  addTitle('Photo Permission');
+  addPair('Permission given', value('photoPermission'));
+
+  addTitle('Signature');
+  ensureSpace(110);
+  doc.addImage(signaturePad.toDataURL('image/png'), 'PNG', margin, y, 260, 75);
+  y += 92;
+  doc.setTextColor(63, 70, 80);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.text(`Signed by parent/guardian on ${value('completedDate')}`, margin, y);
+
+  const fileName = `Barnet-Premier-Swim-Enrolment-${cleanFileName(value('studentFirstName'))}-${cleanFileName(value('studentSurname'))}.pdf`;
+  doc.save(fileName);
+};
+
 enrolmentForm.addEventListener('submit', event => {
   event.preventDefault();
   enrolmentError.textContent = '';
@@ -93,19 +187,5 @@ enrolmentForm.addEventListener('submit', event => {
   }
 
   const formData = new FormData(enrolmentForm);
-  const fields = printDocument.querySelectorAll('[data-print-field]');
-
-  fields.forEach(field => {
-    const name = field.dataset.printField;
-    field.textContent = formData.get(name) || '';
-  });
-
-  const printWhenReady = () => {
-    printSignature.onload = null;
-    window.print();
-  };
-
-  printSignature.onload = printWhenReady;
-  printSignature.src = signaturePad.toDataURL('image/png');
-  if (printSignature.complete) printWhenReady();
+  downloadEnrolmentPdf(formData);
 });

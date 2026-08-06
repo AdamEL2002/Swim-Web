@@ -1881,9 +1881,6 @@ footer {
   text-align: center;
   font-weight: 800;
 }
-.print-document {
-  display: none;
-}
 
 @media (max-width: 720px) {
   .enrolment-grid {
@@ -1891,77 +1888,6 @@ footer {
   }
   .signature-pad {
     height: 180px;
-  }
-}
-
-@media print {
-  @page {
-    margin: 14mm;
-  }
-  body {
-    background: #fff !important;
-    color: #000 !important;
-  }
-  .terms-shell,
-  .terms-page::before {
-    display: none !important;
-  }
-  .print-document {
-    display: block !important;
-    font-family: Arial, sans-serif;
-    color: #111;
-  }
-  .print-header {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding-bottom: 14px;
-    border-bottom: 2px solid #0B2545;
-  }
-  .print-header img {
-    width: 120px;
-    border-radius: 6px;
-  }
-  .print-header h1 {
-    margin: 0 0 4px;
-    color: #0B2545;
-    font-size: 22px;
-  }
-  .print-header p {
-    margin: 0;
-    font-size: 12px;
-  }
-  .print-section {
-    break-inside: avoid;
-    padding: 12px 0;
-    border-bottom: 1px solid #d8d8d8;
-  }
-  .print-section h2 {
-    margin: 0 0 8px;
-    color: #0B2545;
-    font-size: 15px;
-  }
-  .print-section dl {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px 16px;
-    margin: 0;
-  }
-  .print-section dt {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  .print-section dd,
-  .print-section p {
-    margin: 2px 0 0;
-    white-space: pre-wrap;
-    font-size: 12px;
-  }
-  .print-signature {
-    width: 260px;
-    max-height: 92px;
-    border: 1px solid #111;
   }
 }
 

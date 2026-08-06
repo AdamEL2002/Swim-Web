@@ -21,7 +21,7 @@
     <p class="section-label">Barnet Premier Swim</p>
     <h1 class="section-title">Swimming Lesson Enrolment Form</h1>
     <p class="enrolment-intro">Please complete all sections to enrol your child in swimming lessons.</p>
-    <p class="enrolment-print-note">After submitting, choose Save as PDF in the print window and send the completed form to us.</p>
+    <p class="enrolment-print-note">After submitting, your completed PDF will download automatically. Please send the completed form to us.</p>
 
     <form class="enrolment-form" id="enrolmentForm">
       <section class="enrolment-block">
@@ -130,64 +130,12 @@
       <p class="enrolment-error" id="enrolmentError" aria-live="polite"></p>
       <div class="terms-actions">
         <a href="index.html" class="btn btn-book">Back To Home</a>
-        <button class="btn btn-primary" type="submit">Submit and Save PDF</button>
+        <button class="btn btn-primary" type="submit">Submit and Download PDF</button>
       </div>
     </form>
   </main>
 
-  <section class="print-document" id="printDocument" aria-hidden="true">
-    <div class="print-header">
-      <img src="images/barnetpremierswimlogodark.jpeg" alt="Barnet Premier Swim" />
-      <div>
-        <h1>Swimming Lesson Enrolment Form</h1>
-        <p>Completed on <span data-print-field="completedDate"></span></p>
-      </div>
-    </div>
-
-    <div class="print-section">
-      <h2>Student Details</h2>
-      <dl>
-        <div><dt>Student surname</dt><dd data-print-field="studentSurname"></dd></div>
-        <div><dt>First name</dt><dd data-print-field="studentFirstName"></dd></div>
-        <div><dt>Date of birth</dt><dd data-print-field="dateOfBirth"></dd></div>
-        <div><dt>Gender</dt><dd data-print-field="gender"></dd></div>
-        <div><dt>Swimming ability</dt><dd data-print-field="swimmingAbility"></dd></div>
-      </dl>
-    </div>
-
-    <div class="print-section">
-      <h2>Home Address</h2>
-      <dl>
-        <div><dt>Address</dt><dd data-print-field="address"></dd></div>
-        <div><dt>Postcode</dt><dd data-print-field="postcode"></dd></div>
-      </dl>
-    </div>
-
-    <div class="print-section">
-      <h2>Parent/Guardian Details</h2>
-      <dl>
-        <div><dt>Parent/guardian name</dt><dd data-print-field="guardianName"></dd></div>
-        <div><dt>Telephone number</dt><dd data-print-field="guardianPhone"></dd></div>
-        <div><dt>Email</dt><dd data-print-field="guardianEmail"></dd></div>
-      </dl>
-    </div>
-
-    <div class="print-section">
-      <h2>Medical and Additional Information</h2>
-      <p data-print-field="medicalDetails"></p>
-    </div>
-
-    <div class="print-section">
-      <h2>Photo Permission</h2>
-      <p data-print-field="photoPermission"></p>
-    </div>
-
-    <div class="print-section">
-      <h2>Signature</h2>
-      <img id="printSignature" class="print-signature" alt="Parent or guardian signature" />
-    </div>
-  </section>
-
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
   <script src="enrolment.js" defer></script>
 </body>
 </html>
