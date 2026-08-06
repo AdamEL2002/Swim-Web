@@ -37,7 +37,7 @@
           </label>
           <label>
             Date of birth
-            <input type="text" name="dateOfBirth" placeholder="dd-mm-yyyy" inputmode="numeric" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required />
+            <input type="text" name="dateOfBirth" id="dateOfBirth" placeholder="dd-mm-yyyy" inputmode="numeric" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required />
           </label>
           <fieldset>
             <legend>Gender</legend>
@@ -130,7 +130,7 @@
       <p class="enrolment-error" id="enrolmentError" aria-live="polite"></p>
       <div class="terms-actions">
         <a href="index.html" class="btn btn-book">Back To Home</a>
-        <button class="btn btn-primary" type="submit">Submit and Print PDF</button>
+        <button class="btn btn-primary" type="submit">Submit and Save PDF</button>
       </div>
     </form>
   </main>

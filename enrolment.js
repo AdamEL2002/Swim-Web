@@ -1,5 +1,6 @@
 const enrolmentForm = document.getElementById('enrolmentForm');
 const completedDate = document.getElementById('completedDate');
+const dateOfBirth = document.getElementById('dateOfBirth');
 const signaturePad = document.getElementById('signaturePad');
 const clearSignature = document.getElementById('clearSignature');
 const enrolmentError = document.getElementById('enrolmentError');
@@ -14,6 +15,14 @@ const formatToday = () => {
 };
 
 completedDate.value = formatToday();
+
+dateOfBirth.addEventListener('input', () => {
+  const digits = dateOfBirth.value.replace(/\D/g, '').slice(0, 8);
+  const day = digits.slice(0, 2);
+  const month = digits.slice(2, 4);
+  const year = digits.slice(4, 8);
+  dateOfBirth.value = [day, month, year].filter(Boolean).join('-');
+});
 
 const ctx = signaturePad.getContext('2d');
 let isDrawing = false;
