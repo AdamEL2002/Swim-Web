@@ -83,6 +83,8 @@ const cleanFileName = value => String(value || '')
   .replace(/[^a-z0-9]+/gi, '-')
   .replace(/^-+|-+$/g, '') || 'student';
 
+const signatureDeclaration = 'By signing, I confirm that the information provided is accurate to the best of my knowledge. I give Barnet Premier Swim permission to use this information for lesson administration, swimmer safety, and appropriate support during lessons. All personal and medical information will be treated confidentially.';
+
 const downloadEnrolmentPdf = formData => {
   if (!window.jspdf?.jsPDF) {
     enrolmentError.textContent = 'The PDF download tool could not load. Please refresh the page and try again.';
@@ -162,6 +164,7 @@ const downloadEnrolmentPdf = formData => {
   addPair('Permission given', value('photoPermission'));
 
   addTitle('Signature');
+  addPair('Declaration', signatureDeclaration);
   ensureSpace(110);
   doc.addImage(signaturePad.toDataURL('image/png'), 'PNG', margin, y, 260, 75);
   y += 92;
