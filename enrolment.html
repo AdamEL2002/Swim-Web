@@ -21,34 +21,38 @@
     <p class="section-label">Barnet Premier Swim</p>
     <h1 class="section-title">Swimming Lesson Enrolment Form</h1>
     <p class="enrolment-intro">Please complete all sections to enrol your child in swimming lessons.</p>
-    <p class="enrolment-print-note">After submitting, your completed PDF will download automatically. Please send the completed form to us.</p>
+    <p class="enrolment-print-note">After submitting, your completed enrolment form will be emailed to Barnet Premier Swim.</p>
 
-    <form class="enrolment-form" id="enrolmentForm">
+    <form class="enrolment-form" id="enrolmentForm" action="https://formsubmit.co/adamelassri2002@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Enrolment Form - Barnet Premier Swim" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="https://www.barnetpremierswim.com/thanks.html" />
       <section class="enrolment-block">
         <h2>Student Details</h2>
         <div class="enrolment-grid">
           <label>
             Student surname
-            <input type="text" name="studentSurname" autocomplete="family-name" required />
+            <input type="text" name="Student surname" autocomplete="family-name" required />
           </label>
           <label>
             First name
-            <input type="text" name="studentFirstName" autocomplete="given-name" required />
+            <input type="text" name="Student first name" autocomplete="given-name" required />
           </label>
           <label>
             Date of birth
-            <input type="text" name="dateOfBirth" id="dateOfBirth" placeholder="dd-mm-yyyy" inputmode="numeric" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required />
+            <input type="text" name="Date of birth" id="dateOfBirth" placeholder="dd-mm-yyyy" inputmode="numeric" maxlength="10" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required />
           </label>
           <fieldset>
             <legend>Gender</legend>
             <div class="enrolment-options">
-              <label><input type="radio" name="gender" value="Male" required /> Male</label>
-              <label><input type="radio" name="gender" value="Female" /> Female</label>
+              <label><input type="radio" name="Gender" value="Male" required /> Male</label>
+              <label><input type="radio" name="Gender" value="Female" /> Female</label>
             </div>
           </fieldset>
           <label>
             Swimming ability
-            <select name="swimmingAbility" required>
+            <select name="Swimming ability" required>
               <option value="">Please select</option>
               <option>Non swimmer</option>
               <option>5m</option>
@@ -61,7 +65,7 @@
           </label>
           <label>
             Date completed
-            <input type="text" name="completedDate" id="completedDate" readonly required />
+            <input type="text" name="Date completed" id="completedDate" readonly required />
           </label>
         </div>
       </section>
@@ -71,11 +75,11 @@
         <div class="enrolment-grid">
           <label class="enrolment-wide">
             Address
-            <textarea name="address" rows="3" required></textarea>
+            <textarea name="Address" rows="3" required></textarea>
           </label>
           <label>
             Postcode
-            <input type="text" name="postcode" autocomplete="postal-code" required />
+            <input type="text" name="Postcode" autocomplete="postal-code" required />
           </label>
         </div>
       </section>
@@ -85,15 +89,15 @@
         <div class="enrolment-grid">
           <label>
             Parent/guardian name
-            <input type="text" name="guardianName" autocomplete="name" required />
+            <input type="text" name="Parent/guardian name" autocomplete="name" required />
           </label>
           <label>
             Parent/guardian telephone number
-            <input type="tel" name="guardianPhone" autocomplete="tel" required />
+            <input type="tel" name="Parent/guardian telephone number" autocomplete="tel" required />
           </label>
           <label class="enrolment-wide">
             Parent/guardian email
-            <input type="email" name="guardianEmail" autocomplete="email" required />
+            <input type="email" name="Parent/guardian email" autocomplete="email" required />
           </label>
         </div>
       </section>
@@ -103,7 +107,7 @@
         <label>
           Details of any disabilities, allergies, illnesses, behavioural difficulties, or special needs which may affect your child's participation in their swimming class.
           <span>Please write N/A if not applicable.</span>
-          <textarea name="medicalDetails" rows="5" required></textarea>
+          <textarea name="Medical and additional information" rows="5" required></textarea>
         </label>
       </section>
 
@@ -112,31 +116,27 @@
         <fieldset>
           <legend>Do you give permission for photos to be taken and used for promotional purposes?</legend>
           <div class="enrolment-options enrolment-options--stacked">
-            <label><input type="radio" name="photoPermission" value="Yes" required /> Yes, I give permission</label>
-            <label><input type="radio" name="photoPermission" value="No" /> No, I do not give permission</label>
+            <label><input type="radio" name="Photo permission" value="Yes, I give permission" required /> Yes, I give permission</label>
+            <label><input type="radio" name="Photo permission" value="No, I do not give permission" /> No, I do not give permission</label>
           </div>
         </fieldset>
       </section>
 
       <section class="enrolment-block">
-        <h2>Signature</h2>
-        <p class="signature-declaration">By signing below, I confirm that the information provided is accurate to the best of my knowledge. I give Barnet Premier Swim permission to use this information for lesson administration, swimmer safety, and appropriate support during lessons. All personal and medical information will be treated confidentially.</p>
-        <p class="signature-help">Please sign inside the box below.</p>
-        <canvas id="signaturePad" class="signature-pad" width="760" height="220" tabindex="0" aria-label="Signature box"></canvas>
-        <div class="signature-actions">
-          <button class="btn btn-book" type="button" id="clearSignature">Clear Signature</button>
-        </div>
+        <h2>Declaration</h2>
+        <label class="enrolment-consent">
+          <input type="checkbox" name="Consent confirmation" value="I confirm the information provided is accurate and give Barnet Premier Swim permission to use it for lesson administration, swimmer safety, and appropriate support. I understand personal and medical information will be treated confidentially." required />
+          <span>I confirm the information provided is accurate and give Barnet Premier Swim permission to use it for lesson administration, swimmer safety, and appropriate support. I understand personal and medical information will be treated confidentially.</span>
+        </label>
       </section>
 
-      <p class="enrolment-error" id="enrolmentError" aria-live="polite"></p>
       <div class="terms-actions">
         <a href="index.html" class="btn btn-book">Back To Home</a>
-        <button class="btn btn-primary" type="submit">Submit and Download PDF</button>
+        <button class="btn btn-primary" type="submit">Submit Enrolment Form</button>
       </div>
     </form>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
   <script src="enrolment.js" defer></script>
 </body>
 </html>
