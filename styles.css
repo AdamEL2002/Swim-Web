@@ -1882,6 +1882,12 @@ footer {
   .enrolment-grid {
     grid-template-columns: 1fr;
   }
+  .enrolment-actions {
+    flex-direction: column-reverse;
+  }
+  .enrolment-actions .btn {
+    width: 100%;
+  }
 }
 
 .service-page {
