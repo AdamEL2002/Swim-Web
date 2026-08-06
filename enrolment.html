@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Swimming Lesson Enrolment Form | Barnet Premier Swim</title>
+  <meta name="description" content="Barnet Premier Swim swimming lesson enrolment form for parents and guardians." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="terms-page enrolment-page">
+  <main class="terms-shell enrolment-shell">
+    <a href="index.html" class="terms-logo-link" aria-label="Barnet Premier Swim home">
+      <img src="images/barnetpremierswimlogodark.jpeg" alt="Barnet Premier Swim" class="thanks-logo" />
+    </a>
+    <p class="section-label">Barnet Premier Swim</p>
+    <h1 class="section-title">Swimming Lesson Enrolment Form</h1>
+    <p class="enrolment-intro">Please complete all sections to enrol your child in swimming lessons.</p>
+    <p class="enrolment-print-note">After submitting, choose Save as PDF in the print window and send the completed form to us.</p>
+
+    <form class="enrolment-form" id="enrolmentForm">
+      <section class="enrolment-block">
+        <h2>Student Details</h2>
+        <div class="enrolment-grid">
+          <label>
+            Student surname
+            <input type="text" name="studentSurname" autocomplete="family-name" required />
+          </label>
+          <label>
+            First name
+            <input type="text" name="studentFirstName" autocomplete="given-name" required />
+          </label>
+          <label>
+            Date of birth
+            <input type="text" name="dateOfBirth" placeholder="dd-mm-yyyy" inputmode="numeric" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required />
+          </label>
+          <fieldset>
+            <legend>Gender</legend>
+            <div class="enrolment-options">
+              <label><input type="radio" name="gender" value="Male" required /> Male</label>
+              <label><input type="radio" name="gender" value="Female" /> Female</label>
+            </div>
+          </fieldset>
+          <label>
+            Swimming ability
+            <select name="swimmingAbility" required>
+              <option value="">Please select</option>
+              <option>Non swimmer</option>
+              <option>5m</option>
+              <option>10m</option>
+              <option>15m</option>
+              <option>20m</option>
+              <option>25m</option>
+              <option>More than 25m</option>
+            </select>
+          </label>
+          <label>
+            Date completed
+            <input type="text" name="completedDate" id="completedDate" readonly required />
+          </label>
+        </div>
+      </section>
+
+      <section class="enrolment-block">
+        <h2>Home Address</h2>
+        <div class="enrolment-grid">
+          <label class="enrolment-wide">
+            Address
+            <textarea name="address" rows="3" required></textarea>
+          </label>
+          <label>
+            Postcode
+            <input type="text" name="postcode" autocomplete="postal-code" required />
+          </label>
+        </div>
+      </section>
+
+      <section class="enrolment-block">
+        <h2>Parent/Guardian Details</h2>
+        <div class="enrolment-grid">
+          <label>
+            Parent/guardian name
+            <input type="text" name="guardianName" autocomplete="name" required />
+          </label>
+          <label>
+            Parent/guardian telephone number
+            <input type="tel" name="guardianPhone" autocomplete="tel" required />
+          </label>
+          <label class="enrolment-wide">
+            Parent/guardian email
+            <input type="email" name="guardianEmail" autocomplete="email" required />
+          </label>
+        </div>
+      </section>
+
+      <section class="enrolment-block">
+        <h2>Medical and Additional Information</h2>
+        <label>
+          Details of any disabilities, allergies, illnesses, behavioural difficulties, or special needs which may affect your child's participation in their swimming class.
+          <span>Please write N/A if not applicable.</span>
+          <textarea name="medicalDetails" rows="5" required></textarea>
+        </label>
+      </section>
+
+      <section class="enrolment-block">
+        <h2>Photo Permission</h2>
+        <fieldset>
+          <legend>Do you give permission for photos to be taken and used for promotional purposes?</legend>
+          <div class="enrolment-options enrolment-options--stacked">
+            <label><input type="radio" name="photoPermission" value="Yes" required /> Yes, I give permission</label>
+            <label><input type="radio" name="photoPermission" value="No" /> No, I do not give permission</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="enrolment-block">
+        <h2>Signature</h2>
+        <p class="signature-help">Please sign inside the box below.</p>
+        <canvas id="signaturePad" class="signature-pad" width="760" height="220" tabindex="0" aria-label="Signature box"></canvas>
+        <div class="signature-actions">
+          <button class="btn btn-book" type="button" id="clearSignature">Clear Signature</button>
+        </div>
+      </section>
+
+      <p class="enrolment-error" id="enrolmentError" aria-live="polite"></p>
+      <div class="terms-actions">
+        <a href="index.html" class="btn btn-book">Back To Home</a>
+        <button class="btn btn-primary" type="submit">Submit and Print PDF</button>
+      </div>
+    </form>
+  </main>
+
+  <section class="print-document" id="printDocument" aria-hidden="true">
+    <div class="print-header">
+      <img src="images/barnetpremierswimlogodark.jpeg" alt="Barnet Premier Swim" />
+      <div>
+        <h1>Swimming Lesson Enrolment Form</h1>
+        <p>Completed on <span data-print-field="completedDate"></span></p>
+      </div>
+    </div>
+
+    <div class="print-section">
+      <h2>Student Details</h2>
+      <dl>
+        <div><dt>Student surname</dt><dd data-print-field="studentSurname"></dd></div>
+        <div><dt>First name</dt><dd data-print-field="studentFirstName"></dd></div>
+        <div><dt>Date of birth</dt><dd data-print-field="dateOfBirth"></dd></div>
+        <div><dt>Gender</dt><dd data-print-field="gender"></dd></div>
+        <div><dt>Swimming ability</dt><dd data-print-field="swimmingAbility"></dd></div>
+      </dl>
+    </div>
+
+    <div class="print-section">
+      <h2>Home Address</h2>
+      <dl>
+        <div><dt>Address</dt><dd data-print-field="address"></dd></div>
+        <div><dt>Postcode</dt><dd data-print-field="postcode"></dd></div>
+      </dl>
+    </div>
+
+    <div class="print-section">
+      <h2>Parent/Guardian Details</h2>
+      <dl>
+        <div><dt>Parent/guardian name</dt><dd data-print-field="guardianName"></dd></div>
+        <div><dt>Telephone number</dt><dd data-print-field="guardianPhone"></dd></div>
+        <div><dt>Email</dt><dd data-print-field="guardianEmail"></dd></div>
+      </dl>
+    </div>
+
+    <div class="print-section">
+      <h2>Medical and Additional Information</h2>
+      <p data-print-field="medicalDetails"></p>
+    </div>
+
+    <div class="print-section">
+      <h2>Photo Permission</h2>
+      <p data-print-field="photoPermission"></p>
+    </div>
+
+    <div class="print-section">
+      <h2>Signature</h2>
+      <img id="printSignature" class="print-signature" alt="Parent or guardian signature" />
+    </div>
+  </section>
+
+  <script src="enrolment.js" defer></script>
+</body>
+</html>

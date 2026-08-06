@@ -1748,6 +1748,223 @@ footer {
   margin-top: 28px;
 }
 
+.enrolment-shell {
+  width: min(100%, 920px);
+}
+.enrolment-intro {
+  max-width: 620px;
+  margin: 8px auto 28px;
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: 700;
+}
+.enrolment-print-note {
+  max-width: 620px;
+  margin: -16px auto 30px;
+  padding: 12px 14px;
+  border: 1px solid rgba(79,192,208,0.45);
+  border-radius: var(--radius-sm);
+  background: #edf7f9;
+  color: var(--navy);
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.enrolment-block {
+  padding: 22px 0;
+  border-top: 1px solid var(--grey-200);
+}
+.enrolment-block h2 {
+  font-family: var(--ff-display);
+  color: var(--navy);
+  font-size: clamp(1.05rem, 2.5vw, 1.28rem);
+  margin-bottom: 14px;
+}
+.enrolment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.enrolment-wide {
+  grid-column: 1 / -1;
+}
+.enrolment-form label,
+.enrolment-form legend {
+  display: block;
+  color: var(--navy);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.enrolment-form label span {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.enrolment-form input,
+.enrolment-form select,
+.enrolment-form textarea {
+  width: 100%;
+  margin-top: 7px;
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-sm);
+  padding: 12px 13px;
+  background: var(--grey-100);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.enrolment-form input:focus,
+.enrolment-form select:focus,
+.enrolment-form textarea:focus,
+.signature-pad:focus {
+  border-color: var(--aqua);
+  box-shadow: 0 0 0 3px rgba(79,192,208,0.22);
+  background: var(--white);
+}
+.enrolment-form input[readonly] {
+  color: var(--text-muted);
+  background: #edf7f9;
+}
+.enrolment-form fieldset {
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-sm);
+  padding: 13px;
+}
+.enrolment-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 9px;
+}
+.enrolment-options--stacked {
+  flex-direction: column;
+  gap: 8px;
+}
+.enrolment-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+.enrolment-options input {
+  width: auto;
+  margin: 0;
+}
+.signature-help {
+  margin-bottom: 10px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.signature-pad {
+  width: 100%;
+  height: 220px;
+  border: 2px solid var(--navy);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  touch-action: none;
+}
+.signature-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.enrolment-error {
+  min-height: 1.4em;
+  margin-top: 14px;
+  color: #b42318;
+  text-align: center;
+  font-weight: 800;
+}
+.print-document {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .enrolment-grid {
+    grid-template-columns: 1fr;
+  }
+  .signature-pad {
+    height: 180px;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .terms-shell,
+  .terms-page::before {
+    display: none !important;
+  }
+  .print-document {
+    display: block !important;
+    font-family: Arial, sans-serif;
+    color: #111;
+  }
+  .print-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #0B2545;
+  }
+  .print-header img {
+    width: 120px;
+    border-radius: 6px;
+  }
+  .print-header h1 {
+    margin: 0 0 4px;
+    color: #0B2545;
+    font-size: 22px;
+  }
+  .print-header p {
+    margin: 0;
+    font-size: 12px;
+  }
+  .print-section {
+    break-inside: avoid;
+    padding: 12px 0;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  .print-section h2 {
+    margin: 0 0 8px;
+    color: #0B2545;
+    font-size: 15px;
+  }
+  .print-section dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 16px;
+    margin: 0;
+  }
+  .print-section dt {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .print-section dd,
+  .print-section p {
+    margin: 2px 0 0;
+    white-space: pre-wrap;
+    font-size: 12px;
+  }
+  .print-signature {
+    width: 260px;
+    max-height: 92px;
+    border: 1px solid #111;
+  }
+}
+
 .service-page {
   background: var(--cream);
   color: var(--text);
