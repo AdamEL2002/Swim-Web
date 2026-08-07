@@ -249,10 +249,13 @@ nav {
 .btn-book {
   background: var(--white);
   color: var(--navy);
+}
+.btn-book:hover { box-shadow: 0 8px 24px rgba(255,255,255,0.25); }
+.btn-outline-ring {
   border: 2px solid var(--navy);
   box-shadow: 0 0 0 4px rgba(79,192,208,0.18);
 }
-.btn-book:hover {
+.btn-outline-ring:hover {
   box-shadow: 0 0 0 4px rgba(79,192,208,0.28), 0 8px 24px rgba(11,37,69,0.14);
 }
 .btn-wa {
@@ -611,7 +614,6 @@ nav {
   margin-top: 22px;
   padding: 14px 16px;
   border-radius: var(--radius-sm);
-  border: 2px solid var(--navy);
   background: var(--white);
   color: var(--navy);
   font-family: var(--ff-body);
@@ -619,13 +621,11 @@ nav {
   font-weight: 800;
   line-height: 1.2;
   text-align: center;
-  box-shadow: 0 0 0 4px rgba(79,192,208,0.18);
-  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, background 0.2s;
 }
 .price-pay-btn:hover {
   transform: translateY(-2px);
   background: var(--aqua);
-  box-shadow: 0 0 0 4px rgba(79,192,208,0.28), 0 8px 24px rgba(11,37,69,0.14);
 }
 .price-booking-options {
   display: grid;
