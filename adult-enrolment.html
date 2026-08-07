@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Child Swimming Lesson Enrolment Form | Barnet Premier Swim</title>
-  <meta name="description" content="Barnet Premier Swim child swimming lesson enrolment form for parents and guardians." />
+  <title>Adult Swimming Lesson Enrolment Form | Barnet Premier Swim</title>
+  <meta name="description" content="Barnet Premier Swim adult swimming lesson enrolment form." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
@@ -19,21 +19,22 @@
       <img src="images/barnetpremierswimlogodark.jpeg" alt="Barnet Premier Swim" class="thanks-logo" />
     </a>
     <p class="section-label">Barnet Premier Swim</p>
-    <h1 class="section-title">Child Swimming Lesson Enrolment Form</h1>
-    <p class="enrolment-intro">Please complete all sections to enrol your child in swimming lessons.</p>
+    <h1 class="section-title">Adult Swimming Lesson Enrolment Form</h1>
+    <p class="enrolment-intro">Please complete all sections to enrol yourself in swimming lessons.</p>
     <p class="enrolment-print-note">After submitting, your completed enrolment form will be emailed to Barnet Premier Swim.</p>
 
     <form class="enrolment-form" id="enrolmentForm" action="https://formsubmit.co/adamelassri2002@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="New Child Enrolment Form - Barnet Premier Swim" />
+      <input type="hidden" name="_subject" value="New Adult Enrolment Form - Barnet Premier Swim" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_next" value="https://www.barnetpremierswim.com/thanks.html" />
+
       <section class="enrolment-block">
-        <h2>Student Details</h2>
+        <h2>Swimmer Details</h2>
         <div class="enrolment-grid">
           <label>
             First name
-            <input type="text" name="Student first name" autocomplete="given-name" required />
+            <input type="text" name="First name" autocomplete="given-name" required />
           </label>
           <label>
             Surname
@@ -67,7 +68,7 @@
       </section>
 
       <section class="enrolment-block">
-        <h2>Home Address</h2>
+        <h2>Contact Details</h2>
         <div class="enrolment-grid">
           <label class="enrolment-wide">
             Address
@@ -77,23 +78,27 @@
             Postcode
             <input type="text" name="Postcode" autocomplete="postal-code" required />
           </label>
+          <label>
+            Telephone number
+            <input type="tel" name="Telephone number" autocomplete="tel" required />
+          </label>
+          <label class="enrolment-wide">
+            Email
+            <input type="email" name="Email" autocomplete="email" required />
+          </label>
         </div>
       </section>
 
       <section class="enrolment-block">
-        <h2>Parent/Guardian Details</h2>
+        <h2>Emergency Contact Details</h2>
         <div class="enrolment-grid">
           <label>
-            Parent/guardian full name
-            <input type="text" name="Parent/guardian full name" autocomplete="name" required />
+            Emergency contact full name
+            <input type="text" name="Emergency contact full name" autocomplete="name" required />
           </label>
           <label>
-            Parent/guardian telephone number
-            <input type="tel" name="Parent/guardian telephone number" autocomplete="tel" required />
-          </label>
-          <label class="enrolment-wide">
-            Parent/guardian email
-            <input type="email" name="Parent/guardian email" autocomplete="email" required />
+            Emergency contact telephone number
+            <input type="tel" name="Emergency contact telephone number" autocomplete="tel" required />
           </label>
         </div>
       </section>
@@ -101,7 +106,7 @@
       <section class="enrolment-block">
         <h2>Medical and Additional Information</h2>
         <label>
-          Details of any disabilities, allergies, illnesses, behavioural difficulties, or special needs which may affect your child's participation in their swimming class.
+          Details of any disabilities, allergies, illnesses, injuries, or additional needs which may affect your participation in swimming lessons.
           <span>Please write N/A if not applicable.</span>
           <textarea name="Medical and additional information" rows="5" required></textarea>
         </label>
@@ -136,7 +141,7 @@
 
       <div class="terms-actions enrolment-actions">
         <a href="index.html" class="btn btn-book btn-outline-ring">Back To Home</a>
-        <button class="btn btn-primary" type="submit">Submit Child Enrolment Form</button>
+        <button class="btn btn-primary" type="submit">Submit Adult Enrolment Form</button>
       </div>
     </form>
   </main>
