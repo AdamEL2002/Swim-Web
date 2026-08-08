@@ -42,7 +42,7 @@
           </label>
           <label>
             Date of birth
-            <input type="text" name="Date of birth" id="dateOfBirth" placeholder="dd-mm-yyyy" inputmode="numeric" maxlength="10" pattern="(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}" required />
+            <input type="text" name="Date of birth" placeholder="dd-mm-yyyy" inputmode="numeric" maxlength="10" pattern="(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}" data-date-field required />
           </label>
           <fieldset>
             <legend>Gender</legend>
@@ -74,6 +74,10 @@
               <option>Monday</option>
               <option>Thursday</option>
             </select>
+          </label>
+          <label>
+            Agreed start date
+            <input type="text" name="Agreed start date" placeholder="dd-mm-yyyy" inputmode="numeric" maxlength="10" pattern="(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}" data-date-field required />
           </label>
         </div>
       </section>
