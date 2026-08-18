@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.barnetpremierswim.com/sitemap.xml
+Sitemap: https://www.bpswim.com/sitemap.xml

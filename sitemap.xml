@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.barnetpremierswim.com/</loc>
+    <loc>https://www.bpswim.com/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.barnetpremierswim.com/terms.html</loc>
+    <loc>https://www.bpswim.com/terms.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.barnetpremierswim.com/whitings-hill-venue.html</loc>
+    <loc>https://www.bpswim.com/whitings-hill-venue.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.barnetpremierswim.com/qe-girls-venue.html</loc>
+    <loc>https://www.bpswim.com/qe-girls-venue.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

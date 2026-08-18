@@ -2,7 +2,7 @@
 
 Static website for Barnet Premier Swim, a swimming lesson provider in Barnet, North London.
 
-Live site: https://www.barnetpremierswim.com/
+Live site: https://www.bpswim.com/
 
 ## What Is Included
 
@@ -29,7 +29,7 @@ No build step is required. Open `index.html` in a browser to preview local chang
 The repository is ready for GitHub Pages. The `CNAME` file points the site to:
 
 ```txt
-www.barnetpremierswim.com
+www.bpswim.com
 ```
 
 If the domain changes, update `CNAME`, `robots.txt`, `sitemap.xml`, canonical links, and social metadata URLs.
