@@ -612,17 +612,15 @@ nav {
   border-color: rgba(79,192,208,0.38);
 }
 .price-card h3 {
-  display: inline-block;
   font-family: var(--ff-display);
   font-size: clamp(1.28rem, 2.4vw, 1.48rem);
   font-weight: 800;
   color: var(--navy);
   line-height: 1.18;
-  margin: 6px 0 12px;
-  padding: 10px 14px;
-  border: 1px solid rgba(79,192,208,0.32);
-  border-radius: var(--radius-sm);
-  background: #edf7f9;
+  margin: 6px auto 12px;
+  padding-bottom: 10px;
+  width: fit-content;
+  border-bottom: 2px solid rgba(127,226,241,0.72);
 }
 .price-card .price-desc {
   font-size: 0.82rem;
