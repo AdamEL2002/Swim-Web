@@ -597,6 +597,13 @@ nav {
   height: 6px;
   background: linear-gradient(90deg, var(--aqua-light), var(--aqua));
 }
+.price-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--aqua), var(--aqua-light));
+}
 .price-card:hover {
   transform: translateY(-4px);
   border-color: rgba(79,192,208,0.38);
@@ -717,12 +724,30 @@ nav {
   max-width: 780px;
 }
 .group-info-card {
+  position: relative;
+  overflow: hidden;
   background: var(--white);
   border: 1px solid rgba(79,192,208,0.16);
   border-radius: var(--radius);
   padding: clamp(26px, 4vw, 38px);
   text-align: center;
   box-shadow: var(--shadow);
+}
+.group-info-card::before,
+.group-info-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--aqua-light), var(--aqua));
+}
+.group-info-card::before {
+  top: 0;
+}
+.group-info-card::after {
+  bottom: 0;
+  background: linear-gradient(90deg, var(--aqua), var(--aqua-light));
 }
 .group-info-card h2,
 .group-info-card h3 {
