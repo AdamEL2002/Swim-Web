@@ -523,7 +523,7 @@ nav {
   padding: 12px 16px;
   border: 1px solid rgba(79,192,208,0.22);
   border-radius: var(--radius-sm);
-  background: linear-gradient(180deg, rgba(127,226,241,0.18), rgba(255,255,255,0.98));
+  background: var(--white);
   color: var(--text-muted);
   box-shadow: var(--shadow);
   font-size: 0.95rem;
