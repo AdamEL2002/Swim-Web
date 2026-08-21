@@ -533,7 +533,12 @@ nav {
   text-align: center;
 }
 .lesson-quick-note p {
+  flex: 1 1 0;
   margin: 0;
+  padding: 0 14px;
+}
+.lesson-quick-note p + p {
+  border-left: 1px solid rgba(11,37,69,0.32);
 }
 .lesson-quick-note strong {
   display: block;
@@ -1587,6 +1592,13 @@ footer {
     gap: 10px;
     max-width: 340px;
     margin-bottom: 18px;
+  }
+  .lesson-quick-note p {
+    width: 100%;
+    padding: 0;
+  }
+  .lesson-quick-note p + p {
+    border-left: 0;
   }
   .timetable-grid { gap: 36px; }
   .timetable-day { width: 100%; }
