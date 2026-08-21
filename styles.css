@@ -669,9 +669,9 @@ nav {
 }
 .price-payment-option {
   padding: 12px;
-  border: 1px solid rgba(79,192,208,0.18);
+  border: 1px solid rgba(79,192,208,0.32);
   border-radius: var(--radius-sm);
-  background: rgba(79,192,208,0.07);
+  background: #edf7f9;
 }
 .price-booking-options .price-pay-btn {
   margin-top: 0;
