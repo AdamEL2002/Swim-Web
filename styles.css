@@ -818,8 +818,8 @@ nav {
 .group-list {
   list-style: disc;
   padding-left: 20px;
-  color: var(--text-muted);
-  font-weight: 600;
+  color: var(--navy);
+  font-weight: 700;
   text-align: left;
   width: fit-content;
   max-width: 100%;
@@ -843,7 +843,7 @@ nav {
   border: 1px solid rgba(79,192,208,0.18);
   border-radius: var(--radius-sm);
   background: rgba(79,192,208,0.07);
-  color: var(--text-muted);
+  color: var(--navy);
   text-align: left;
 }
 .group-term-row strong {
@@ -852,9 +852,9 @@ nav {
   font-weight: 900;
 }
 .group-term-row span {
-  color: var(--text-muted);
+  color: var(--navy);
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.4;
 }
 .group-term-row b {
