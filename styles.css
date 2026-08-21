@@ -521,10 +521,11 @@ nav {
   max-width: 720px;
   margin: -8px auto 20px;
   padding: 12px 16px;
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(79,192,208,0.18);
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.94);
+  background: var(--white);
+  color: var(--text-muted);
+  box-shadow: var(--shadow);
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.4;
@@ -535,7 +536,7 @@ nav {
 }
 .lesson-quick-note strong {
   display: block;
-  color: var(--white);
+  color: var(--navy);
   font-size: clamp(1.05rem, 2.4vw, 1.22rem);
   font-weight: 900;
   line-height: 1.25;
@@ -543,7 +544,7 @@ nav {
 .lesson-quick-note span {
   display: block;
   margin-top: 2px;
-  color: rgba(255,255,255,0.9);
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-weight: 700;
 }
@@ -570,26 +571,28 @@ nav {
   text-underline-offset: 3px;
 }
 .price-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--white);
+  border: 1px solid rgba(79,192,208,0.16);
   border-radius: var(--radius);
   padding: 32px 24px;
   text-align: center;
+  box-shadow: var(--shadow);
   transition: transform 0.3s, border-color 0.3s;
 }
 .price-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(79,192,208,0.3);
+  border-color: rgba(79,192,208,0.38);
 }
 .price-card h3 {
   font-family: var(--ff-display);
   font-size: 1.15rem;
   font-weight: 600;
+  color: var(--navy);
   margin-bottom: 4px;
 }
 .price-card .price-desc {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.94);
+  color: var(--text-muted);
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -638,7 +641,7 @@ nav {
 .price-payment-option > span {
   display: block;
   margin-top: 8px;
-  color: var(--aqua);
+  color: var(--blue);
   font-size: 0.95rem;
   font-weight: 800;
   line-height: 1.4;
@@ -669,7 +672,7 @@ nav {
 }
 .price-note {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.92);
+  color: var(--text-muted);
   font-weight: 600;
   margin-top: 8px;
 }
@@ -698,17 +701,17 @@ nav {
   max-width: 780px;
 }
 .group-info-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--white);
+  border: 1px solid rgba(79,192,208,0.16);
   border-radius: var(--radius);
   padding: clamp(26px, 4vw, 38px);
   text-align: center;
-  box-shadow: none;
+  box-shadow: var(--shadow);
 }
 .group-info-card h2,
 .group-info-card h3 {
   font-family: var(--ff-display);
-  color: var(--white);
+  color: var(--navy);
   font-size: clamp(1.35rem, 3vw, 1.75rem);
   line-height: 1.2;
   margin-bottom: 10px;
@@ -744,25 +747,25 @@ nav {
   gap: 12px;
   margin-bottom: 20px;
   padding: 10px 16px;
-  border: 1px solid rgba(160,228,237,0.35);
+  border: 1px solid rgba(79,192,208,0.2);
   border-radius: 999px;
-  background: rgba(160,228,237,0.12);
+  background: rgba(79,192,208,0.1);
 }
 .group-price span {
-  color: var(--aqua-light);
+  color: var(--blue);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 .group-price strong {
-  color: var(--white);
+  color: var(--navy);
   font-size: clamp(1rem, 2.4vw, 1.18rem);
   font-weight: 800;
   line-height: 1.2;
 }
 .group-info-card p {
-  color: rgba(255,255,255,0.94);
+  color: var(--text-muted);
   font-size: 0.92rem;
   font-weight: 500;
   line-height: 1.65;
@@ -771,7 +774,7 @@ nav {
 .group-list {
   list-style: disc;
   padding-left: 20px;
-  color: rgba(255,255,255,0.95);
+  color: var(--text-muted);
   font-weight: 600;
   text-align: left;
   width: fit-content;
@@ -793,30 +796,30 @@ nav {
   gap: 6px 12px;
   align-items: center;
   padding: 12px 14px;
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(79,192,208,0.18);
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.95);
+  background: rgba(79,192,208,0.07);
+  color: var(--text-muted);
   text-align: left;
 }
 .group-term-row strong {
-  color: var(--white);
+  color: var(--navy);
   font-size: 0.98rem;
   font-weight: 900;
 }
 .group-term-row span {
-  color: rgba(255,255,255,0.95);
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.4;
 }
 .group-term-row b {
-  color: var(--aqua-light);
+  color: var(--blue);
   font-weight: 900;
 }
 .group-term-row small {
   grid-column: 2;
-  color: rgba(255,255,255,0.84);
+  color: var(--blue);
   font-size: 0.8rem;
   font-weight: 700;
   line-height: 1.2;
@@ -825,10 +828,10 @@ nav {
   display: inline-block;
   max-width: 620px;
   padding: 14px 18px;
-  border: 1px solid rgba(160,228,237,0.35);
+  border: 1px solid rgba(79,192,208,0.24);
   border-radius: var(--radius-sm);
-  background: rgba(160,228,237,0.12);
-  color: var(--white) !important;
+  background: rgba(79,192,208,0.1);
+  color: var(--navy) !important;
   font-size: clamp(1rem, 2.4vw, 1.16rem) !important;
   font-weight: 800 !important;
   line-height: 1.45 !important;
