@@ -616,6 +616,7 @@ nav {
   width: 100%;
   margin-top: 22px;
   padding: 14px 16px;
+  border: 2px solid var(--navy);
   border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--navy);
@@ -624,11 +625,13 @@ nav {
   font-weight: 800;
   line-height: 1.2;
   text-align: center;
-  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 3px 0 rgba(11,37,69,0.12);
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
 }
 .price-pay-btn:hover {
   transform: translateY(-2px);
   background: var(--aqua);
+  border-color: var(--navy);
 }
 .price-booking-options {
   display: grid;
@@ -723,10 +726,10 @@ nav {
   width: fit-content;
   margin: 0 auto 12px;
   padding: 6px 12px;
-  border: 1px solid rgba(160,228,237,0.58);
+  border: 1px solid rgba(27,107,147,0.32);
   border-radius: 999px;
-  background: rgba(160,228,237,0.16);
-  color: var(--aqua-light);
+  background: rgba(79,192,208,0.18);
+  color: var(--navy);
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -734,9 +737,9 @@ nav {
   text-transform: uppercase;
 }
 .new-venue-badge--light {
-  border-color: rgba(0,113,150,0.16);
+  border-color: rgba(27,107,147,0.26);
   background: rgba(127,226,241,0.22);
-  color: var(--blue);
+  color: var(--navy);
 }
 .new-venue-badge--spacer {
   visibility: hidden;
