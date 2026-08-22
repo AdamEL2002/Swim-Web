@@ -70,12 +70,12 @@ nav {
 .nav-brand {
   display: inline-flex;
   align-items: center;
-  min-width: 96px;
+  min-width: 132px;
 }
 .nav-logo {
-  width: 118px;
+  width: 146px;
   height: auto;
-  max-height: 44px;
+  max-height: 52px;
   object-fit: contain;
 }
 .nav-links {
@@ -1647,8 +1647,8 @@ footer {
   .footer-inner { flex-direction: column; align-items: center; text-align: center; }
   .footer-links { justify-content: center; }
   .map-frame { aspect-ratio: 1/1; }
-  .nav-brand { min-width: 82px; }
-  .nav-logo { width: 96px; max-height: 38px; }
+  .nav-brand { min-width: 96px; }
+  .nav-logo { width: 118px; max-height: 44px; }
   .wa-float-wrap {
     bottom: 12px;
     right: 12px;
@@ -1686,7 +1686,7 @@ footer {
 }
 
 .hero-logo {
-  max-width: 280px;
+  max-width: 360px;
   margin: 0 auto 20px;
 }
 .hero-highlights {
