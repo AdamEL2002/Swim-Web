@@ -1074,6 +1074,36 @@ nav {
   color: var(--text-muted);
   font-size: 0.9rem;
 }
+.whatsapp-follow {
+  flex-basis: 100%;
+  text-align: center;
+  margin-top: 2px;
+}
+.whatsapp-follow-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 9px 18px;
+  border: 1px solid rgba(37, 211, 102, 0.55);
+  border-radius: 999px;
+  background: rgba(37, 211, 102, 0.08);
+  color: #128C4A;
+  font-weight: 700;
+  font-size: 0.86rem;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+.whatsapp-follow-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 211, 102, 0.9);
+  background: rgba(37, 211, 102, 0.14);
+}
+.whatsapp-follow p {
+  margin-top: 7px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
 .form-card {
   background: var(--white);
   border-radius: var(--radius);
