@@ -194,7 +194,7 @@ nav {
 }
 .hero-inner {
   position: relative;
-  max-width: 720px;
+  max-width: 860px;
   margin: 0 auto;
   z-index: 2;
 }
@@ -223,7 +223,7 @@ nav {
 }
 .hero-btns {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -231,7 +231,7 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 28px;
+  padding: 14px 22px;
   border: 0;
   border-radius: 50px;
   cursor: pointer;
