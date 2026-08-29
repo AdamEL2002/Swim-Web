@@ -985,6 +985,13 @@ nav {
 .time-card-list li + li {
   margin-top: 5px;
 }
+.timetable-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
 
 .faq-list {
   max-width: 680px;
