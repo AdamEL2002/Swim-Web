@@ -867,6 +867,13 @@ nav {
   width: fit-content;
   border-bottom: 2px solid rgba(127,226,241,0.72);
 }
+.group-lesson-card .group-lesson-time {
+  margin: -4px 0 14px;
+  color: var(--blue);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.35;
+}
 .group-list {
   list-style: disc;
   padding-left: 20px;
