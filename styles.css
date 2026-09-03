@@ -865,12 +865,12 @@ nav {
   line-height: 1.25;
   margin: 4px auto 12px;
   padding-bottom: 9px;
-  width: fit-content;
+  width: 100%;
   border-bottom: 2px solid rgba(127,226,241,0.72);
 }
 .group-lesson-card .group-lesson-time {
   margin: -4px 0 14px;
-  color: var(--navy);
+  color: #111111;
   font-size: 0.94rem;
   font-weight: 950;
   line-height: 1.35;
