@@ -861,18 +861,20 @@ nav {
   font-size: clamp(1rem, 2vw, 1.18rem);
   font-weight: 900;
   color: var(--navy);
+  text-align: center;
   line-height: 1.25;
-  margin: 4px 0 12px;
+  margin: 4px auto 12px;
   padding-bottom: 9px;
   width: fit-content;
   border-bottom: 2px solid rgba(127,226,241,0.72);
 }
 .group-lesson-card .group-lesson-time {
   margin: -4px 0 14px;
-  color: var(--blue);
-  font-size: 0.9rem;
-  font-weight: 900;
+  color: var(--navy);
+  font-size: 0.94rem;
+  font-weight: 950;
   line-height: 1.35;
+  text-align: center;
 }
 .group-list {
   list-style: disc;
