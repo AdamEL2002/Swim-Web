@@ -872,6 +872,14 @@ nav {
   text-align: center;
   border-bottom: 2px solid rgba(127,226,241,0.72);
 }
+.group-lesson-card .group-lesson-time small {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
 .group-list {
   list-style: disc;
   padding-left: 20px;
@@ -1019,6 +1027,15 @@ nav {
 .time-card-time--secondary {
   margin-top: 6px;
   font-size: clamp(1rem, 2vw, 1.18rem);
+}
+.time-card-time--secondary small {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-family: var(--ff-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.2;
 }
 .time-card-note {
   max-width: 300px;
