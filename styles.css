@@ -873,8 +873,8 @@ nav {
   border-bottom: 2px solid rgba(127,226,241,0.72);
 }
 .group-lesson-card .group-lesson-time small {
-  display: block;
-  margin-top: 3px;
+  display: inline-block;
+  margin-left: 6px;
   color: var(--text-muted);
   font-size: 0.72rem;
   font-weight: 800;
@@ -1029,8 +1029,8 @@ nav {
   font-size: clamp(1rem, 2vw, 1.18rem);
 }
 .time-card-time--secondary small {
-  display: block;
-  margin-top: 2px;
+  display: inline-block;
+  margin-left: 6px;
   color: var(--text-muted);
   font-family: var(--ff-body);
   font-size: 0.7rem;
