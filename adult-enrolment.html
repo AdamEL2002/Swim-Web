@@ -23,12 +23,13 @@
     <p class="enrolment-intro">Please complete all sections to enrol yourself in swimming lessons.</p>
     <p class="enrolment-print-note">After submitting, your completed enrolment form will be emailed to Barnet Premier Swim.</p>
 
-    <form class="enrolment-form" id="enrolmentForm" action="https://formsubmit.co/barnetpremierswim@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Adult Enrolment Form" />
+    <form class="enrolment-form" id="enrolmentForm" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="3be0fb54-7b1b-4ca8-9224-1ab9e037d73e" />
+      <input type="hidden" name="subject" value="Adult Enrolment Form" />
+      <input type="hidden" name="from_name" value="Barnet Premier Swim Website" />
       <input type="hidden" name="Form type" value="Adult enrolment form" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_next" value="https://www.bpswim.com/thanks.html" />
+      <input type="hidden" name="redirect" value="https://www.bpswim.com/thanks.html" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
 
       <section class="enrolment-block">
         <h2>Swimmer Details</h2>
@@ -95,7 +96,7 @@
           </label>
           <label class="enrolment-wide">
             Email
-            <input type="email" name="Email" autocomplete="email" required />
+            <input type="email" name="email" autocomplete="email" required />
           </label>
         </div>
       </section>

@@ -654,12 +654,13 @@
       </div>
       <div class="register-grid">
         <div class="form-card">
-          <form id="regForm" action="https://formsubmit.co/barnetpremierswim@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="Website Enquiry - Barnet Premier Swim" />
+          <form id="regForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="3be0fb54-7b1b-4ca8-9224-1ab9e037d73e" />
+            <input type="hidden" name="subject" value="Website Enquiry - Barnet Premier Swim" />
+            <input type="hidden" name="from_name" value="Barnet Premier Swim Website" />
             <input type="hidden" name="Form type" value="Website enquiry" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://www.bpswim.com/thanks.html" />
-            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="redirect" value="https://www.bpswim.com/thanks.html" />
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
             <div class="form-group">
               <label for="fname">Your Name</label>
               <input type="text" id="fname" name="name" required placeholder="Your full name" />
