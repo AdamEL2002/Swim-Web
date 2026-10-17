@@ -2559,6 +2559,9 @@ footer {
 }
 
 /* Parent portal */
+[hidden] {
+  display: none !important;
+}
 .portal-page {
   min-height: 100vh;
   background: #eef7fa;

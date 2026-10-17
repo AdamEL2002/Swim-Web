@@ -39,6 +39,7 @@ const portalNotice = document.getElementById('portalNotice');
 const parentPanel = document.getElementById('parentPanel');
 const adminPanel = document.getElementById('adminPanel');
 const swimmerForm = document.getElementById('swimmerForm');
+let loginInProgress = false;
 
 const showNotice = (message, type = 'info') => {
   portalNotice.textContent = message;
@@ -67,9 +68,11 @@ loginForm.addEventListener('submit', async event => {
   clearNotice();
   const data = new FormData(loginForm);
   try {
+    loginInProgress = true;
     await signInWithEmailAndPassword(auth, data.get('email').trim(), data.get('password'));
     loginForm.reset();
   } catch (error) {
+    loginInProgress = false;
     showNotice(friendlyAuthError(error), 'error');
   }
 });
@@ -294,13 +297,24 @@ swimmerForm.addEventListener('submit', async event => {
 });
 
 onAuthStateChanged(auth, async user => {
-  clearNotice();
   authView.hidden = Boolean(user);
   dashboardView.hidden = !user;
   parentPanel.hidden = true;
   adminPanel.hidden = true;
 
-  if (!user) return;
+  if (!user) {
+    clearNotice();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  if (loginInProgress) {
+    loginInProgress = false;
+    showNotice('Signed in successfully. Welcome to the BPSwim portal.', 'success');
+  } else {
+    clearNotice();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   document.getElementById('dashboardGreeting').textContent = user.displayName
     ? `Welcome, ${user.displayName.split(' ')[0]}`
@@ -317,6 +331,7 @@ onAuthStateChanged(auth, async user => {
       parentPanel.hidden = false;
       await loadParentSwimmers(user.uid);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (error) {
     showNotice('We could not load the portal. Please refresh the page or contact BPSwim.', 'error');
   }
