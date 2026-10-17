@@ -2768,6 +2768,56 @@ footer {
   border: 1px solid var(--navy);
   color: var(--navy);
 }
+.portal-account-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.portal-password-settings {
+  position: relative;
+}
+.portal-password-settings summary {
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--navy);
+  border-radius: 50px;
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+}
+.portal-password-settings summary::-webkit-details-marker {
+  display: none;
+}
+.portal-password-settings form {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  width: min(330px, calc(100vw - 32px));
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #c5d6dc;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+.portal-password-settings label {
+  display: grid;
+  gap: 6px;
+  color: var(--navy);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+.portal-password-settings input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #aebfc8;
+  border-radius: 6px;
+  font: inherit;
+}
 .portal-swimmer-grid {
   display: grid;
   gap: 28px;
@@ -2908,7 +2958,7 @@ footer {
 }
 .portal-parent-creator {
   display: grid;
-  grid-template-columns: minmax(220px, 1.2fr) minmax(180px, 1fr) minmax(220px, 1.2fr) auto;
+  grid-template-columns: minmax(210px, 1.2fr) minmax(170px, 1fr) minmax(200px, 1.1fr) minmax(170px, 1fr) auto;
   gap: 16px;
   align-items: end;
   margin-bottom: 28px;
@@ -3069,5 +3119,13 @@ footer {
   }
   .portal-swimmer-card {
     padding-inline: 18px;
+  }
+  .portal-account-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .portal-password-settings form {
+    right: auto;
+    left: 0;
   }
 }

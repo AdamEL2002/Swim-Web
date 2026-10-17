@@ -48,8 +48,8 @@ Before inviting parents to use the portal:
 
 1. In Firebase Authentication settings, add `bpswim.com` and `www.bpswim.com` as authorised domains.
 2. In Firestore Database, open **Rules**, replace the existing rules with the contents of `firestore.rules`, and publish them.
-3. Push the website changes and create an account through `https://www.bpswim.com/portal.html` using the BPSwim instructor email.
-4. Verify the email address from the Firebase email.
-5. In Firestore, open the `users` collection, select that account's document, and change its `role` field from `parent` to `admin`.
+3. In Firebase Authentication, open **Users**, add the BPSwim instructor email with a secure password, and copy the new account's User UID.
+4. In Firestore, create a `users` collection and a document whose ID is that User UID. Add `displayName` and `email` as string fields, then add `role` as a string field with the value `admin`.
+5. Push the website changes and sign in at `https://www.bpswim.com/portal.html` using the instructor account.
 
-An instructor creates each parent account from the private instructor area. Firebase emails the parent links to verify their address and choose their password. The instructor can then link a swimmer to that parent. Parents can only read swimmer records linked to their own verified account; only an admin can create accounts or update progress.
+An instructor creates each parent account from the private instructor area and chooses a temporary password to share privately. Parents can change it after signing in, and can request an email reset if they later forget it. The instructor can link a swimmer to that parent. Parents can only read swimmer records linked to their own account; only an admin can create accounts or update progress.

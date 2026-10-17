@@ -54,13 +54,21 @@
           <h1 id="dashboardGreeting">Swimming progress</h1>
           <p id="dashboardEmail" class="portal-account-email"></p>
         </div>
-        <button class="btn portal-signout" id="signOutBtn" type="button">Sign out</button>
-      </div>
-
-      <div id="verificationPanel" class="portal-empty" hidden>
-        <h2>Check your email</h2>
-        <p>Please verify your email address before viewing any swimmer information.</p>
-        <button class="btn btn-primary" id="resendVerificationBtn" type="button">Resend verification email</button>
+        <div class="portal-account-actions">
+          <details class="portal-password-settings">
+            <summary>Change password</summary>
+            <form id="changePasswordForm">
+              <label>Current password
+                <input type="password" name="currentPassword" autocomplete="current-password" required />
+              </label>
+              <label>New password
+                <input type="password" name="newPassword" autocomplete="new-password" minlength="8" required />
+              </label>
+              <button class="btn btn-primary" type="submit">Update password</button>
+            </form>
+          </details>
+          <button class="btn portal-signout" id="signOutBtn" type="button">Sign out</button>
+        </div>
       </div>
 
       <div id="parentPanel" hidden>
@@ -84,7 +92,7 @@
         <form id="parentAccountForm" class="portal-parent-creator">
           <div>
             <h3>Create a Parent Account</h3>
-            <p>Firebase will email the parent links to verify their address and choose their password.</p>
+            <p>Choose a temporary password, then send the login details to the parent privately.</p>
           </div>
           <label>Parent's full name
             <input type="text" name="fullName" autocomplete="off" required />
@@ -92,7 +100,10 @@
           <label>Parent's email address
             <input type="email" name="email" autocomplete="off" required />
           </label>
-          <button class="btn btn-primary" type="submit">Create and Invite Parent</button>
+          <label>Temporary password
+            <input type="password" name="temporaryPassword" minlength="8" autocomplete="new-password" required />
+          </label>
+          <button class="btn btn-primary" type="submit">Create Parent Account</button>
         </form>
 
         <div class="portal-admin-layout">
@@ -104,7 +115,7 @@
             </label>
             <label>Parent account
               <select name="parentUid" required>
-                <option value="">Select a verified parent</option>
+                <option value="">Select a parent account</option>
               </select>
             </label>
             <div class="portal-form-row">

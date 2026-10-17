@@ -1,12 +1,14 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js';
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   getAuth,
   onAuthStateChanged,
-  sendEmailVerification,
+  reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
   updateProfile
 } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import {
@@ -34,7 +36,6 @@ const authView = document.getElementById('authView');
 const dashboardView = document.getElementById('dashboardView');
 const loginForm = document.getElementById('loginForm');
 const portalNotice = document.getElementById('portalNotice');
-const verificationPanel = document.getElementById('verificationPanel');
 const parentPanel = document.getElementById('parentPanel');
 const adminPanel = document.getElementById('adminPanel');
 const swimmerForm = document.getElementById('swimmerForm');
@@ -89,11 +90,20 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async () =
 });
 
 document.getElementById('signOutBtn').addEventListener('click', () => signOut(auth));
-document.getElementById('resendVerificationBtn').addEventListener('click', async () => {
-  if (!auth.currentUser) return;
+document.getElementById('changePasswordForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const data = new FormData(form);
+  const user = auth.currentUser;
+  if (!user?.email) return;
+
   try {
-    await sendEmailVerification(auth.currentUser);
-    showNotice('A new verification email has been sent.', 'success');
+    const credential = EmailAuthProvider.credential(user.email, data.get('currentPassword'));
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(user, data.get('newPassword'));
+    form.reset();
+    form.closest('details').open = false;
+    showNotice('Your password has been updated.', 'success');
   } catch (error) {
     showNotice(friendlyAuthError(error), 'error');
   }
@@ -106,8 +116,7 @@ document.getElementById('parentAccountForm').addEventListener('submit', async ev
   const data = new FormData(form);
   const fullName = data.get('fullName').trim();
   const email = data.get('email').trim().toLowerCase();
-  const temporaryPassword = `${crypto.randomUUID()}Aa1!`;
-  const actionSettings = { url: 'https://www.bpswim.com/portal.html' };
+  const temporaryPassword = data.get('temporaryPassword');
 
   try {
     const credential = await createUserWithEmailAndPassword(parentCreatorAuth, email, temporaryPassword);
@@ -119,14 +128,10 @@ document.getElementById('parentAccountForm').addEventListener('submit', async ev
       createdAt: serverTimestamp(),
       createdBy: auth.currentUser.uid
     });
-    await Promise.all([
-      sendEmailVerification(credential.user, actionSettings),
-      sendPasswordResetEmail(auth, email, actionSettings)
-    ]);
     await signOut(parentCreatorAuth);
     form.reset();
     await loadAdminData();
-    showNotice(`The account for ${fullName} was created. Firebase has emailed them verification and password-setting links.`, 'success');
+    showNotice(`The account for ${fullName} was created. Send the parent their email address and temporary password privately.`, 'success');
   } catch (error) {
     await signOut(parentCreatorAuth).catch(() => {});
     showNotice(friendlyAuthError(error), 'error');
@@ -292,7 +297,6 @@ onAuthStateChanged(auth, async user => {
   clearNotice();
   authView.hidden = Boolean(user);
   dashboardView.hidden = !user;
-  verificationPanel.hidden = true;
   parentPanel.hidden = true;
   adminPanel.hidden = true;
 
@@ -302,11 +306,6 @@ onAuthStateChanged(auth, async user => {
     ? `Welcome, ${user.displayName.split(' ')[0]}`
     : 'Swimming progress';
   document.getElementById('dashboardEmail').textContent = user.email;
-
-  if (!user.emailVerified) {
-    verificationPanel.hidden = false;
-    return;
-  }
 
   try {
     const userDocument = await getDoc(doc(db, 'users', user.uid));

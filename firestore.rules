@@ -6,12 +6,8 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function verified() {
-      return signedIn() && request.auth.token.email_verified == true;
-    }
-
     function isAdmin() {
-      return verified()
+      return signedIn()
         && exists(/databases/$(database)/documents/users/$(request.auth.uid))
         && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
@@ -23,9 +19,9 @@ service cloud.firestore {
         && request.resource.data.role == 'parent'
         && request.resource.data.email == request.auth.token.email
       );
-      allow read: if isAdmin() || (verified() && request.auth.uid == userId);
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == userId);
       allow update: if isAdmin() || (
-        verified()
+        signedIn()
         && request.auth.uid == userId
         && request.resource.data.role == resource.data.role
         && request.resource.data.email == resource.data.email
@@ -35,7 +31,7 @@ service cloud.firestore {
 
     match /swimmers/{swimmerId} {
       allow read: if isAdmin() || (
-        verified()
+        signedIn()
         && request.auth.uid in resource.data.parentIds
       );
       allow create, update: if isAdmin();
