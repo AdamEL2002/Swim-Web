@@ -2825,6 +2825,96 @@ footer {
   display: grid;
   gap: 28px;
 }
+.portal-swimmer-choices {
+  padding: clamp(24px, 5vw, 42px);
+  border: 1px solid #cfdee3;
+  border-top: 5px solid var(--aqua);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+.portal-swimmer-choices-heading {
+  margin-bottom: 24px;
+}
+.portal-swimmer-choices-heading h2 {
+  margin: 3px 0 6px;
+  color: var(--navy);
+  font-family: var(--ff-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+.portal-swimmer-choices-heading > p:last-child {
+  color: #52697c;
+}
+.portal-swimmer-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.portal-swimmer-choice {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #b8d7dd;
+  border-radius: var(--radius-sm);
+  background: #f8fcfd;
+  color: var(--navy);
+  text-align: left;
+  cursor: pointer;
+}
+.portal-swimmer-choice:hover,
+.portal-swimmer-choice:focus-visible {
+  border-color: #258da1;
+  background: #edf9fa;
+  box-shadow: 0 8px 20px rgba(12, 43, 69, 0.1);
+}
+.portal-swimmer-choice > span:first-child {
+  display: grid;
+  gap: 4px;
+}
+.portal-swimmer-choice small {
+  color: #3f6472;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.portal-swimmer-choice strong {
+  overflow-wrap: anywhere;
+  font-family: var(--ff-display);
+  font-size: 1.45rem;
+}
+.portal-swimmer-choice > span:first-child > span {
+  color: #52697c;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+.portal-swimmer-choice-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 13px;
+  border-top: 1px solid #cfe3e7;
+  color: #276d7d;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+.portal-back-to-swimmers {
+  justify-self: start;
+  padding: 10px 14px;
+  border: 1px solid var(--navy);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.portal-back-to-swimmers:hover,
+.portal-back-to-swimmers:focus-visible {
+  background: var(--navy);
+  color: var(--white);
+}
 .portal-swimmer-card {
   padding: clamp(24px, 5vw, 42px);
   border-top: 5px solid var(--aqua);
@@ -3307,6 +3397,9 @@ footer {
   .portal-form-row {
     grid-template-columns: 1fr;
   }
+  .portal-swimmer-choice-grid {
+    grid-template-columns: 1fr;
+  }
   .portal-stage-checklist ul {
     grid-template-columns: 1fr;
   }
@@ -3321,6 +3414,9 @@ footer {
     flex-direction: column;
   }
   .portal-swimmer-card {
+    padding-inline: 18px;
+  }
+  .portal-swimmer-choices {
     padding-inline: 18px;
   }
   .portal-account-actions {

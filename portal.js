@@ -233,10 +233,55 @@ const swimmerCardMarkup = data => {
     </article>`;
 };
 
+const swimmerChoiceMarkup = (data, index) => {
+  const calculatedProgress = calculateStageProgress(data.stage, data.stageProgress);
+  const progress = calculatedProgress ?? Math.max(0, Math.min(100, Number(data.progress) || 0));
+  return `
+    <button class="portal-swimmer-choice" type="button" data-swimmer-choice="${index}">
+      <span>
+        <small>${escapeHtml(data.lessonDay || 'BPSwim swimmer')}</small>
+        <strong>${escapeHtml(data.name)}</strong>
+        <span>${escapeHtml(data.stage)} &middot; ${progress}% complete</span>
+      </span>
+      <span class="portal-swimmer-choice-action">View progress <span aria-hidden="true">&rarr;</span></span>
+    </button>`;
+};
+
 const loadParentSwimmers = async uid => {
   const snapshot = await getDocs(query(collection(db, 'swimmers'), where('parentIds', 'array-contains', uid)));
   const container = document.getElementById('swimmerCards');
-  container.innerHTML = snapshot.docs.map(swimmer => swimmerCardMarkup(swimmer.data())).join('');
+  const swimmers = snapshot.docs.map(swimmer => swimmer.data());
+
+  const showSwimmerChoices = () => {
+    container.innerHTML = `
+      <section class="portal-swimmer-choices" aria-labelledby="chooseSwimmerTitle">
+        <div class="portal-swimmer-choices-heading">
+          <p class="portal-eyebrow">Family account</p>
+          <h2 id="chooseSwimmerTitle">Choose a swimmer</h2>
+          <p>Select a child to view their stage, progress and latest instructor update.</p>
+        </div>
+        <div class="portal-swimmer-choice-grid">
+          ${swimmers.map(swimmerChoiceMarkup).join('')}
+        </div>
+      </section>`;
+
+    container.querySelectorAll('[data-swimmer-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        const swimmer = swimmers[Number(button.dataset.swimmerChoice)];
+        container.innerHTML = `
+          <button class="portal-back-to-swimmers" type="button"><span aria-hidden="true">&larr;</span> Back to children</button>
+          ${swimmerCardMarkup(swimmer)}`;
+        container.querySelector('.portal-back-to-swimmers').addEventListener('click', showSwimmerChoices);
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  };
+
+  if (swimmers.length > 1) {
+    showSwimmerChoices();
+  } else {
+    container.innerHTML = swimmers.map(swimmerCardMarkup).join('');
+  }
   document.getElementById('noSwimmers').hidden = !snapshot.empty;
 };
 
