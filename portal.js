@@ -1,14 +1,11 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js';
 import {
   createUserWithEmailAndPassword,
-  EmailAuthProvider,
   getAuth,
   onAuthStateChanged,
-  reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  updatePassword,
   updateProfile
 } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import {
@@ -102,31 +99,31 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async () =
 
 document.getElementById('signOutBtn').addEventListener('click', () => signOut(auth));
 
+document.getElementById('emailPasswordResetBtn').addEventListener('click', async event => {
+  const user = auth.currentUser;
+  if (!user?.email) return;
+  const button = event.currentTarget;
+  button.disabled = true;
+  button.textContent = 'Sending...';
+  try {
+    await sendPasswordResetEmail(auth, user.email, {
+      url: 'https://www.bpswim.com/portal.html'
+    });
+    showNotice(`A password reset email has been sent to ${user.email}.`, 'success');
+  } catch (error) {
+    showNotice(friendlyAuthError(error), 'error');
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Email password reset';
+  }
+});
+
 temporaryPasswordToggle.addEventListener('click', () => {
   const isVisible = temporaryPassword.type === 'text';
   temporaryPassword.type = isVisible ? 'password' : 'text';
   temporaryPasswordToggle.textContent = isVisible ? 'Show' : 'Hide';
   temporaryPasswordToggle.setAttribute('aria-pressed', String(!isVisible));
   temporaryPassword.focus();
-});
-
-document.getElementById('changePasswordForm').addEventListener('submit', async event => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const user = auth.currentUser;
-  if (!user?.email) return;
-
-  try {
-    const credential = EmailAuthProvider.credential(user.email, data.get('currentPassword'));
-    await reauthenticateWithCredential(user, credential);
-    await updatePassword(user, data.get('newPassword'));
-    form.reset();
-    form.closest('details').open = false;
-    showNotice('Your password has been updated.', 'success');
-  } catch (error) {
-    showNotice(friendlyAuthError(error), 'error');
-  }
 });
 
 document.getElementById('parentAccountForm').addEventListener('submit', async event => {

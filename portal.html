@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261017-7" />
+  <link rel="stylesheet" href="styles.css?v=20261017-8" />
 </head>
 <body class="portal-page">
   <header class="portal-topbar">
@@ -55,18 +55,7 @@
           <p id="dashboardEmail" class="portal-account-email"></p>
         </div>
         <div class="portal-account-actions">
-          <details class="portal-password-settings">
-            <summary>Change password</summary>
-            <form id="changePasswordForm">
-              <label>Current password
-                <input type="password" name="currentPassword" autocomplete="current-password" required />
-              </label>
-              <label>New password
-                <input type="password" name="newPassword" autocomplete="new-password" minlength="8" required />
-              </label>
-              <button class="btn btn-primary" type="submit">Update password</button>
-            </form>
-          </details>
+          <button class="btn portal-email-reset" id="emailPasswordResetBtn" type="button">Email password reset</button>
           <button class="btn portal-signout" id="signOutBtn" type="button">Sign out</button>
         </div>
       </div>
@@ -184,6 +173,6 @@
     <a href="mailto:barnetpremierswim@gmail.com">Need help?</a>
   </footer>
 
-  <script type="module" src="portal.js?v=20261017-7"></script>
+  <script type="module" src="portal.js?v=20261017-8"></script>
 </body>
 </html>
