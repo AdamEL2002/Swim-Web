@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Parent Portal | BPSwim</title>
+  <meta name="description" content="Secure BPSwim parent portal for viewing swimming lesson progress." />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20261017-1" />
+</head>
+<body class="portal-page">
+  <header class="portal-topbar">
+    <a href="/" class="portal-brand" aria-label="BPSwim home">
+      <img src="images/bp-swim-nav-logo.png" alt="BPSwim" />
+    </a>
+    <a href="/" class="portal-home-link">Back to website</a>
+  </header>
+
+  <main class="portal-shell">
+    <div id="portalNotice" class="portal-notice" role="status" aria-live="polite" hidden></div>
+
+    <section class="portal-auth" id="authView">
+      <div class="portal-intro">
+        <p class="section-label">BPSwim Parent Portal</p>
+        <h1>Follow Their Swimming Progress</h1>
+        <p>View your swimmer's current level, achievements, lesson focus and latest instructor update.</p>
+      </div>
+
+      <div class="portal-auth-card">
+        <div class="portal-tabs" role="tablist" aria-label="Parent account options">
+          <button class="portal-tab is-active" type="button" data-auth-tab="login" role="tab" aria-selected="true">Sign in</button>
+          <button class="portal-tab" type="button" data-auth-tab="register" role="tab" aria-selected="false">Create account</button>
+        </div>
+
+        <form id="loginForm" class="portal-form">
+          <h2>Parent sign in</h2>
+          <label>Email address
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>Password
+            <input type="password" name="password" autocomplete="current-password" minlength="8" required />
+          </label>
+          <button class="btn btn-primary portal-submit" type="submit">Sign in</button>
+          <button class="portal-text-button" id="resetPasswordBtn" type="button">Forgot your password?</button>
+        </form>
+
+        <form id="registerForm" class="portal-form" hidden>
+          <h2>Create a parent account</h2>
+          <p class="portal-form-help">Use the same email address you gave BPSwim. Your swimmer will appear once we have linked your account.</p>
+          <label>Your full name
+            <input type="text" name="fullName" autocomplete="name" required />
+          </label>
+          <label>Email address
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>Create a password
+            <input type="password" name="password" autocomplete="new-password" minlength="8" required />
+          </label>
+          <label class="portal-check">
+            <input type="checkbox" required />
+            <span>I confirm I am the parent or guardian of a BPSwim swimmer and agree to use this portal responsibly.</span>
+          </label>
+          <button class="btn btn-primary portal-submit" type="submit">Create account</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="portal-dashboard" id="dashboardView" hidden>
+      <div class="portal-dashboard-head">
+        <div>
+          <p class="section-label">BPSwim Parent Portal</p>
+          <h1 id="dashboardGreeting">Swimming progress</h1>
+          <p id="dashboardEmail" class="portal-account-email"></p>
+        </div>
+        <button class="btn portal-signout" id="signOutBtn" type="button">Sign out</button>
+      </div>
+
+      <div id="verificationPanel" class="portal-empty" hidden>
+        <h2>Check your email</h2>
+        <p>Please verify your email address before viewing any swimmer information.</p>
+        <button class="btn btn-primary" id="resendVerificationBtn" type="button">Resend verification email</button>
+      </div>
+
+      <div id="parentPanel" hidden>
+        <div id="swimmerCards" class="portal-swimmer-grid"></div>
+        <div id="noSwimmers" class="portal-empty" hidden>
+          <h2>Your account is ready</h2>
+          <p>We have not linked a swimmer to this account yet. Please contact us and tell us the email address used for your account.</p>
+          <a class="btn btn-primary" href="https://wa.me/447412064746?text=Hi%2C%20I%27ve%20created%20my%20BPSwim%20parent%20portal%20account.%20Please%20could%20you%20link%20my%20swimmer%3F" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+        </div>
+      </div>
+
+      <section id="adminPanel" class="portal-admin" hidden>
+        <div class="portal-admin-heading">
+          <div>
+            <p class="section-label">Instructor Area</p>
+            <h2>Manage Swimmer Progress</h2>
+          </div>
+          <button class="btn btn-primary" id="newSwimmerBtn" type="button">Add swimmer</button>
+        </div>
+
+        <div class="portal-admin-layout">
+          <form id="swimmerForm" class="portal-editor" hidden>
+            <h3 id="swimmerFormTitle">Add swimmer</h3>
+            <input type="hidden" name="swimmerId" />
+            <label>Swimmer's name
+              <input type="text" name="name" required />
+            </label>
+            <label>Parent account
+              <select name="parentUid" required>
+                <option value="">Select a verified parent</option>
+              </select>
+            </label>
+            <div class="portal-form-row">
+              <label>Current level or stage
+                <input type="text" name="stage" placeholder="e.g. Stage 3" required />
+              </label>
+              <label>Instructor
+                <input type="text" name="instructor" placeholder="e.g. Adam" required />
+              </label>
+            </div>
+            <div class="portal-form-row">
+              <label>Lesson day
+                <input type="text" name="lessonDay" placeholder="e.g. Monday" />
+              </label>
+              <label>Progress
+                <input type="number" name="progress" min="0" max="100" step="5" value="0" required />
+              </label>
+            </div>
+            <label>Current lesson focus
+              <textarea name="currentFocus" rows="3" required></textarea>
+            </label>
+            <label>Skills achieved <span>One per line</span>
+              <textarea name="achievements" rows="5"></textarea>
+            </label>
+            <label>Next targets <span>One per line</span>
+              <textarea name="targets" rows="5"></textarea>
+            </label>
+            <label>Latest instructor update
+              <textarea name="latestNote" rows="4" required></textarea>
+            </label>
+            <div class="portal-editor-actions">
+              <button class="btn btn-primary" type="submit">Save progress</button>
+              <button class="btn portal-cancel" id="cancelSwimmerBtn" type="button">Cancel</button>
+            </div>
+          </form>
+
+          <div>
+            <div id="adminSwimmerList" class="portal-admin-list"></div>
+            <div id="noAdminSwimmers" class="portal-empty" hidden>
+              <h3>No swimmers added yet</h3>
+              <p>Create the first swimmer record and link it to a registered parent.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    <p>Private information for BPSwim families and instructors.</p>
+    <a href="mailto:barnetpremierswim@gmail.com">Need help?</a>
+  </footer>
+
+  <script type="module" src="portal.js"></script>
+</body>
+</html>
