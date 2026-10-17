@@ -3034,6 +3034,105 @@ footer {
   color: var(--text);
   font: inherit;
 }
+.portal-password-input {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.portal-password-input input {
+  min-width: 0;
+  border-radius: 6px 0 0 6px;
+}
+.portal-password-toggle {
+  min-width: 58px;
+  padding: 0 12px;
+  border: 1px solid #9db4bd;
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.portal-password-toggle:hover,
+.portal-password-toggle:focus-visible {
+  background: #dff3f6;
+}
+.portal-parent-accounts {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 2fr);
+  gap: 22px;
+  align-items: start;
+  margin-bottom: 28px;
+  padding: 22px;
+  border: 1px solid #c8d8df;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+.portal-parent-accounts h3 {
+  color: var(--navy);
+  font-family: var(--ff-display);
+  font-size: 1.35rem;
+}
+.portal-parent-accounts > div:first-child p {
+  margin-top: 5px;
+  color: #486174;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.portal-parent-account-list {
+  display: grid;
+  gap: 9px;
+}
+.portal-parent-account-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 14px;
+  border: 1px solid #d8e3e8;
+  border-radius: 6px;
+  background: #f8fbfc;
+}
+.portal-parent-account-row div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.portal-parent-account-row strong {
+  color: var(--navy);
+}
+.portal-parent-account-row a {
+  overflow-wrap: anywhere;
+  color: #35566b;
+  font-size: 0.84rem;
+}
+.portal-reset-button {
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid var(--navy);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.portal-reset-button:hover,
+.portal-reset-button:focus-visible {
+  background: var(--navy);
+  color: var(--white);
+}
+.portal-reset-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.portal-parent-account-empty {
+  margin: 0;
+  color: #486174;
+}
 .portal-editor {
   position: sticky;
   top: 22px;
@@ -3166,6 +3265,9 @@ footer {
     grid-template-columns: 1fr;
     align-items: stretch;
   }
+  .portal-parent-accounts {
+    grid-template-columns: 1fr;
+  }
   .portal-parent-creator .btn {
     justify-content: center;
   }
@@ -3181,6 +3283,13 @@ footer {
   }
   .portal-brand img {
     width: 125px;
+  }
+  .portal-parent-account-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .portal-reset-button {
+    width: 100%;
   }
   .portal-home-link {
     font-size: 0.78rem;

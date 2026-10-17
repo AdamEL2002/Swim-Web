@@ -43,6 +43,8 @@ const swimmerForm = document.getElementById('swimmerForm');
 const stageChecklistEditor = document.getElementById('stageChecklistEditor');
 const stageChecklistItems = document.getElementById('stageChecklistItems');
 const stageChecklistCount = document.getElementById('stageChecklistCount');
+const temporaryPassword = document.getElementById('temporaryPassword');
+const temporaryPasswordToggle = document.getElementById('temporaryPasswordToggle');
 let loginInProgress = false;
 let activeStageProgress = {};
 
@@ -98,6 +100,15 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async () =
 });
 
 document.getElementById('signOutBtn').addEventListener('click', () => signOut(auth));
+
+temporaryPasswordToggle.addEventListener('click', () => {
+  const isVisible = temporaryPassword.type === 'text';
+  temporaryPassword.type = isVisible ? 'password' : 'text';
+  temporaryPasswordToggle.textContent = isVisible ? 'Show' : 'Hide';
+  temporaryPasswordToggle.setAttribute('aria-pressed', String(!isVisible));
+  temporaryPassword.focus();
+});
+
 document.getElementById('changePasswordForm').addEventListener('submit', async event => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -138,6 +149,9 @@ document.getElementById('parentAccountForm').addEventListener('submit', async ev
     });
     await signOut(parentCreatorAuth);
     form.reset();
+    temporaryPassword.type = 'password';
+    temporaryPasswordToggle.textContent = 'Show';
+    temporaryPasswordToggle.setAttribute('aria-pressed', 'false');
     await loadAdminData();
     showNotice(`The account for ${fullName} was created. Send the parent their email address and temporary password privately.`, 'success');
   } catch (error) {
@@ -286,6 +300,40 @@ const loadAdminData = async () => {
       return `<option value="${escapeHtml(userDoc.id)}">${escapeHtml(user.displayName || user.email)} — ${escapeHtml(user.email)}</option>`;
     }).join('');
   parentSelect.value = currentValue;
+
+  const parentAccountList = document.getElementById('parentAccountList');
+  parentAccountList.innerHTML = usersSnapshot.docs.map(userDoc => {
+    const user = userDoc.data();
+    const parentName = user.displayName || 'Parent account';
+    return `<article class="portal-parent-account-row">
+      <div>
+        <strong>${escapeHtml(parentName)}</strong>
+        <a href="mailto:${escapeHtml(user.email)}">${escapeHtml(user.email)}</a>
+      </div>
+      <button class="portal-reset-button" type="button" data-reset-email="${escapeHtml(user.email)}">Send password reset</button>
+    </article>`;
+  }).join('');
+  document.getElementById('noParentAccounts').hidden = !usersSnapshot.empty;
+
+  parentAccountList.querySelectorAll('[data-reset-email]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const email = button.dataset.resetEmail;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      try {
+        await sendPasswordResetEmail(auth, email, {
+          url: 'https://www.bpswim.com/portal.html'
+        });
+        showNotice(`A password reset email has been sent to ${email}.`, 'success');
+      } catch (error) {
+        showNotice(friendlyAuthError(error), 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+  });
 
   const list = document.getElementById('adminSwimmerList');
   list.innerHTML = swimmersSnapshot.docs.map(swimmerDoc => {
