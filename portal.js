@@ -114,7 +114,7 @@ document.getElementById('emailPasswordResetBtn').addEventListener('click', async
     showNotice(friendlyAuthError(error), 'error');
   } finally {
     button.disabled = false;
-    button.textContent = 'Email password reset';
+    button.textContent = 'Reset password';
   }
 });
 
