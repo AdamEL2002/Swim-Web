@@ -3185,7 +3185,7 @@ footer {
   border-radius: 6px;
   background: #f8fbfc;
 }
-.portal-parent-account-row div {
+.portal-parent-account-details {
   display: grid;
   gap: 2px;
   min-width: 0;
@@ -3197,6 +3197,18 @@ footer {
   overflow-wrap: anywhere;
   color: #35566b;
   font-size: 0.84rem;
+}
+.portal-parent-account-details span {
+  color: #657887;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+.portal-parent-account-actions,
+.portal-admin-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }
 .portal-reset-button {
   flex: 0 0 auto;
@@ -3216,8 +3228,37 @@ footer {
   color: var(--white);
 }
 .portal-reset-button:disabled {
-  cursor: wait;
+  cursor: not-allowed;
   opacity: 0.65;
+}
+.portal-account-toggle,
+.portal-remove-button {
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid #ad474d;
+  border-radius: 6px;
+  background: var(--white);
+  color: #8a3036;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.portal-account-toggle:hover,
+.portal-account-toggle:focus-visible,
+.portal-remove-button:hover,
+.portal-remove-button:focus-visible {
+  background: #8a3036;
+  color: var(--white);
+}
+.portal-account-toggle.is-restore {
+  border-color: #367a5a;
+  color: #286246;
+}
+.portal-account-toggle.is-restore:hover,
+.portal-account-toggle.is-restore:focus-visible {
+  background: #286246;
+  color: var(--white);
 }
 .portal-parent-account-empty {
   margin: 0;
@@ -3318,6 +3359,9 @@ footer {
   font-weight: 800;
   white-space: nowrap;
 }
+.portal-admin-row-actions {
+  flex: 0 0 auto;
+}
 .portal-footer {
   min-height: 84px;
   padding: 22px clamp(20px, 5vw, 52px);
@@ -3377,6 +3421,12 @@ footer {
   .portal-parent-account-row {
     align-items: stretch;
     flex-direction: column;
+  }
+  .portal-parent-account-actions,
+  .portal-admin-row-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
   }
   .portal-reset-button {
     width: 100%;

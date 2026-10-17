@@ -47,6 +47,7 @@ const temporaryPassword = document.getElementById('temporaryPassword');
 const temporaryPasswordToggle = document.getElementById('temporaryPasswordToggle');
 let loginInProgress = false;
 let activeStageProgress = {};
+let pendingSignOutNotice = '';
 
 const showNotice = (message, type = 'info') => {
   portalNotice.textContent = message;
@@ -144,6 +145,7 @@ document.getElementById('parentAccountForm').addEventListener('submit', async ev
       displayName: fullName,
       email,
       role: 'parent',
+      accountStatus: 'active',
       createdAt: serverTimestamp(),
       createdBy: auth.currentUser.uid
     });
@@ -250,7 +252,9 @@ const swimmerChoiceMarkup = (data, index) => {
 const loadParentSwimmers = async uid => {
   const snapshot = await getDocs(query(collection(db, 'swimmers'), where('parentIds', 'array-contains', uid)));
   const container = document.getElementById('swimmerCards');
-  const swimmers = snapshot.docs.map(swimmer => swimmer.data());
+  const swimmers = snapshot.docs
+    .map(swimmer => swimmer.data())
+    .filter(swimmer => !swimmer.archived);
 
   const showSwimmerChoices = () => {
     container.innerHTML = `
@@ -282,7 +286,7 @@ const loadParentSwimmers = async uid => {
   } else {
     container.innerHTML = swimmers.map(swimmerCardMarkup).join('');
   }
-  document.getElementById('noSwimmers').hidden = !snapshot.empty;
+  document.getElementById('noSwimmers').hidden = swimmers.length > 0;
 };
 
 const captureStageChecklist = () => {
@@ -336,10 +340,12 @@ const loadAdminData = async () => {
     getDocs(query(collection(db, 'users'), where('role', '==', 'parent'))),
     getDocs(collection(db, 'swimmers'))
   ]);
+  const activeSwimmerDocs = swimmersSnapshot.docs.filter(swimmerDoc => !swimmerDoc.data().archived);
+  const activeParentDocs = usersSnapshot.docs.filter(userDoc => userDoc.data().accountStatus !== 'inactive');
 
   const parentSelect = swimmerForm.elements.parentUid;
   const currentValue = parentSelect.value;
-  parentSelect.innerHTML = '<option value="">Select a registered parent</option>' + usersSnapshot.docs
+  parentSelect.innerHTML = '<option value="">Select a registered parent</option>' + activeParentDocs
     .map(userDoc => {
       const user = userDoc.data();
       return `<option value="${escapeHtml(userDoc.id)}">${escapeHtml(user.displayName || user.email)} — ${escapeHtml(user.email)}</option>`;
@@ -350,12 +356,18 @@ const loadAdminData = async () => {
   parentAccountList.innerHTML = usersSnapshot.docs.map(userDoc => {
     const user = userDoc.data();
     const parentName = user.displayName || 'Parent account';
+    const isInactive = user.accountStatus === 'inactive';
+    const linkedSwimmers = activeSwimmerDocs.filter(swimmerDoc => swimmerDoc.data().parentIds?.includes(userDoc.id)).length;
     return `<article class="portal-parent-account-row">
-      <div>
+      <div class="portal-parent-account-details">
         <strong>${escapeHtml(parentName)}</strong>
         <a href="mailto:${escapeHtml(user.email)}">${escapeHtml(user.email)}</a>
+        <span>${isInactive ? 'Access deactivated' : `${linkedSwimmers} active swimmer${linkedSwimmers === 1 ? '' : 's'}`}</span>
       </div>
-      <button class="portal-reset-button" type="button" data-reset-email="${escapeHtml(user.email)}">Send password reset</button>
+      <div class="portal-parent-account-actions">
+        <button class="portal-reset-button" type="button" data-reset-email="${escapeHtml(user.email)}" ${isInactive ? 'disabled' : ''}>Send password reset</button>
+        <button class="portal-account-toggle ${isInactive ? 'is-restore' : ''}" type="button" data-parent-account="${escapeHtml(userDoc.id)}" data-parent-name="${escapeHtml(parentName)}" data-parent-action="${isInactive ? 'restore' : 'deactivate'}" data-linked-swimmers="${linkedSwimmers}">${isInactive ? 'Restore access' : 'Deactivate parent'}</button>
+      </div>
     </article>`;
   }).join('');
   document.getElementById('noParentAccounts').hidden = !usersSnapshot.empty;
@@ -380,15 +392,48 @@ const loadAdminData = async () => {
     });
   });
 
+  parentAccountList.querySelectorAll('[data-parent-account]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const isDeactivating = button.dataset.parentAction === 'deactivate';
+      const linkedSwimmers = Number(button.dataset.linkedSwimmers);
+      const parentName = button.dataset.parentName;
+      if (isDeactivating && linkedSwimmers > 0) {
+        showNotice(`Remove ${parentName}’s active swimmer record${linkedSwimmers === 1 ? '' : 's'} before deactivating the parent account.`, 'error');
+        return;
+      }
+      const confirmed = window.confirm(isDeactivating
+        ? `Deactivate ${parentName}’s portal access? They will no longer be able to sign in.`
+        : `Restore ${parentName}’s portal access?`);
+      if (!confirmed) return;
+
+      try {
+        await updateDoc(doc(db, 'users', button.dataset.parentAccount), {
+          accountStatus: isDeactivating ? 'inactive' : 'active',
+          accountStatusUpdatedAt: serverTimestamp(),
+          accountStatusUpdatedBy: auth.currentUser.uid
+        });
+        await loadAdminData();
+        showNotice(isDeactivating
+          ? `${parentName}’s portal access has been deactivated.`
+          : `${parentName}’s portal access has been restored.`, 'success');
+      } catch (error) {
+        showNotice('The parent account could not be updated. Please try again.', 'error');
+      }
+    });
+  });
+
   const list = document.getElementById('adminSwimmerList');
-  list.innerHTML = swimmersSnapshot.docs.map(swimmerDoc => {
+  list.innerHTML = activeSwimmerDocs.map(swimmerDoc => {
     const swimmer = swimmerDoc.data();
     return `<article class="portal-admin-row">
       <div><strong>${escapeHtml(swimmer.name)}</strong><span>${escapeHtml(swimmer.stage)} · ${escapeHtml(swimmer.lessonDay || 'Day not set')}</span></div>
-      <button class="portal-edit-button" type="button" data-edit-swimmer="${escapeHtml(swimmerDoc.id)}">Edit progress</button>
+      <div class="portal-admin-row-actions">
+        <button class="portal-edit-button" type="button" data-edit-swimmer="${escapeHtml(swimmerDoc.id)}">Edit progress</button>
+        <button class="portal-remove-button" type="button" data-remove-swimmer="${escapeHtml(swimmerDoc.id)}" data-swimmer-name="${escapeHtml(swimmer.name)}">Remove swimmer</button>
+      </div>
     </article>`;
   }).join('');
-  document.getElementById('noAdminSwimmers').hidden = !swimmersSnapshot.empty;
+  document.getElementById('noAdminSwimmers').hidden = activeSwimmerDocs.length > 0;
 
   list.querySelectorAll('[data-edit-swimmer]').forEach(button => {
     button.addEventListener('click', async () => {
@@ -407,6 +452,28 @@ const loadAdminData = async () => {
       document.getElementById('swimmerFormTitle').textContent = `Update ${swimmer.name}`;
       swimmerForm.hidden = false;
       swimmerForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  list.querySelectorAll('[data-remove-swimmer]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const swimmerName = button.dataset.swimmerName;
+      if (!window.confirm(`Remove ${swimmerName} from the parent portal? Their saved progress will be kept securely in case it is needed later.`)) return;
+      try {
+        await updateDoc(doc(db, 'swimmers', button.dataset.removeSwimmer), {
+          archived: true,
+          archivedAt: serverTimestamp(),
+          archivedBy: auth.currentUser.uid
+        });
+        if (swimmerForm.elements.swimmerId.value === button.dataset.removeSwimmer) {
+          swimmerForm.hidden = true;
+          swimmerForm.reset();
+        }
+        await loadAdminData();
+        showNotice(`${swimmerName} has been removed from the parent portal.`, 'success');
+      } catch (error) {
+        showNotice('The swimmer could not be removed. Please try again.', 'error');
+      }
     });
   });
 };
@@ -473,7 +540,12 @@ onAuthStateChanged(auth, async user => {
   adminPanel.hidden = true;
 
   if (!user) {
-    clearNotice();
+    if (pendingSignOutNotice) {
+      showNotice(pendingSignOutNotice, 'error');
+      pendingSignOutNotice = '';
+    } else {
+      clearNotice();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
@@ -493,7 +565,13 @@ onAuthStateChanged(auth, async user => {
 
   try {
     const userDocument = await getDoc(doc(db, 'users', user.uid));
-    const role = userDocument.exists() ? userDocument.data().role : 'parent';
+    const userData = userDocument.exists() ? userDocument.data() : {};
+    const role = userData.role || 'parent';
+    if (role === 'parent' && userData.accountStatus === 'inactive') {
+      pendingSignOutNotice = 'This parent account has been deactivated. Please contact BPSwim if you need access restored.';
+      await signOut(auth);
+      return;
+    }
     if (role === 'admin') {
       adminPanel.hidden = false;
       await loadAdminData();
