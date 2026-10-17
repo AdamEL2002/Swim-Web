@@ -253,24 +253,20 @@ const updateStageEditorCount = () => {
   const total = stageChecklistItems.querySelectorAll('input').length;
   const completed = stageChecklistItems.querySelectorAll('input:checked').length;
   stageChecklistCount.textContent = `${completed} of ${total} complete`;
-  if (total) swimmerForm.elements.progress.value = Math.round((completed / total) * 100);
 };
 
 const renderStageEditor = stage => {
   const outcomes = getStageOutcomes(stage);
-  const progressInput = swimmerForm.elements.progress;
   if (!outcomes.length) {
     stageChecklistEditor.hidden = true;
     stageChecklistEditor.dataset.stage = '';
     stageChecklistItems.innerHTML = '';
-    progressInput.readOnly = false;
     return;
   }
 
   const completed = new Set(getCompletedOutcomes(activeStageProgress, stage));
   stageChecklistEditor.hidden = false;
   stageChecklistEditor.dataset.stage = stage;
-  progressInput.readOnly = true;
   stageChecklistItems.innerHTML = outcomes.map((outcome, index) => {
     const outcomeId = stageOutcomeId(stage, index);
     return `<label class="portal-stage-check">
@@ -329,7 +325,6 @@ const loadAdminData = async () => {
       activeStageProgress = structuredClone(swimmer.stageProgress || {});
       swimmerForm.elements.instructor.value = swimmer.instructor || '';
       swimmerForm.elements.lessonDay.value = swimmer.lessonDay || '';
-      swimmerForm.elements.progress.value = swimmer.progress || 0;
       renderStageEditor(swimmer.stage || '');
       swimmerForm.elements.currentFocus.value = swimmer.currentFocus || '';
       swimmerForm.elements.achievements.value = (swimmer.achievements || []).join('\n');
@@ -347,7 +342,6 @@ document.getElementById('newSwimmerBtn').addEventListener('click', () => {
   activeStageProgress = {};
   renderStageEditor('');
   swimmerForm.elements.swimmerId.value = '';
-  swimmerForm.elements.progress.value = 0;
   document.getElementById('swimmerFormTitle').textContent = 'Add swimmer';
   swimmerForm.hidden = false;
   swimmerForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -373,7 +367,7 @@ swimmerForm.addEventListener('submit', async event => {
     stage,
     instructor: data.get('instructor').trim(),
     lessonDay: data.get('lessonDay').trim(),
-    progress: calculatedProgress ?? Number(data.get('progress')),
+    progress: calculatedProgress ?? 0,
     stageProgress: activeStageProgress,
     currentFocus: data.get('currentFocus').trim(),
     achievements: lines(data.get('achievements')),

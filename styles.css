@@ -3118,10 +3118,6 @@ footer {
   font-size: 0.83rem !important;
   font-weight: inherit !important;
 }
-.portal-editor input[readonly] {
-  background: #e7eef0;
-  color: #52697c;
-}
 .portal-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
