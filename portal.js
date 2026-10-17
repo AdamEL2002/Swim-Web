@@ -25,6 +25,7 @@ import {
   where
 } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
+import { stageOutcomeId, swimEnglandSource, swimEnglandStages } from './swim-england-stages.js';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -39,7 +40,11 @@ const portalNotice = document.getElementById('portalNotice');
 const parentPanel = document.getElementById('parentPanel');
 const adminPanel = document.getElementById('adminPanel');
 const swimmerForm = document.getElementById('swimmerForm');
+const stageChecklistEditor = document.getElementById('stageChecklistEditor');
+const stageChecklistItems = document.getElementById('stageChecklistItems');
+const stageChecklistCount = document.getElementById('stageChecklistCount');
 let loginInProgress = false;
+let activeStageProgress = {};
 
 const showNotice = (message, type = 'info') => {
   portalNotice.textContent = message;
@@ -154,8 +159,47 @@ const listMarkup = (items, emptyText) => {
   return `<ul>${cleanItems.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
 };
 
+const getStageOutcomes = stage => swimEnglandStages[stage] || [];
+
+const getCompletedOutcomes = (stageProgress, stage) => {
+  const completed = stageProgress?.[stage];
+  return Array.isArray(completed) ? completed : [];
+};
+
+const calculateStageProgress = (stage, stageProgress) => {
+  const outcomes = getStageOutcomes(stage);
+  if (!outcomes.length) return null;
+  return Math.round((getCompletedOutcomes(stageProgress, stage).length / outcomes.length) * 100);
+};
+
+const stageChecklistMarkup = data => {
+  const outcomes = getStageOutcomes(data.stage);
+  if (!outcomes.length) return '';
+  const completed = new Set(getCompletedOutcomes(data.stageProgress, data.stage));
+  const headingId = `stage-checklist-${String(data.name || 'swimmer').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  return `
+    <section class="portal-stage-checklist" aria-labelledby="${headingId}">
+      <div class="portal-stage-checklist-head">
+        <div>
+          <p class="portal-eyebrow">Current award checklist</p>
+          <h3 id="${headingId}">Swim England ${escapeHtml(data.stage)} requirements</h3>
+        </div>
+        <strong>${completed.size} of ${outcomes.length} complete</strong>
+      </div>
+      <ul>
+        ${outcomes.map((outcome, index) => {
+          const outcomeId = stageOutcomeId(data.stage, index);
+          const achieved = completed.has(outcomeId);
+          return `<li class="${achieved ? 'is-complete' : ''}"><span aria-hidden="true">${achieved ? '✓' : ''}</span><p>${escapeHtml(outcome)}</p></li>`;
+        }).join('')}
+      </ul>
+      <a href="${swimEnglandSource}" target="_blank" rel="noopener noreferrer">View the official Swim England Stage 1–7 outcomes</a>
+    </section>`;
+};
+
 const swimmerCardMarkup = data => {
-  const progress = Math.max(0, Math.min(100, Number(data.progress) || 0));
+  const calculatedProgress = calculateStageProgress(data.stage, data.stageProgress);
+  const progress = calculatedProgress ?? Math.max(0, Math.min(100, Number(data.progress) || 0));
   const updated = data.updatedAt?.toDate?.().toLocaleDateString('en-GB', {
     day: 'numeric', month: 'long', year: 'numeric'
   }) || 'Awaiting first update';
@@ -180,6 +224,7 @@ const swimmerCardMarkup = data => {
         <div><h3>Skills achieved</h3>${listMarkup(data.achievements, 'Achievements will appear here.')}</div>
         <div><h3>Next targets</h3>${listMarkup(data.targets, 'Targets will appear here.')}</div>
       </div>
+      ${stageChecklistMarkup(data)}
       <div class="portal-instructor-note">
         <h3>Latest instructor update</h3>
         <p>${escapeHtml(data.latestNote)}</p>
@@ -196,6 +241,56 @@ const loadParentSwimmers = async uid => {
 };
 
 const lines = value => value.split('\n').map(item => item.trim()).filter(Boolean);
+
+const captureStageChecklist = () => {
+  const stage = stageChecklistEditor.dataset.stage;
+  if (!stage || !swimEnglandStages[stage]) return;
+  activeStageProgress[stage] = Array.from(stageChecklistItems.querySelectorAll('input:checked'))
+    .map(input => input.value);
+};
+
+const updateStageEditorCount = () => {
+  const total = stageChecklistItems.querySelectorAll('input').length;
+  const completed = stageChecklistItems.querySelectorAll('input:checked').length;
+  stageChecklistCount.textContent = `${completed} of ${total} complete`;
+  if (total) swimmerForm.elements.progress.value = Math.round((completed / total) * 100);
+};
+
+const renderStageEditor = stage => {
+  const outcomes = getStageOutcomes(stage);
+  const progressInput = swimmerForm.elements.progress;
+  if (!outcomes.length) {
+    stageChecklistEditor.hidden = true;
+    stageChecklistEditor.dataset.stage = '';
+    stageChecklistItems.innerHTML = '';
+    progressInput.readOnly = false;
+    return;
+  }
+
+  const completed = new Set(getCompletedOutcomes(activeStageProgress, stage));
+  stageChecklistEditor.hidden = false;
+  stageChecklistEditor.dataset.stage = stage;
+  progressInput.readOnly = true;
+  stageChecklistItems.innerHTML = outcomes.map((outcome, index) => {
+    const outcomeId = stageOutcomeId(stage, index);
+    return `<label class="portal-stage-check">
+      <input type="checkbox" value="${outcomeId}" ${completed.has(outcomeId) ? 'checked' : ''} />
+      <span>${escapeHtml(outcome)}</span>
+    </label>`;
+  }).join('');
+  stageChecklistItems.querySelectorAll('input').forEach(input => {
+    input.addEventListener('change', () => {
+      captureStageChecklist();
+      updateStageEditorCount();
+    });
+  });
+  updateStageEditorCount();
+};
+
+swimmerForm.elements.stage.addEventListener('change', event => {
+  captureStageChecklist();
+  renderStageEditor(event.target.value);
+});
 
 const loadAdminData = async () => {
   const [usersSnapshot, swimmersSnapshot] = await Promise.all([
@@ -231,9 +326,11 @@ const loadAdminData = async () => {
       swimmerForm.elements.name.value = swimmer.name || '';
       swimmerForm.elements.parentUid.value = swimmer.parentIds?.[0] || '';
       swimmerForm.elements.stage.value = swimmer.stage || '';
+      activeStageProgress = structuredClone(swimmer.stageProgress || {});
       swimmerForm.elements.instructor.value = swimmer.instructor || '';
       swimmerForm.elements.lessonDay.value = swimmer.lessonDay || '';
       swimmerForm.elements.progress.value = swimmer.progress || 0;
+      renderStageEditor(swimmer.stage || '');
       swimmerForm.elements.currentFocus.value = swimmer.currentFocus || '';
       swimmerForm.elements.achievements.value = (swimmer.achievements || []).join('\n');
       swimmerForm.elements.targets.value = (swimmer.targets || []).join('\n');
@@ -247,6 +344,8 @@ const loadAdminData = async () => {
 
 document.getElementById('newSwimmerBtn').addEventListener('click', () => {
   swimmerForm.reset();
+  activeStageProgress = {};
+  renderStageEditor('');
   swimmerForm.elements.swimmerId.value = '';
   swimmerForm.elements.progress.value = 0;
   document.getElementById('swimmerFormTitle').textContent = 'Add swimmer';
@@ -257,19 +356,25 @@ document.getElementById('newSwimmerBtn').addEventListener('click', () => {
 document.getElementById('cancelSwimmerBtn').addEventListener('click', () => {
   swimmerForm.hidden = true;
   swimmerForm.reset();
+  activeStageProgress = {};
+  renderStageEditor('');
 });
 
 swimmerForm.addEventListener('submit', async event => {
   event.preventDefault();
   const data = new FormData(swimmerForm);
   const swimmerId = data.get('swimmerId');
+  captureStageChecklist();
+  const stage = data.get('stage').trim();
+  const calculatedProgress = calculateStageProgress(stage, activeStageProgress);
   const swimmerData = {
     name: data.get('name').trim(),
     parentIds: [data.get('parentUid')],
-    stage: data.get('stage').trim(),
+    stage,
     instructor: data.get('instructor').trim(),
     lessonDay: data.get('lessonDay').trim(),
-    progress: Number(data.get('progress')),
+    progress: calculatedProgress ?? Number(data.get('progress')),
+    stageProgress: activeStageProgress,
     currentFocus: data.get('currentFocus').trim(),
     achievements: lines(data.get('achievements')),
     targets: lines(data.get('targets')),

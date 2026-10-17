@@ -11,6 +11,7 @@ Live site: https://www.bpswim.com/
 - Pricing, timetable, FAQ, location, WhatsApp contact, and enquiry form sections
 - Web3Forms enquiry and enrolment handling
 - Firebase parent portal for private swimmer progress updates
+- Swim England Stage 1-7 progress checklists with instructor-only editing
 - GitHub Pages custom domain support
 
 ## Editing The Site
