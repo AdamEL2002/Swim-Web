@@ -32,13 +32,9 @@
       </div>
 
       <div class="portal-auth-card">
-        <div class="portal-tabs" role="tablist" aria-label="Parent account options">
-          <button class="portal-tab is-active" type="button" data-auth-tab="login" role="tab" aria-selected="true">Sign in</button>
-          <button class="portal-tab" type="button" data-auth-tab="register" role="tab" aria-selected="false">Create account</button>
-        </div>
-
         <form id="loginForm" class="portal-form">
           <h2>Parent sign in</h2>
+          <p class="portal-form-help">Parent accounts are created by BPSwim. Please use the email address where you received your invitation.</p>
           <label>Email address
             <input type="email" name="email" autocomplete="email" required />
           </label>
@@ -47,25 +43,6 @@
           </label>
           <button class="btn btn-primary portal-submit" type="submit">Sign in</button>
           <button class="portal-text-button" id="resetPasswordBtn" type="button">Forgot your password?</button>
-        </form>
-
-        <form id="registerForm" class="portal-form" hidden>
-          <h2>Create a parent account</h2>
-          <p class="portal-form-help">Use the same email address you gave BPSwim. Your swimmer will appear once we have linked your account.</p>
-          <label>Your full name
-            <input type="text" name="fullName" autocomplete="name" required />
-          </label>
-          <label>Email address
-            <input type="email" name="email" autocomplete="email" required />
-          </label>
-          <label>Create a password
-            <input type="password" name="password" autocomplete="new-password" minlength="8" required />
-          </label>
-          <label class="portal-check">
-            <input type="checkbox" required />
-            <span>I confirm I am the parent or guardian of a BPSwim swimmer and agree to use this portal responsibly.</span>
-          </label>
-          <button class="btn btn-primary portal-submit" type="submit">Create account</button>
         </form>
       </div>
     </section>
@@ -103,6 +80,20 @@
           </div>
           <button class="btn btn-primary" id="newSwimmerBtn" type="button">Add swimmer</button>
         </div>
+
+        <form id="parentAccountForm" class="portal-parent-creator">
+          <div>
+            <h3>Create a Parent Account</h3>
+            <p>Firebase will email the parent links to verify their address and choose their password.</p>
+          </div>
+          <label>Parent's full name
+            <input type="text" name="fullName" autocomplete="off" required />
+          </label>
+          <label>Parent's email address
+            <input type="email" name="email" autocomplete="off" required />
+          </label>
+          <button class="btn btn-primary" type="submit">Create and Invite Parent</button>
+        </form>
 
         <div class="portal-admin-layout">
           <form id="swimmerForm" class="portal-editor" hidden>

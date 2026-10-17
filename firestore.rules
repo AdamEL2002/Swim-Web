@@ -17,10 +17,12 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow create: if signedIn()
+      allow create: if isAdmin() || (
+        signedIn()
         && request.auth.uid == userId
         && request.resource.data.role == 'parent'
-        && request.resource.data.email == request.auth.token.email;
+        && request.resource.data.email == request.auth.token.email
+      );
       allow read: if isAdmin() || (verified() && request.auth.uid == userId);
       allow update: if isAdmin() || (
         verified()

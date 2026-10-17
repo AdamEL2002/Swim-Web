@@ -52,4 +52,4 @@ Before inviting parents to use the portal:
 4. Verify the email address from the Firebase email.
 5. In Firestore, open the `users` collection, select that account's document, and change its `role` field from `parent` to `admin`.
 
-Parents can then create their own accounts. An instructor can link a swimmer to a registered parent from the instructor area. Parents can only read swimmer records linked to their own verified account; only an admin can create or update progress.
+An instructor creates each parent account from the private instructor area. Firebase emails the parent links to verify their address and choose their password. The instructor can then link a swimmer to that parent. Parents can only read swimmer records linked to their own verified account; only an admin can create accounts or update progress.

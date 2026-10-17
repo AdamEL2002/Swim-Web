@@ -27,11 +27,12 @@ import { firebaseConfig } from './firebase-config.js';
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const parentCreatorApp = initializeApp(firebaseConfig, 'parent-account-creator');
+const parentCreatorAuth = getAuth(parentCreatorApp);
 
 const authView = document.getElementById('authView');
 const dashboardView = document.getElementById('dashboardView');
 const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
 const portalNotice = document.getElementById('portalNotice');
 const verificationPanel = document.getElementById('verificationPanel');
 const parentPanel = document.getElementById('parentPanel');
@@ -60,20 +61,6 @@ const friendlyAuthError = error => {
   return messages[error.code] || 'Something went wrong. Please try again or contact BPSwim for help.';
 };
 
-document.querySelectorAll('[data-auth-tab]').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const isLogin = tab.dataset.authTab === 'login';
-    loginForm.hidden = !isLogin;
-    registerForm.hidden = isLogin;
-    document.querySelectorAll('[data-auth-tab]').forEach(button => {
-      const active = button === tab;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-selected', active);
-    });
-    clearNotice();
-  });
-});
-
 loginForm.addEventListener('submit', async event => {
   event.preventDefault();
   clearNotice();
@@ -81,27 +68,6 @@ loginForm.addEventListener('submit', async event => {
   try {
     await signInWithEmailAndPassword(auth, data.get('email').trim(), data.get('password'));
     loginForm.reset();
-  } catch (error) {
-    showNotice(friendlyAuthError(error), 'error');
-  }
-});
-
-registerForm.addEventListener('submit', async event => {
-  event.preventDefault();
-  clearNotice();
-  const data = new FormData(registerForm);
-  try {
-    const credential = await createUserWithEmailAndPassword(auth, data.get('email').trim(), data.get('password'));
-    await updateProfile(credential.user, { displayName: data.get('fullName').trim() });
-    await setDoc(doc(db, 'users', credential.user.uid), {
-      displayName: data.get('fullName').trim(),
-      email: credential.user.email,
-      role: 'parent',
-      createdAt: serverTimestamp()
-    });
-    await sendEmailVerification(credential.user);
-    registerForm.reset();
-    showNotice('Your account has been created. Please open the verification email we have sent you.', 'success');
   } catch (error) {
     showNotice(friendlyAuthError(error), 'error');
   }
@@ -129,6 +95,40 @@ document.getElementById('resendVerificationBtn').addEventListener('click', async
     await sendEmailVerification(auth.currentUser);
     showNotice('A new verification email has been sent.', 'success');
   } catch (error) {
+    showNotice(friendlyAuthError(error), 'error');
+  }
+});
+
+document.getElementById('parentAccountForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearNotice();
+  const form = event.currentTarget;
+  const data = new FormData(form);
+  const fullName = data.get('fullName').trim();
+  const email = data.get('email').trim().toLowerCase();
+  const temporaryPassword = `${crypto.randomUUID()}Aa1!`;
+  const actionSettings = { url: 'https://www.bpswim.com/portal.html' };
+
+  try {
+    const credential = await createUserWithEmailAndPassword(parentCreatorAuth, email, temporaryPassword);
+    await updateProfile(credential.user, { displayName: fullName });
+    await setDoc(doc(db, 'users', credential.user.uid), {
+      displayName: fullName,
+      email,
+      role: 'parent',
+      createdAt: serverTimestamp(),
+      createdBy: auth.currentUser.uid
+    });
+    await Promise.all([
+      sendEmailVerification(credential.user, actionSettings),
+      sendPasswordResetEmail(auth, email, actionSettings)
+    ]);
+    await signOut(parentCreatorAuth);
+    form.reset();
+    await loadAdminData();
+    showNotice(`The account for ${fullName} was created. Firebase has emailed them verification and password-setting links.`, 'success');
+  } catch (error) {
+    await signOut(parentCreatorAuth).catch(() => {});
     showNotice(friendlyAuthError(error), 'error');
   }
 });
