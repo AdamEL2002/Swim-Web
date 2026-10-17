@@ -2875,43 +2875,15 @@ footer {
   border-radius: inherit;
   background: var(--aqua);
 }
-.portal-focus,
 .portal-instructor-note {
   padding: 20px;
   border-left: 4px solid var(--aqua);
   background: #f1f9fa;
 }
-.portal-focus h3,
-.portal-progress-columns h3,
 .portal-instructor-note h3 {
   margin-bottom: 8px;
   color: var(--navy);
   font-size: 1rem;
-}
-.portal-progress-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin: 30px 0;
-}
-.portal-progress-columns ul {
-  display: grid;
-  gap: 8px;
-}
-.portal-progress-columns li {
-  position: relative;
-  padding-left: 20px;
-  color: #334b60;
-}
-.portal-progress-columns li::before {
-  content: '';
-  position: absolute;
-  top: 0.62em;
-  left: 2px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--aqua);
 }
 .portal-stage-checklist {
   margin: 30px 0;
@@ -2981,10 +2953,6 @@ footer {
   font-size: 0.8rem;
   font-weight: 700;
   text-decoration: underline;
-}
-.portal-muted {
-  color: #6c7c8c;
-  font-size: 0.9rem;
 }
 .portal-instructor-note > p {
   color: #334b60;
@@ -3227,7 +3195,6 @@ footer {
     align-items: flex-start;
     flex-direction: column;
   }
-  .portal-progress-columns,
   .portal-form-row {
     grid-template-columns: 1fr;
   }

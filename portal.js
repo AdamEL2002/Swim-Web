@@ -153,12 +153,6 @@ const escapeHtml = value => String(value ?? '')
   .replaceAll('"', '&quot;')
   .replaceAll("'", '&#039;');
 
-const listMarkup = (items, emptyText) => {
-  const cleanItems = Array.isArray(items) ? items.filter(Boolean) : [];
-  if (!cleanItems.length) return `<p class="portal-muted">${escapeHtml(emptyText)}</p>`;
-  return `<ul>${cleanItems.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
-};
-
 const getStageOutcomes = stage => swimEnglandStages[stage] || [];
 
 const getCompletedOutcomes = (stageProgress, stage) => {
@@ -216,14 +210,6 @@ const swimmerCardMarkup = data => {
       <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
         <span style="width:${progress}%"></span>
       </div>
-      <div class="portal-focus">
-        <h3>Current lesson focus</h3>
-        <p>${escapeHtml(data.currentFocus)}</p>
-      </div>
-      <div class="portal-progress-columns">
-        <div><h3>Skills achieved</h3>${listMarkup(data.achievements, 'Achievements will appear here.')}</div>
-        <div><h3>Next targets</h3>${listMarkup(data.targets, 'Targets will appear here.')}</div>
-      </div>
       ${stageChecklistMarkup(data)}
       <div class="portal-instructor-note">
         <h3>Latest instructor update</h3>
@@ -239,8 +225,6 @@ const loadParentSwimmers = async uid => {
   container.innerHTML = snapshot.docs.map(swimmer => swimmerCardMarkup(swimmer.data())).join('');
   document.getElementById('noSwimmers').hidden = !snapshot.empty;
 };
-
-const lines = value => value.split('\n').map(item => item.trim()).filter(Boolean);
 
 const captureStageChecklist = () => {
   const stage = stageChecklistEditor.dataset.stage;
@@ -326,9 +310,6 @@ const loadAdminData = async () => {
       swimmerForm.elements.instructor.value = swimmer.instructor || '';
       swimmerForm.elements.lessonDay.value = swimmer.lessonDay || '';
       renderStageEditor(swimmer.stage || '');
-      swimmerForm.elements.currentFocus.value = swimmer.currentFocus || '';
-      swimmerForm.elements.achievements.value = (swimmer.achievements || []).join('\n');
-      swimmerForm.elements.targets.value = (swimmer.targets || []).join('\n');
       swimmerForm.elements.latestNote.value = swimmer.latestNote || '';
       document.getElementById('swimmerFormTitle').textContent = `Update ${swimmer.name}`;
       swimmerForm.hidden = false;
@@ -369,9 +350,6 @@ swimmerForm.addEventListener('submit', async event => {
     lessonDay: data.get('lessonDay').trim(),
     progress: calculatedProgress ?? 0,
     stageProgress: activeStageProgress,
-    currentFocus: data.get('currentFocus').trim(),
-    achievements: lines(data.get('achievements')),
-    targets: lines(data.get('targets')),
     latestNote: data.get('latestNote').trim(),
     updatedAt: serverTimestamp(),
     updatedBy: auth.currentUser.uid
