@@ -52,6 +52,8 @@ const stageChecklistCount = document.getElementById('stageChecklistCount');
 const stageChecklistGuidance = document.getElementById('stageChecklistGuidance');
 const temporaryPassword = document.getElementById('temporaryPassword');
 const temporaryPasswordToggle = document.getElementById('temporaryPasswordToggle');
+const swimmerPreviewDialog = document.getElementById('swimmerPreviewDialog');
+const swimmerPreviewContent = document.getElementById('swimmerPreviewContent');
 let loginInProgress = false;
 let activeStageProgress = {};
 let activeStageCompletions = {};
@@ -627,12 +629,35 @@ const loadAdminData = async () => {
     return `<article class="portal-admin-row">
       <div><strong>${escapeHtml(swimmer.name)}</strong><span>${escapeHtml(swimmer.stage)} · ${escapeHtml(swimmer.lessonDay || 'Day not set')}</span></div>
       <div class="portal-admin-row-actions">
+        <button class="portal-preview-button" type="button" data-preview-swimmer="${escapeHtml(swimmerDoc.id)}">Preview parent view</button>
         <button class="portal-edit-button" type="button" data-edit-swimmer="${escapeHtml(swimmerDoc.id)}">Edit progress</button>
         <button class="portal-remove-button" type="button" data-remove-swimmer="${escapeHtml(swimmerDoc.id)}" data-swimmer-name="${escapeHtml(swimmer.name)}">Remove swimmer</button>
       </div>
     </article>`;
   }).join('');
   document.getElementById('noAdminSwimmers').hidden = activeSwimmerDocs.length > 0;
+
+  list.querySelectorAll('[data-preview-swimmer]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Loading preview...';
+      try {
+        const swimmerDoc = await getDoc(doc(db, 'swimmers', button.dataset.previewSwimmer));
+        if (!swimmerDoc.exists()) throw new Error('Swimmer not found');
+        const swimmer = swimmerDoc.data();
+        document.getElementById('swimmerPreviewTitle').textContent = `${swimmer.name}'s Progress`;
+        swimmerPreviewContent.innerHTML = swimmerCardMarkup(swimmer);
+        wireSwimmerCardViews(swimmerPreviewContent);
+        swimmerPreviewDialog.showModal();
+      } catch (error) {
+        showNotice('The swimmer preview could not be loaded. Please refresh the page and try again.', 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+  });
 
   list.querySelectorAll('[data-edit-swimmer]').forEach(button => {
     button.addEventListener('click', async () => {
@@ -696,6 +721,14 @@ document.getElementById('cancelSwimmerBtn').addEventListener('click', () => {
   activeStageProgress = {};
   activeStageCompletions = {};
   renderStageEditor('');
+});
+
+document.getElementById('closeSwimmerPreview').addEventListener('click', () => {
+  swimmerPreviewDialog.close();
+});
+
+swimmerPreviewDialog.addEventListener('click', event => {
+  if (event.target === swimmerPreviewDialog) swimmerPreviewDialog.close();
 });
 
 swimmerForm.addEventListener('submit', async event => {

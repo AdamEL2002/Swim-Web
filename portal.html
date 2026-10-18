@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261018-8" />
+  <link rel="stylesheet" href="styles.css?v=20261019-1" />
 </head>
 <body class="portal-page">
   <header class="portal-topbar">
@@ -214,11 +214,22 @@
     </section>
   </main>
 
+  <dialog id="swimmerPreviewDialog" class="portal-preview-dialog" aria-labelledby="swimmerPreviewTitle">
+    <div class="portal-preview-header">
+      <div>
+        <p class="section-label">Parent View Preview</p>
+        <h2 id="swimmerPreviewTitle">Swimmer Progress</h2>
+      </div>
+      <button id="closeSwimmerPreview" class="portal-preview-close" type="button" aria-label="Close parent view preview">Close</button>
+    </div>
+    <div id="swimmerPreviewContent" class="portal-preview-content"></div>
+  </dialog>
+
   <footer class="portal-footer">
     <p>Private information for BPSwim families and instructors.</p>
     <a href="mailto:barnetpremierswim@gmail.com">Need help?</a>
   </footer>
 
-  <script type="module" src="portal.js?v=20261018-8"></script>
+  <script type="module" src="portal.js?v=20261019-1"></script>
 </body>
 </html>
