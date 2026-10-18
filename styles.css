@@ -2781,6 +2781,12 @@ footer {
   align-items: flex-start;
   gap: 10px;
 }
+.portal-account-actions-bottom {
+  justify-content: center;
+  margin-top: 42px;
+  padding-top: 24px;
+  border-top: 1px solid #cedde2;
+}
 .portal-swimmer-grid {
   display: grid;
   gap: 28px;
