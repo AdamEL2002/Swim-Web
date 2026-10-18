@@ -173,21 +173,37 @@ const escapeHtml = value => String(value ?? '')
 
 const getStageOutcomes = stage => swimEnglandStages[stage] || [];
 
-const getCompletedOutcomes = (stageProgress, stage) => {
-  const completed = stageProgress?.[stage];
-  return Array.isArray(completed) ? completed : [];
+const outcomeRatings = {
+  'needs-practice': { label: 'Needs practice', score: 0 },
+  fair: { label: 'Fair', score: 35 },
+  good: { label: 'Good', score: 70 },
+  pass: { label: 'Pass', score: 100 }
+};
+
+const getStageRatings = (stageProgress, stage) => {
+  const saved = stageProgress?.[stage];
+  if (Array.isArray(saved)) {
+    return Object.fromEntries(saved.map(outcomeId => [outcomeId, 'pass']));
+  }
+  return saved && typeof saved === 'object' ? saved : {};
 };
 
 const calculateStageProgress = (stage, stageProgress) => {
   const outcomes = getStageOutcomes(stage);
   if (!outcomes.length) return null;
-  return Math.round((getCompletedOutcomes(stageProgress, stage).length / outcomes.length) * 100);
+  const ratings = getStageRatings(stageProgress, stage);
+  const totalScore = outcomes.reduce((sum, outcome, index) => {
+    const rating = ratings[stageOutcomeId(stage, index)] || 'needs-practice';
+    return sum + (outcomeRatings[rating]?.score || 0);
+  }, 0);
+  return Math.round(totalScore / outcomes.length);
 };
 
 const stageChecklistMarkup = data => {
   const outcomes = getStageOutcomes(data.stage);
   if (!outcomes.length) return '';
-  const completed = new Set(getCompletedOutcomes(data.stageProgress, data.stage));
+  const ratings = getStageRatings(data.stageProgress, data.stage);
+  const passed = outcomes.filter((outcome, index) => ratings[stageOutcomeId(data.stage, index)] === 'pass').length;
   const headingId = `stage-checklist-${String(data.name || 'swimmer').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   const isDuckling = data.stage?.startsWith('Duckling');
   const officialSource = isDuckling ? swimEnglandDucklingSource : swimEnglandSource;
@@ -201,13 +217,15 @@ const stageChecklistMarkup = data => {
           <p class="portal-eyebrow">Current award checklist</p>
           <h3 id="${headingId}">Swim England ${escapeHtml(data.stage)} requirements</h3>
         </div>
-        <strong>${completed.size} of ${outcomes.length} complete</strong>
+        <strong>${passed} of ${outcomes.length} passed</strong>
       </div>
       <ul>
         ${outcomes.map((outcome, index) => {
           const outcomeId = stageOutcomeId(data.stage, index);
-          const achieved = completed.has(outcomeId);
-          return `<li class="${achieved ? 'is-complete' : ''}"><span aria-hidden="true">${achieved ? '✓' : ''}</span><p>${escapeHtml(outcome)}</p></li>`;
+          const savedRating = ratings[outcomeId];
+          const rating = outcomeRatings[savedRating] ? savedRating : 'needs-practice';
+          const ratingLabel = outcomeRatings[rating].label;
+          return `<li class="rating-${rating}"><p>${escapeHtml(outcome)}</p><span>${ratingLabel}</span></li>`;
         }).join('')}
       </ul>
       <a href="${officialSource}" target="_blank" rel="noopener noreferrer">${officialLinkText}</a>
@@ -250,7 +268,7 @@ const swimmerChoiceMarkup = (data, index) => {
       <span>
         <small>${escapeHtml(data.lessonDay || 'BPSwim swimmer')}</small>
         <strong>${escapeHtml(data.name)}</strong>
-        <span>${escapeHtml(data.stage)} &middot; ${progress}% complete</span>
+        <span>${escapeHtml(data.stage)} &middot; ${progress}% progress</span>
       </span>
       <span class="portal-swimmer-choice-action">View progress <span aria-hidden="true">&rarr;</span></span>
     </button>`;
@@ -299,14 +317,15 @@ const loadParentSwimmers = async uid => {
 const captureStageChecklist = () => {
   const stage = stageChecklistEditor.dataset.stage;
   if (!stage || !swimEnglandStages[stage]) return;
-  activeStageProgress[stage] = Array.from(stageChecklistItems.querySelectorAll('input:checked'))
-    .map(input => input.value);
+  activeStageProgress[stage] = Object.fromEntries(
+    Array.from(stageChecklistItems.querySelectorAll('select')).map(select => [select.dataset.outcomeId, select.value])
+  );
 };
 
 const updateStageEditorCount = () => {
-  const total = stageChecklistItems.querySelectorAll('input').length;
-  const completed = stageChecklistItems.querySelectorAll('input:checked').length;
-  stageChecklistCount.textContent = `${completed} of ${total} complete`;
+  const selects = Array.from(stageChecklistItems.querySelectorAll('select'));
+  const passed = selects.filter(select => select.value === 'pass').length;
+  stageChecklistCount.textContent = `${passed} of ${selects.length} passed`;
 };
 
 const renderStageEditor = stage => {
@@ -318,18 +337,21 @@ const renderStageEditor = stage => {
     return;
   }
 
-  const completed = new Set(getCompletedOutcomes(activeStageProgress, stage));
+  const ratings = getStageRatings(activeStageProgress, stage);
   stageChecklistEditor.hidden = false;
   stageChecklistEditor.dataset.stage = stage;
   stageChecklistItems.innerHTML = outcomes.map((outcome, index) => {
     const outcomeId = stageOutcomeId(stage, index);
+    const currentRating = ratings[outcomeId] || 'needs-practice';
     return `<label class="portal-stage-check">
-      <input type="checkbox" value="${outcomeId}" ${completed.has(outcomeId) ? 'checked' : ''} />
       <span>${escapeHtml(outcome)}</span>
+      <select data-outcome-id="${outcomeId}" aria-label="Assessment for ${escapeHtml(outcome)}">
+        ${Object.entries(outcomeRatings).map(([value, rating]) => `<option value="${value}" ${currentRating === value ? 'selected' : ''}>${rating.label}</option>`).join('')}
+      </select>
     </label>`;
   }).join('');
-  stageChecklistItems.querySelectorAll('input').forEach(input => {
-    input.addEventListener('change', () => {
+  stageChecklistItems.querySelectorAll('select').forEach(select => {
+    select.addEventListener('change', () => {
       captureStageChecklist();
       updateStageEditorCount();
     });

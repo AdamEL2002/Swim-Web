@@ -2970,31 +2970,45 @@ footer {
 }
 .portal-stage-checklist li {
   display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 9px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
   align-items: start;
+  padding: 10px 12px;
+  border: 1px solid #d6e3e7;
+  border-radius: 6px;
+  background: var(--white);
   color: #44596b;
   font-size: 0.9rem;
   line-height: 1.45;
 }
 .portal-stage-checklist li > span {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #9eb2bb;
-  border-radius: 4px;
-  color: var(--white);
-  display: grid;
-  place-items: center;
-  font-size: 0.78rem;
-  font-weight: 900;
+  min-width: 88px;
+  padding: 5px 8px;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
-.portal-stage-checklist li.is-complete {
+.portal-stage-checklist li.rating-needs-practice > span {
+  background: #f8e5e6;
+  color: #7f3439;
+}
+.portal-stage-checklist li.rating-fair > span {
+  background: #fff1c9;
+  color: #765a10;
+}
+.portal-stage-checklist li.rating-good > span {
+  background: #dff1f7;
+  color: #245e73;
+}
+.portal-stage-checklist li.rating-pass {
   color: var(--navy);
   font-weight: 700;
 }
-.portal-stage-checklist li.is-complete > span {
-  border-color: #258da1;
-  background: #258da1;
+.portal-stage-checklist li.rating-pass > span {
+  background: #dcefe4;
+  color: #246241;
 }
 .portal-stage-checklist > a {
   display: inline-block;
@@ -3256,8 +3270,9 @@ footer {
   gap: 8px;
 }
 .portal-stage-check {
-  grid-template-columns: 20px 1fr !important;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(130px, 0.42fr) !important;
+  align-items: center;
+  gap: 12px !important;
   padding: 9px 10px;
   border-radius: 5px;
   background: var(--white);
@@ -3265,16 +3280,21 @@ footer {
   font-weight: 600 !important;
   line-height: 1.4;
 }
-.portal-stage-check input {
-  width: 18px;
-  height: 18px;
-  margin-top: 1px;
-  accent-color: #258da1;
-}
 .portal-stage-check span {
   color: inherit !important;
   font-size: 0.83rem !important;
   font-weight: inherit !important;
+}
+.portal-stage-check select {
+  width: 100%;
+  padding: 8px 9px;
+  border: 1px solid #9eb5bf;
+  border-radius: 5px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 .portal-form-row {
   display: grid;
@@ -3416,6 +3436,9 @@ footer {
   .portal-stage-checklist-head,
   .portal-stage-editor-head {
     flex-direction: column;
+  }
+  .portal-stage-check {
+    grid-template-columns: 1fr !important;
   }
   .portal-instructor-note > div,
   .portal-admin-row,
