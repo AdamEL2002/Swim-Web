@@ -400,13 +400,7 @@ const swimmerChoiceMarkup = (data, index) => {
     </button>`;
 };
 
-const loadParentSwimmers = async uid => {
-  const snapshot = await getDocs(query(collection(db, 'swimmers'), where('parentIds', 'array-contains', uid)));
-  const container = document.getElementById('swimmerCards');
-  const swimmers = snapshot.docs
-    .map(swimmer => swimmer.data())
-    .filter(swimmer => !swimmer.archived);
-
+const renderParentSwimmers = (container, swimmers) => {
   const showSwimmerChoices = () => {
     container.innerHTML = `
       <section class="portal-swimmer-choices" aria-labelledby="chooseSwimmerTitle">
@@ -428,7 +422,12 @@ const loadParentSwimmers = async uid => {
           ${swimmerCardMarkup(swimmer)}`;
         wireSwimmerCardViews(container);
         container.querySelector('.portal-back-to-swimmers').addEventListener('click', showSwimmerChoices);
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const previewContainer = container.closest('.portal-preview-content');
+        if (previewContainer) {
+          previewContainer.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
   };
@@ -439,6 +438,16 @@ const loadParentSwimmers = async uid => {
     container.innerHTML = swimmers.map(swimmerCardMarkup).join('');
     wireSwimmerCardViews(container);
   }
+};
+
+const loadParentSwimmers = async uid => {
+  const snapshot = await getDocs(query(collection(db, 'swimmers'), where('parentIds', 'array-contains', uid)));
+  const container = document.getElementById('swimmerCards');
+  const swimmers = snapshot.docs
+    .map(swimmer => swimmer.data())
+    .filter(swimmer => !swimmer.archived);
+
+  renderParentSwimmers(container, swimmers);
   document.getElementById('noSwimmers').hidden = swimmers.length > 0;
 };
 
@@ -626,10 +635,11 @@ const loadAdminData = async () => {
   const list = document.getElementById('adminSwimmerList');
   list.innerHTML = activeSwimmerDocs.map(swimmerDoc => {
     const swimmer = swimmerDoc.data();
+    const parentUid = swimmer.parentIds?.[0] || '';
     return `<article class="portal-admin-row">
       <div><strong>${escapeHtml(swimmer.name)}</strong><span>${escapeHtml(swimmer.stage)} · ${escapeHtml(swimmer.lessonDay || 'Day not set')}</span></div>
       <div class="portal-admin-row-actions">
-        <button class="portal-preview-button" type="button" data-preview-swimmer="${escapeHtml(swimmerDoc.id)}">Preview parent view</button>
+        <button class="portal-preview-button" type="button" data-preview-parent="${escapeHtml(parentUid)}" ${parentUid ? '' : 'disabled'}>Preview parent view</button>
         <button class="portal-edit-button" type="button" data-edit-swimmer="${escapeHtml(swimmerDoc.id)}">Edit progress</button>
         <button class="portal-remove-button" type="button" data-remove-swimmer="${escapeHtml(swimmerDoc.id)}" data-swimmer-name="${escapeHtml(swimmer.name)}">Remove swimmer</button>
       </div>
@@ -637,18 +647,22 @@ const loadAdminData = async () => {
   }).join('');
   document.getElementById('noAdminSwimmers').hidden = activeSwimmerDocs.length > 0;
 
-  list.querySelectorAll('[data-preview-swimmer]').forEach(button => {
+  list.querySelectorAll('[data-preview-parent]').forEach(button => {
     button.addEventListener('click', async () => {
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = 'Loading preview...';
       try {
-        const swimmerDoc = await getDoc(doc(db, 'swimmers', button.dataset.previewSwimmer));
-        if (!swimmerDoc.exists()) throw new Error('Swimmer not found');
-        const swimmer = swimmerDoc.data();
-        document.getElementById('swimmerPreviewTitle').textContent = `${swimmer.name}'s Progress`;
-        swimmerPreviewContent.innerHTML = swimmerCardMarkup(swimmer);
-        wireSwimmerCardViews(swimmerPreviewContent);
+        const familySnapshot = await getDocs(query(
+          collection(db, 'swimmers'),
+          where('parentIds', 'array-contains', button.dataset.previewParent)
+        ));
+        const familySwimmers = familySnapshot.docs
+          .map(swimmer => swimmer.data())
+          .filter(swimmer => !swimmer.archived);
+        if (!familySwimmers.length) throw new Error('No linked swimmers found');
+        document.getElementById('swimmerPreviewTitle').textContent = 'Family Progress';
+        renderParentSwimmers(swimmerPreviewContent, familySwimmers);
         swimmerPreviewDialog.showModal();
       } catch (error) {
         showNotice('The swimmer preview could not be loaded. Please refresh the page and try again.', 'error');
