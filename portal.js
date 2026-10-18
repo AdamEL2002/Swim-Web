@@ -306,6 +306,12 @@ const swimmerCardMarkup = data => {
   const updated = data.updatedAt?.toDate?.().toLocaleDateString('en-GB', {
     day: 'numeric', month: 'long', year: 'numeric'
   }) || 'Awaiting first update';
+  const instructorUpdate = `
+    <div class="portal-instructor-note">
+      <h3>Latest instructor update</h3>
+      <p>${escapeHtml(data.latestNote)}</p>
+      <div><span>${escapeHtml(data.instructor)}</span><span>Updated ${escapeHtml(updated)}</span></div>
+    </div>`;
   return `
     <article class="portal-swimmer-card">
       <div class="portal-swimmer-head">
@@ -333,11 +339,7 @@ const swimmerCardMarkup = data => {
           <span style="width:${progress}%"></span>
         </div>
         ${stageChecklistMarkup(data)}
-        <div class="portal-instructor-note">
-          <h3>Latest instructor update</h3>
-          <p>${escapeHtml(data.latestNote)}</p>
-          <div><span>${escapeHtml(data.instructor)}</span><span>Updated ${escapeHtml(updated)}</span></div>
-        </div>
+        ${instructorUpdate}
       </div>
       ${passedAssessments.length ? `<section class="portal-assessment-results" data-swimmer-panel="assessments" hidden>
         <div class="portal-assessment-celebration">
@@ -356,6 +358,7 @@ const swimmerCardMarkup = data => {
             </ul>
           </article>`).join('')}
         </div>
+        ${instructorUpdate}
       </section>` : ''}
     </article>`;
 };
