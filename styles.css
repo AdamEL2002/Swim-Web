@@ -2905,6 +2905,41 @@ footer {
   font-weight: 800;
   white-space: nowrap;
 }
+.portal-swimmer-view-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.portal-swimmer-view-options.has-one-option {
+  grid-template-columns: minmax(220px, 0.55fr);
+}
+.portal-swimmer-view-button {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid #b8d7dd;
+  border-radius: 7px;
+  background: var(--white);
+  color: var(--navy);
+  text-align: left;
+  cursor: pointer;
+}
+.portal-swimmer-view-button span {
+  font-weight: 800;
+}
+.portal-swimmer-view-button small {
+  color: #5b7182;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.portal-swimmer-view-button:hover,
+.portal-swimmer-view-button:focus-visible,
+.portal-swimmer-view-button.is-active {
+  border-color: #258da1;
+  background: #eaf7f9;
+  box-shadow: inset 0 -3px 0 var(--aqua);
+}
 .portal-progress-label {
   display: flex;
   justify-content: space-between;
@@ -2941,6 +2976,16 @@ footer {
   border: 1px solid #b8d7dd;
   border-radius: var(--radius-sm);
   background: #f8fcfd;
+}
+.portal-stage-guidance {
+  margin: -4px 0 18px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--aqua);
+  background: #edf8fa;
+  color: #31566a;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.5;
 }
 .portal-stage-checklist-head {
   display: flex;
@@ -3017,6 +3062,55 @@ footer {
   font-size: 0.8rem;
   font-weight: 700;
   text-decoration: underline;
+}
+.portal-assessment-results {
+  padding: clamp(20px, 4vw, 30px);
+  border: 1px solid #b8d7dd;
+  border-radius: var(--radius-sm);
+  background: #f8fcfd;
+}
+.portal-assessment-celebration {
+  margin-bottom: 20px;
+}
+.portal-assessment-celebration h3 {
+  margin: 3px 0 5px;
+  color: var(--navy);
+  font-family: var(--ff-display);
+  font-size: 1.55rem;
+}
+.portal-assessment-celebration > p:last-child {
+  color: #405a6d;
+}
+.portal-passed-awards {
+  display: grid;
+  gap: 10px;
+}
+.portal-passed-awards article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 16px;
+  border: 1px solid #b9d9c7;
+  border-radius: 7px;
+  background: #eef8f2;
+}
+.portal-passed-awards article > div {
+  display: grid;
+  gap: 2px;
+}
+.portal-passed-awards strong {
+  color: #1f5139;
+  font-size: 1rem;
+}
+.portal-passed-awards span,
+.portal-passed-awards time {
+  color: #496c5b;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.portal-passed-awards time {
+  white-space: nowrap;
 }
 .portal-instructor-note > p {
   color: #334b60;
@@ -3496,6 +3590,10 @@ footer {
   .portal-form-row {
     grid-template-columns: 1fr;
   }
+  .portal-swimmer-view-options,
+  .portal-swimmer-view-options.has-one-option {
+    grid-template-columns: 1fr;
+  }
   .portal-swimmer-choice-grid {
     grid-template-columns: 1fr;
   }
@@ -3511,6 +3609,7 @@ footer {
   }
   .portal-instructor-note > div,
   .portal-admin-row,
+  .portal-passed-awards article,
   .portal-footer {
     align-items: flex-start;
     flex-direction: column;

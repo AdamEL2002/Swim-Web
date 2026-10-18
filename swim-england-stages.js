@@ -1,6 +1,11 @@
 export const swimEnglandSource = 'https://www.swimming.org/learntoswim/swim-england-learn-to.swim-awards-1-7/';
 export const swimEnglandDucklingSource = 'https://www.swimming.org/learntoswim/swim-england-duckling-awards/';
 
+export const swimEnglandStageGuidance = {
+  'Stage 1': 'Floats and other suitable swimming aids may be used while completing Stage 1 requirements.',
+  'Stage 2': 'Stage 2 requirements must be completed without floats or other flotation equipment to achieve a pass.'
+};
+
 export const swimEnglandStages = {
   'Duckling 1': [
     'Enter the water safely under supervision, with adult support if needed',

@@ -26,8 +26,9 @@ import {
   stageOutcomeId,
   swimEnglandDucklingSource,
   swimEnglandSource,
+  swimEnglandStageGuidance,
   swimEnglandStages
-} from './swim-england-stages.js?v=20261018-1';
+} from './swim-england-stages.js?v=20261018-2';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -48,10 +49,12 @@ const swimmerForm = document.getElementById('swimmerForm');
 const stageChecklistEditor = document.getElementById('stageChecklistEditor');
 const stageChecklistItems = document.getElementById('stageChecklistItems');
 const stageChecklistCount = document.getElementById('stageChecklistCount');
+const stageChecklistGuidance = document.getElementById('stageChecklistGuidance');
 const temporaryPassword = document.getElementById('temporaryPassword');
 const temporaryPasswordToggle = document.getElementById('temporaryPasswordToggle');
 let loginInProgress = false;
 let activeStageProgress = {};
+let activeStageCompletions = {};
 let pendingSignOutNotice = '';
 
 const showNotice = (message, type = 'info') => {
@@ -218,6 +221,29 @@ const calculateStageProgress = (stage, stageProgress) => {
   return Math.round(totalScore / outcomes.length);
 };
 
+const isStagePassed = (stage, stageProgress) => {
+  const outcomes = getStageOutcomes(stage);
+  const ratings = getStageRatings(stageProgress, stage);
+  return outcomes.length > 0 && outcomes.every((outcome, index) => ratings[stageOutcomeId(stage, index)] === 'pass');
+};
+
+const formatPassedDate = value => {
+  const date = value?.toDate?.() || (value instanceof Date ? value : value ? new Date(value) : null);
+  if (!date || Number.isNaN(date.getTime())) return 'Date awaiting confirmation';
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+const getPassedAssessments = data => {
+  const completions = Object.entries(data.stageCompletions || {})
+    .filter(([stage]) => getStageOutcomes(stage).length)
+    .map(([stage, completion]) => ({ stage, ...completion }));
+  if (isStagePassed(data.stage, data.stageProgress) && !completions.some(completion => completion.stage === data.stage)) {
+    completions.push({ stage: data.stage, passedAt: data.updatedAt });
+  }
+  const awardOrder = Object.keys(swimEnglandStages);
+  return completions.sort((a, b) => awardOrder.indexOf(a.stage) - awardOrder.indexOf(b.stage));
+};
+
 const stageChecklistMarkup = data => {
   const outcomes = getStageOutcomes(data.stage);
   if (!outcomes.length) return '';
@@ -238,6 +264,7 @@ const stageChecklistMarkup = data => {
         </div>
         <strong>${passed} of ${outcomes.length} passed</strong>
       </div>
+      ${swimEnglandStageGuidance[data.stage] ? `<p class="portal-stage-guidance">${escapeHtml(swimEnglandStageGuidance[data.stage])}</p>` : ''}
       <ul>
         ${outcomes.map((outcome, index) => {
           const outcomeId = stageOutcomeId(data.stage, index);
@@ -254,6 +281,7 @@ const stageChecklistMarkup = data => {
 const swimmerCardMarkup = data => {
   const calculatedProgress = calculateStageProgress(data.stage, data.stageProgress);
   const progress = calculatedProgress ?? Math.max(0, Math.min(100, Number(data.progress) || 0));
+  const passedAssessments = getPassedAssessments(data);
   const updated = data.updatedAt?.toDate?.().toLocaleDateString('en-GB', {
     day: 'numeric', month: 'long', year: 'numeric'
   }) || 'Awaiting first update';
@@ -266,17 +294,57 @@ const swimmerCardMarkup = data => {
         </div>
         <span class="portal-stage">${escapeHtml(data.stage)}</span>
       </div>
-      <div class="portal-progress-label"><span>Overall progress</span><strong>${progress}%</strong></div>
-      <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
-        <span style="width:${progress}%"></span>
+      <div class="portal-swimmer-view-options ${passedAssessments.length ? '' : 'has-one-option'}">
+        <button class="portal-swimmer-view-button is-active" type="button" data-swimmer-view="progress">
+          <span>Current stage progress</span>
+          <small>${escapeHtml(data.stage)} &middot; ${progress}%</small>
+        </button>
+        ${passedAssessments.length ? `<button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments">
+          <span>View assessment results</span>
+          <small>${passedAssessments.length} award${passedAssessments.length === 1 ? '' : 's'} passed</small>
+        </button>` : ''}
       </div>
-      ${stageChecklistMarkup(data)}
-      <div class="portal-instructor-note">
-        <h3>Latest instructor update</h3>
-        <p>${escapeHtml(data.latestNote)}</p>
-        <div><span>${escapeHtml(data.instructor)}</span><span>Updated ${escapeHtml(updated)}</span></div>
+      <div data-swimmer-panel="progress">
+        <div class="portal-progress-label"><span>Overall progress</span><strong>${progress}%</strong></div>
+        <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
+          <span style="width:${progress}%"></span>
+        </div>
+        ${stageChecklistMarkup(data)}
+        <div class="portal-instructor-note">
+          <h3>Latest instructor update</h3>
+          <p>${escapeHtml(data.latestNote)}</p>
+          <div><span>${escapeHtml(data.instructor)}</span><span>Updated ${escapeHtml(updated)}</span></div>
+        </div>
       </div>
+      ${passedAssessments.length ? `<section class="portal-assessment-results" data-swimmer-panel="assessments" hidden>
+        <div class="portal-assessment-celebration">
+          <p class="portal-eyebrow">Assessment results</p>
+          <h3>Congratulations, ${escapeHtml(data.name)}!</h3>
+          <p>${passedAssessments.length === 1 ? `They have passed ${escapeHtml(passedAssessments[0].stage)}.` : 'They have successfully completed the awards below.'}</p>
+        </div>
+        <div class="portal-passed-awards">
+          ${passedAssessments.map(completion => `<article>
+            <div><strong>${escapeHtml(completion.stage)}</strong><span>All requirements passed</span></div>
+            <time>Passed on ${escapeHtml(formatPassedDate(completion.passedAt))}</time>
+          </article>`).join('')}
+        </div>
+      </section>` : ''}
     </article>`;
+};
+
+const wireSwimmerCardViews = container => {
+  container.querySelectorAll('.portal-swimmer-card').forEach(card => {
+    const buttons = card.querySelectorAll('[data-swimmer-view]');
+    const panels = card.querySelectorAll('[data-swimmer-panel]');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(item => item.classList.toggle('is-active', item === button));
+        panels.forEach(panel => {
+          panel.hidden = panel.dataset.swimmerPanel !== button.dataset.swimmerView;
+        });
+      });
+    });
+  });
 };
 
 const swimmerChoiceMarkup = (data, index) => {
@@ -319,6 +387,7 @@ const loadParentSwimmers = async uid => {
         container.innerHTML = `
           <button class="portal-back-to-swimmers" type="button"><span aria-hidden="true">&larr;</span> Back to children</button>
           ${swimmerCardMarkup(swimmer)}`;
+        wireSwimmerCardViews(container);
         container.querySelector('.portal-back-to-swimmers').addEventListener('click', showSwimmerChoices);
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
@@ -329,6 +398,7 @@ const loadParentSwimmers = async uid => {
     showSwimmerChoices();
   } else {
     container.innerHTML = swimmers.map(swimmerCardMarkup).join('');
+    wireSwimmerCardViews(container);
   }
   document.getElementById('noSwimmers').hidden = swimmers.length > 0;
 };
@@ -339,6 +409,14 @@ const captureStageChecklist = () => {
   activeStageProgress[stage] = Object.fromEntries(
     Array.from(stageChecklistItems.querySelectorAll('select')).map(select => [select.dataset.outcomeId, select.value])
   );
+};
+
+const recordStageCompletion = stage => {
+  if (!stage || activeStageCompletions[stage] || !isStagePassed(stage, activeStageProgress)) return;
+  activeStageCompletions[stage] = {
+    passedAt: new Date(),
+    ratings: { ...getStageRatings(activeStageProgress, stage) }
+  };
 };
 
 const updateStageEditorCount = () => {
@@ -352,6 +430,8 @@ const renderStageEditor = stage => {
   if (!outcomes.length) {
     stageChecklistEditor.hidden = true;
     stageChecklistEditor.dataset.stage = '';
+    stageChecklistGuidance.hidden = true;
+    stageChecklistGuidance.textContent = '';
     stageChecklistItems.innerHTML = '';
     return;
   }
@@ -359,6 +439,9 @@ const renderStageEditor = stage => {
   const ratings = getStageRatings(activeStageProgress, stage);
   stageChecklistEditor.hidden = false;
   stageChecklistEditor.dataset.stage = stage;
+  const guidance = swimEnglandStageGuidance[stage] || '';
+  stageChecklistGuidance.textContent = guidance;
+  stageChecklistGuidance.hidden = !guidance;
   stageChecklistItems.innerHTML = outcomes.map((outcome, index) => {
     const outcomeId = stageOutcomeId(stage, index);
     const currentRating = ratings[outcomeId] || 'needs-practice';
@@ -379,7 +462,9 @@ const renderStageEditor = stage => {
 };
 
 swimmerForm.elements.stage.addEventListener('change', event => {
+  const previousStage = stageChecklistEditor.dataset.stage;
   captureStageChecklist();
+  recordStageCompletion(previousStage);
   renderStageEditor(event.target.value);
 });
 
@@ -495,6 +580,7 @@ const loadAdminData = async () => {
       swimmerForm.elements.parentUid.value = swimmer.parentIds?.[0] || '';
       swimmerForm.elements.stage.value = swimmer.stage || '';
       activeStageProgress = structuredClone(swimmer.stageProgress || {});
+      activeStageCompletions = { ...(swimmer.stageCompletions || {}) };
       swimmerForm.elements.instructor.value = swimmer.instructor || '';
       swimmerForm.elements.lessonDay.value = swimmer.lessonDay || '';
       renderStageEditor(swimmer.stage || '');
@@ -532,6 +618,7 @@ document.getElementById('newSwimmerBtn').addEventListener('click', () => {
   showAdminView('swimmers');
   swimmerForm.reset();
   activeStageProgress = {};
+  activeStageCompletions = {};
   renderStageEditor('');
   swimmerForm.elements.swimmerId.value = '';
   document.getElementById('swimmerFormTitle').textContent = 'Add swimmer';
@@ -543,6 +630,7 @@ document.getElementById('cancelSwimmerBtn').addEventListener('click', () => {
   swimmerForm.hidden = true;
   swimmerForm.reset();
   activeStageProgress = {};
+  activeStageCompletions = {};
   renderStageEditor('');
 });
 
@@ -552,6 +640,7 @@ swimmerForm.addEventListener('submit', async event => {
   const swimmerId = data.get('swimmerId');
   captureStageChecklist();
   const stage = data.get('stage').trim();
+  recordStageCompletion(stage);
   const calculatedProgress = calculateStageProgress(stage, activeStageProgress);
   const swimmerData = {
     name: data.get('name').trim(),
@@ -561,6 +650,7 @@ swimmerForm.addEventListener('submit', async event => {
     lessonDay: data.get('lessonDay').trim(),
     progress: calculatedProgress ?? 0,
     stageProgress: activeStageProgress,
+    stageCompletions: activeStageCompletions,
     latestNote: data.get('latestNote').trim(),
     updatedAt: serverTimestamp(),
     updatedBy: auth.currentUser.uid
@@ -577,6 +667,8 @@ swimmerForm.addEventListener('submit', async event => {
     }
     swimmerForm.hidden = true;
     swimmerForm.reset();
+    activeStageProgress = {};
+    activeStageCompletions = {};
     await loadAdminData();
     showNotice('The swimmer’s progress has been saved.', 'success');
   } catch (error) {
