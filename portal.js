@@ -237,11 +237,16 @@ const getPassedAssessments = data => {
   const completions = Object.entries(data.stageCompletions || {})
     .filter(([stage]) => getStageOutcomes(stage).length)
     .map(([stage, completion]) => ({ stage, ...completion }));
-  if (isStagePassed(data.stage, data.stageProgress) && !completions.some(completion => completion.stage === data.stage)) {
-    completions.push({ stage: data.stage, passedAt: data.updatedAt });
+  if (isStagePassed(data.stage, data.stageProgress)) {
+    const currentCompletion = completions.find(completion => completion.stage === data.stage);
+    return [currentCompletion || { stage: data.stage, passedAt: data.updatedAt }];
   }
-  const awardOrder = Object.keys(swimEnglandStages);
-  return completions.sort((a, b) => awardOrder.indexOf(a.stage) - awardOrder.indexOf(b.stage));
+  const passedAtTime = completion => {
+    const value = completion.passedAt;
+    const date = value?.toDate?.() || (value instanceof Date ? value : value ? new Date(value) : null);
+    return date && !Number.isNaN(date.getTime()) ? date.getTime() : 0;
+  };
+  return completions.sort((a, b) => passedAtTime(b) - passedAtTime(a)).slice(0, 1);
 };
 
 const stageChecklistMarkup = data => {
@@ -301,7 +306,7 @@ const swimmerCardMarkup = data => {
         </button>
         ${passedAssessments.length ? `<button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments">
           <span>View assessment results</span>
-          <small>${passedAssessments.length} award${passedAssessments.length === 1 ? '' : 's'} passed</small>
+          <small>${escapeHtml(passedAssessments[0].stage)} passed</small>
         </button>` : ''}
       </div>
       <div data-swimmer-panel="progress">
@@ -320,7 +325,7 @@ const swimmerCardMarkup = data => {
         <div class="portal-assessment-celebration">
           <p class="portal-eyebrow">Assessment results</p>
           <h3>Congratulations, ${escapeHtml(data.name)}!</h3>
-          <p>${passedAssessments.length === 1 ? `They have passed ${escapeHtml(passedAssessments[0].stage)}.` : 'They have successfully completed the awards below.'}</p>
+          <p>They have passed ${escapeHtml(passedAssessments[0].stage)}.</p>
         </div>
         <div class="portal-passed-awards">
           ${passedAssessments.map(completion => `<article>
