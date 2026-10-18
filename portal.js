@@ -315,12 +315,12 @@ const swimmerCardMarkup = data => {
       </div>
       <div class="portal-swimmer-view-options ${passedAssessments.length ? '' : 'has-one-option'}">
         ${passedAssessments.length ? `<button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments" aria-expanded="false">
-          <span>View assessment results</span>
+          <span>First Half-Term Assessment Results</span>
           <small>${escapeHtml(passedAssessments[0].stage)} passed</small>
           <b aria-hidden="true">+</b>
         </button>` : ''}
         <button class="portal-swimmer-view-button" type="button" data-swimmer-view="progress" aria-expanded="false">
-          <span>Current stage progress</span>
+          <span>Progress Towards the Next Stage</span>
           <small>${escapeHtml(data.stage)} &middot; ${progress}%</small>
           <b aria-hidden="true">+</b>
         </button>
