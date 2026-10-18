@@ -322,43 +322,47 @@ const swimmerCardMarkup = data => {
         <span class="portal-stage">${escapeHtml(data.stage)}</span>
       </div>
       <div class="portal-swimmer-view-options ${passedAssessments.length ? '' : 'has-one-option'}">
-        ${passedAssessments.length ? `<button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments" aria-expanded="false">
-          <span>First Half-Term Assessment Results</span>
-          <small>${escapeHtml(passedAssessments[0].stage)} passed</small>
-          <b aria-hidden="true">+</b>
-        </button>` : ''}
-        <button class="portal-swimmer-view-button" type="button" data-swimmer-view="progress" aria-expanded="false">
-          <span>Progress Towards the Next Stage</span>
-          <small>${escapeHtml(data.stage)} &middot; ${progress}%</small>
-          <b aria-hidden="true">+</b>
-        </button>
+        ${passedAssessments.length ? `<div class="portal-swimmer-view-item">
+          <button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments" aria-expanded="false">
+            <span>First Half-Term Assessment Results</span>
+            <small>${escapeHtml(passedAssessments[0].stage)} passed</small>
+            <b aria-hidden="true">+</b>
+          </button>
+          <section class="portal-assessment-results portal-swimmer-view-panel" data-swimmer-panel="assessments" hidden>
+            <div class="portal-assessment-celebration">
+              <p class="portal-eyebrow">Assessment results</p>
+              <h3>Congratulations, ${escapeHtml(data.name)}!</h3>
+              <p>They have passed ${escapeHtml(passedAssessments[0].stage)}.</p>
+            </div>
+            <div class="portal-passed-awards">
+              ${passedAssessments.map(completion => `<article>
+                <div class="portal-passed-award-head">
+                  <strong>${escapeHtml(completion.stage)}</strong>
+                  <time>Passed on ${escapeHtml(formatPassedDate(completion.passedAt))}</time>
+                </div>
+                <ul class="portal-assessment-requirements">
+                  ${getStageOutcomes(completion.stage).map(outcome => `<li><p>${escapeHtml(outcome)}</p><span>Pass</span></li>`).join('')}
+                </ul>
+              </article>`).join('')}
+            </div>
+          </section>
+        </div>` : ''}
+        <div class="portal-swimmer-view-item">
+          <button class="portal-swimmer-view-button" type="button" data-swimmer-view="progress" aria-expanded="false">
+            <span>Progress Towards the Next Stage</span>
+            <small>${escapeHtml(data.stage)} &middot; ${progress}%</small>
+            <b aria-hidden="true">+</b>
+          </button>
+          <div class="portal-swimmer-view-panel" data-swimmer-panel="progress" hidden>
+            <div class="portal-progress-label"><span>Overall progress</span><strong>${progress}%</strong></div>
+            <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
+              <span style="width:${progress}%"></span>
+            </div>
+            ${stageChecklistMarkup(data)}
+          </div>
+        </div>
       </div>
       ${instructorUpdate}
-      <div data-swimmer-panel="progress" hidden>
-        <div class="portal-progress-label"><span>Overall progress</span><strong>${progress}%</strong></div>
-        <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
-          <span style="width:${progress}%"></span>
-        </div>
-        ${stageChecklistMarkup(data)}
-      </div>
-      ${passedAssessments.length ? `<section class="portal-assessment-results" data-swimmer-panel="assessments" hidden>
-        <div class="portal-assessment-celebration">
-          <p class="portal-eyebrow">Assessment results</p>
-          <h3>Congratulations, ${escapeHtml(data.name)}!</h3>
-          <p>They have passed ${escapeHtml(passedAssessments[0].stage)}.</p>
-        </div>
-        <div class="portal-passed-awards">
-          ${passedAssessments.map(completion => `<article>
-            <div class="portal-passed-award-head">
-              <strong>${escapeHtml(completion.stage)}</strong>
-              <time>Passed on ${escapeHtml(formatPassedDate(completion.passedAt))}</time>
-            </div>
-            <ul class="portal-assessment-requirements">
-              ${getStageOutcomes(completion.stage).map(outcome => `<li><p>${escapeHtml(outcome)}</p><span>Pass</span></li>`).join('')}
-            </ul>
-          </article>`).join('')}
-        </div>
-      </section>` : ''}
     </article>`;
 };
 

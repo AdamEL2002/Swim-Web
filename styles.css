@@ -2920,6 +2920,10 @@ footer {
 .portal-swimmer-view-options.has-one-option {
   grid-template-columns: 1fr;
 }
+.portal-swimmer-view-item {
+  display: grid;
+  gap: 14px;
+}
 .portal-swimmer-view-button {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -2933,6 +2937,10 @@ footer {
   color: var(--navy);
   text-align: left;
   cursor: pointer;
+  width: 100%;
+}
+.portal-swimmer-view-panel {
+  margin: 0 4px 4px;
 }
 .portal-swimmer-view-button span {
   grid-column: 1;
