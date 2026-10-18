@@ -307,7 +307,7 @@ const swimmerCardMarkup = data => {
     day: 'numeric', month: 'long', year: 'numeric'
   }) || 'Awaiting first update';
   const instructorUpdate = `
-    <div class="portal-instructor-note">
+    <div class="portal-instructor-note portal-instructor-note--summary">
       <h3>Latest instructor update</h3>
       <p>${escapeHtml(data.latestNote)}</p>
       <div><span>${escapeHtml(data.instructor)}</span><span>Updated ${escapeHtml(updated)}</span></div>
@@ -333,13 +333,13 @@ const swimmerCardMarkup = data => {
           <b aria-hidden="true">+</b>
         </button>
       </div>
+      ${instructorUpdate}
       <div data-swimmer-panel="progress" hidden>
         <div class="portal-progress-label"><span>Overall progress</span><strong>${progress}%</strong></div>
         <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
           <span style="width:${progress}%"></span>
         </div>
         ${stageChecklistMarkup(data)}
-        ${instructorUpdate}
       </div>
       ${passedAssessments.length ? `<section class="portal-assessment-results" data-swimmer-panel="assessments" hidden>
         <div class="portal-assessment-celebration">
@@ -358,7 +358,6 @@ const swimmerCardMarkup = data => {
             </ul>
           </article>`).join('')}
         </div>
-        ${instructorUpdate}
       </section>` : ''}
     </article>`;
 };
