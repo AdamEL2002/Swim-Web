@@ -41,6 +41,9 @@ const loginForm = document.getElementById('loginForm');
 const portalNotice = document.getElementById('portalNotice');
 const parentPanel = document.getElementById('parentPanel');
 const adminPanel = document.getElementById('adminPanel');
+const adminHome = document.getElementById('adminHome');
+const parentsAdminView = document.getElementById('parentsAdminView');
+const swimmersAdminView = document.getElementById('swimmersAdminView');
 const swimmerForm = document.getElementById('swimmerForm');
 const stageChecklistEditor = document.getElementById('stageChecklistEditor');
 const stageChecklistItems = document.getElementById('stageChecklistItems');
@@ -61,6 +64,22 @@ const showNotice = (message, type = 'info') => {
 const clearNotice = () => {
   portalNotice.hidden = true;
 };
+
+const showAdminView = view => {
+  adminHome.hidden = view !== 'home';
+  parentsAdminView.hidden = view !== 'parents';
+  swimmersAdminView.hidden = view !== 'swimmers';
+  swimmerForm.hidden = true;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+document.querySelectorAll('[data-admin-view]').forEach(button => {
+  button.addEventListener('click', () => showAdminView(button.dataset.adminView));
+});
+
+document.querySelectorAll('[data-admin-home]').forEach(button => {
+  button.addEventListener('click', () => showAdminView('home'));
+});
 
 const friendlyAuthError = error => {
   const messages = {
@@ -371,6 +390,8 @@ const loadAdminData = async () => {
   ]);
   const activeSwimmerDocs = swimmersSnapshot.docs.filter(swimmerDoc => !swimmerDoc.data().archived);
   const activeParentDocs = usersSnapshot.docs.filter(userDoc => userDoc.data().accountStatus !== 'inactive');
+  document.getElementById('adminParentCount').textContent = `${usersSnapshot.size} parent account${usersSnapshot.size === 1 ? '' : 's'}`;
+  document.getElementById('adminSwimmerCount').textContent = `${activeSwimmerDocs.length} active swimmer${activeSwimmerDocs.length === 1 ? '' : 's'}`;
 
   const parentSelect = swimmerForm.elements.parentUid;
   const currentValue = parentSelect.value;
@@ -508,6 +529,7 @@ const loadAdminData = async () => {
 };
 
 document.getElementById('newSwimmerBtn').addEventListener('click', () => {
+  showAdminView('swimmers');
   swimmerForm.reset();
   activeStageProgress = {};
   renderStageEditor('');
@@ -603,6 +625,7 @@ onAuthStateChanged(auth, async user => {
     }
     if (role === 'admin') {
       adminPanel.hidden = false;
+      showAdminView('home');
       await loadAdminData();
     } else {
       parentPanel.hidden = false;

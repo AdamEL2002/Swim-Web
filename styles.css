@@ -3054,6 +3054,68 @@ footer {
 .portal-admin-heading h2 {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
 }
+.portal-admin-menu {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.portal-admin-menu-button {
+  display: grid;
+  gap: 6px;
+  min-height: 180px;
+  padding: 26px;
+  border: 1px solid #b8d7dd;
+  border-top: 5px solid var(--aqua);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--navy);
+  text-align: left;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+}
+.portal-admin-menu-button:hover,
+.portal-admin-menu-button:focus-visible {
+  border-color: #258da1;
+  background: #f4fbfc;
+  transform: translateY(-2px);
+}
+.portal-admin-menu-button > span {
+  font-family: var(--ff-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+}
+.portal-admin-menu-button small {
+  color: #52697c;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+.portal-admin-menu-button strong {
+  align-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #d3e4e8;
+  color: #276d7d;
+  font-size: 0.86rem;
+}
+.portal-admin-view {
+  min-width: 0;
+}
+.portal-admin-heading-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.portal-admin-back {
+  border: 1px solid var(--navy);
+  background: var(--white);
+  color: var(--navy);
+}
 .portal-admin-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
@@ -3362,6 +3424,9 @@ footer {
   .portal-admin-layout {
     grid-template-columns: 1fr;
   }
+  .portal-admin-menu {
+    grid-template-columns: 1fr;
+  }
   .portal-intro {
     text-align: center;
   }
@@ -3423,6 +3488,10 @@ footer {
   .portal-swimmer-head {
     align-items: flex-start;
     flex-direction: column;
+  }
+  .portal-admin-heading-actions {
+    width: 100%;
+    justify-content: flex-start;
   }
   .portal-form-row {
     grid-template-columns: 1fr;

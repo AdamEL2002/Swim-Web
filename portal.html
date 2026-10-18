@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261018-2" />
+  <link rel="stylesheet" href="styles.css?v=20261018-3" />
 </head>
 <body class="portal-page">
   <header class="portal-topbar">
@@ -70,108 +70,144 @@
       </div>
 
       <section id="adminPanel" class="portal-admin" hidden>
-        <div class="portal-admin-heading">
-          <div>
-            <p class="section-label">Instructor Area</p>
-            <h2>Manage Swimmer Progress</h2>
+        <div id="adminHome">
+          <div class="portal-admin-heading">
+            <div>
+              <p class="section-label">Instructor Area</p>
+              <h2>Account Dashboard</h2>
+            </div>
           </div>
-          <button class="btn btn-primary" id="newSwimmerBtn" type="button">Add swimmer</button>
+          <div class="portal-admin-menu">
+            <button class="portal-admin-menu-button" type="button" data-admin-view="parents">
+              <span>Manage parents</span>
+              <small id="adminParentCount">Loading accounts...</small>
+              <strong>View parents <span aria-hidden="true">&rarr;</span></strong>
+            </button>
+            <button class="portal-admin-menu-button" type="button" data-admin-view="swimmers">
+              <span>Manage swimmers</span>
+              <small id="adminSwimmerCount">Loading swimmers...</small>
+              <strong>View swimmers <span aria-hidden="true">&rarr;</span></strong>
+            </button>
+          </div>
         </div>
 
-        <form id="parentAccountForm" class="portal-parent-creator">
-          <div>
-            <h3>Create a Parent Account</h3>
-            <p>Choose a temporary password, then send the login details to the parent privately.</p>
-          </div>
-          <label>Parent's full name
-            <input type="text" name="fullName" autocomplete="off" required />
-          </label>
-          <label>Parent's email address
-            <input type="email" name="email" autocomplete="off" required />
-          </label>
-          <label>Temporary password
-            <span class="portal-password-input">
-              <input id="temporaryPassword" type="password" name="temporaryPassword" minlength="8" autocomplete="new-password" required />
-              <button id="temporaryPasswordToggle" class="portal-password-toggle" type="button" aria-controls="temporaryPassword" aria-pressed="false">Show</button>
-            </span>
-          </label>
-          <button class="btn btn-primary" type="submit">Create Parent Account</button>
-        </form>
-
-        <section class="portal-parent-accounts" aria-labelledby="parentAccountsTitle">
-          <div>
-            <h3 id="parentAccountsTitle">Parent Accounts</h3>
-            <p>View login emails, send password resets, or deactivate accounts that are no longer needed.</p>
-          </div>
-          <div id="parentAccountList" class="portal-parent-account-list"></div>
-          <p id="noParentAccounts" class="portal-parent-account-empty" hidden>No parent accounts have been created yet.</p>
-        </section>
-
-        <div class="portal-admin-layout">
-          <form id="swimmerForm" class="portal-editor" hidden>
-            <h3 id="swimmerFormTitle">Add swimmer</h3>
-            <input type="hidden" name="swimmerId" />
-            <label>Swimmer's name
-              <input type="text" name="name" required />
-            </label>
-            <label>Parent account
-              <select name="parentUid" required>
-                <option value="">Select a parent account</option>
-              </select>
-            </label>
-            <div class="portal-form-row">
-              <label>Current level or stage
-                <select name="stage" required>
-                  <option value="">Select a level</option>
-                  <optgroup label="Duckling Awards">
-                    <option>Duckling 1</option>
-                    <option>Duckling 2</option>
-                    <option>Duckling 3</option>
-                    <option>Duckling 4</option>
-                  </optgroup>
-                  <optgroup label="Learn to Swim Stages">
-                    <option>Stage 1</option>
-                    <option>Stage 2</option>
-                    <option>Stage 3</option>
-                    <option>Stage 4</option>
-                    <option>Stage 5</option>
-                    <option>Stage 6</option>
-                    <option>Stage 7</option>
-                  </optgroup>
-                </select>
-              </label>
-              <label>Instructor
-                <input type="text" name="instructor" placeholder="e.g. Adam" required />
-              </label>
+        <section id="parentsAdminView" class="portal-admin-view" hidden>
+          <div class="portal-admin-heading">
+            <div>
+              <p class="section-label">Instructor Area</p>
+              <h2>Manage Parents</h2>
             </div>
-            <label>Lesson day
-              <input type="text" name="lessonDay" placeholder="e.g. Monday" />
-            </label>
-            <fieldset class="portal-stage-editor" id="stageChecklistEditor" hidden>
-              <legend>Swim England requirements</legend>
-              <div class="portal-stage-editor-head">
-                <p>Choose the swimmer's current level for each skill.</p>
-                <strong id="stageChecklistCount">0 of 0 passed</strong>
-              </div>
-              <div id="stageChecklistItems" class="portal-stage-checks"></div>
-            </fieldset>
-            <label>Latest instructor update
-              <textarea name="latestNote" rows="4" required></textarea>
-            </label>
-            <div class="portal-editor-actions">
-              <button class="btn btn-primary" type="submit">Save progress</button>
-              <button class="btn portal-cancel" id="cancelSwimmerBtn" type="button">Cancel</button>
+            <button class="btn portal-admin-back" type="button" data-admin-home>&larr; Back to dashboard</button>
+          </div>
+
+          <form id="parentAccountForm" class="portal-parent-creator">
+            <div>
+              <h3>Create a Parent Account</h3>
+              <p>Choose a temporary password, then send the login details to the parent privately.</p>
             </div>
+            <label>Parent's full name
+              <input type="text" name="fullName" autocomplete="off" required />
+            </label>
+            <label>Parent's email address
+              <input type="email" name="email" autocomplete="off" required />
+            </label>
+            <label>Temporary password
+              <span class="portal-password-input">
+                <input id="temporaryPassword" type="password" name="temporaryPassword" minlength="8" autocomplete="new-password" required />
+                <button id="temporaryPasswordToggle" class="portal-password-toggle" type="button" aria-controls="temporaryPassword" aria-pressed="false">Show</button>
+              </span>
+            </label>
+            <button class="btn btn-primary" type="submit">Create Parent Account</button>
           </form>
 
-          <div>
-            <div id="adminSwimmerList" class="portal-admin-list"></div>
-            <div id="noAdminSwimmers" class="portal-empty" hidden>
-              <h3>No swimmers added yet</h3>
-              <p>Create the first swimmer record and link it to a registered parent.</p>
+          <section class="portal-parent-accounts" aria-labelledby="parentAccountsTitle">
+            <div>
+              <h3 id="parentAccountsTitle">Parent Accounts</h3>
+              <p>View login emails, send password resets, or deactivate accounts that are no longer needed.</p>
+            </div>
+            <div id="parentAccountList" class="portal-parent-account-list"></div>
+            <p id="noParentAccounts" class="portal-parent-account-empty" hidden>No parent accounts have been created yet.</p>
+          </section>
+        </section>
+
+        <section id="swimmersAdminView" class="portal-admin-view" hidden>
+          <div class="portal-admin-heading">
+            <div>
+              <p class="section-label">Instructor Area</p>
+              <h2>Manage Swimmers</h2>
+            </div>
+            <div class="portal-admin-heading-actions">
+              <button class="btn portal-admin-back" type="button" data-admin-home>&larr; Back to dashboard</button>
+              <button class="btn btn-primary" id="newSwimmerBtn" type="button">Add swimmer</button>
             </div>
           </div>
-        </div>
+
+          <div class="portal-admin-layout">
+            <form id="swimmerForm" class="portal-editor" hidden>
+              <h3 id="swimmerFormTitle">Add swimmer</h3>
+              <input type="hidden" name="swimmerId" />
+              <label>Swimmer's name
+                <input type="text" name="name" required />
+              </label>
+              <label>Parent account
+                <select name="parentUid" required>
+                  <option value="">Select a parent account</option>
+                </select>
+              </label>
+              <div class="portal-form-row">
+                <label>Current level or stage
+                  <select name="stage" required>
+                    <option value="">Select a level</option>
+                    <optgroup label="Duckling Awards">
+                      <option>Duckling 1</option>
+                      <option>Duckling 2</option>
+                      <option>Duckling 3</option>
+                      <option>Duckling 4</option>
+                    </optgroup>
+                    <optgroup label="Learn to Swim Stages">
+                      <option>Stage 1</option>
+                      <option>Stage 2</option>
+                      <option>Stage 3</option>
+                      <option>Stage 4</option>
+                      <option>Stage 5</option>
+                      <option>Stage 6</option>
+                      <option>Stage 7</option>
+                    </optgroup>
+                  </select>
+                </label>
+                <label>Instructor
+                  <input type="text" name="instructor" placeholder="e.g. Adam" required />
+                </label>
+              </div>
+              <label>Lesson day
+                <input type="text" name="lessonDay" placeholder="e.g. Monday" />
+              </label>
+              <fieldset class="portal-stage-editor" id="stageChecklistEditor" hidden>
+                <legend>Swim England requirements</legend>
+                <div class="portal-stage-editor-head">
+                  <p>Choose the swimmer's current level for each skill.</p>
+                  <strong id="stageChecklistCount">0 of 0 passed</strong>
+                </div>
+                <div id="stageChecklistItems" class="portal-stage-checks"></div>
+              </fieldset>
+              <label>Latest instructor update
+                <textarea name="latestNote" rows="4" required></textarea>
+              </label>
+              <div class="portal-editor-actions">
+                <button class="btn btn-primary" type="submit">Save progress</button>
+                <button class="btn portal-cancel" id="cancelSwimmerBtn" type="button">Cancel</button>
+              </div>
+            </form>
+
+            <div>
+              <div id="adminSwimmerList" class="portal-admin-list"></div>
+              <div id="noAdminSwimmers" class="portal-empty" hidden>
+                <h3>No swimmers added yet</h3>
+                <p>Create the first swimmer record and link it to a registered parent.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
     </section>
   </main>
@@ -181,6 +217,6 @@
     <a href="mailto:barnetpremierswim@gmail.com">Need help?</a>
   </footer>
 
-  <script type="module" src="portal.js?v=20261018-2"></script>
+  <script type="module" src="portal.js?v=20261018-3"></script>
 </body>
 </html>
