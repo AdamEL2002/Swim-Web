@@ -239,7 +239,11 @@ const getPassedAssessments = data => {
     .map(([stage, completion]) => ({ stage, ...completion }));
   if (isStagePassed(data.stage, data.stageProgress)) {
     const currentCompletion = completions.find(completion => completion.stage === data.stage);
-    return [currentCompletion || { stage: data.stage, passedAt: data.updatedAt }];
+    return [currentCompletion || {
+      stage: data.stage,
+      passedAt: data.updatedAt,
+      ratings: { ...getStageRatings(data.stageProgress, data.stage) }
+    }];
   }
   const passedAtTime = completion => {
     const value = completion.passedAt;
@@ -248,6 +252,16 @@ const getPassedAssessments = data => {
   };
   return completions.sort((a, b) => passedAtTime(b) - passedAtTime(a)).slice(0, 1);
 };
+
+const getNextStage = stage => {
+  const stages = Object.keys(swimEnglandStages);
+  const currentIndex = stages.indexOf(stage);
+  return currentIndex >= 0 ? stages[currentIndex + 1] || null : null;
+};
+
+const initialStageRatings = stage => Object.fromEntries(
+  getStageOutcomes(stage).map((outcome, index) => [stageOutcomeId(stage, index), 'needs-practice'])
+);
 
 const stageChecklistMarkup = data => {
   const outcomes = getStageOutcomes(data.stage);
@@ -329,8 +343,13 @@ const swimmerCardMarkup = data => {
         </div>
         <div class="portal-passed-awards">
           ${passedAssessments.map(completion => `<article>
-            <div><strong>${escapeHtml(completion.stage)}</strong><span>All requirements passed</span></div>
-            <time>Passed on ${escapeHtml(formatPassedDate(completion.passedAt))}</time>
+            <div class="portal-passed-award-head">
+              <strong>${escapeHtml(completion.stage)}</strong>
+              <time>Passed on ${escapeHtml(formatPassedDate(completion.passedAt))}</time>
+            </div>
+            <ul class="portal-assessment-requirements">
+              ${getStageOutcomes(completion.stage).map(outcome => `<li><p>${escapeHtml(outcome)}</p><span>Pass</span></li>`).join('')}
+            </ul>
           </article>`).join('')}
         </div>
       </section>` : ''}
@@ -479,6 +498,33 @@ const loadAdminData = async () => {
     getDocs(collection(db, 'swimmers'))
   ]);
   const activeSwimmerDocs = swimmersSnapshot.docs.filter(swimmerDoc => !swimmerDoc.data().archived);
+  const swimmersAwaitingNextStage = activeSwimmerDocs.filter(swimmerDoc => {
+    const swimmer = swimmerDoc.data();
+    return isStagePassed(swimmer.stage, swimmer.stageProgress) && getNextStage(swimmer.stage);
+  });
+  if (swimmersAwaitingNextStage.length) {
+    await Promise.all(swimmersAwaitingNextStage.map(swimmerDoc => {
+      const swimmer = swimmerDoc.data();
+      const passedStage = swimmer.stage;
+      const nextStage = getNextStage(passedStage);
+      const stageProgress = { ...(swimmer.stageProgress || {}) };
+      stageProgress[nextStage] = stageProgress[nextStage] || initialStageRatings(nextStage);
+      const stageCompletions = { ...(swimmer.stageCompletions || {}) };
+      stageCompletions[passedStage] = stageCompletions[passedStage] || {
+        passedAt: swimmer.updatedAt || new Date(),
+        ratings: { ...getStageRatings(swimmer.stageProgress, passedStage) }
+      };
+      return updateDoc(doc(db, 'swimmers', swimmerDoc.id), {
+        stage: nextStage,
+        progress: calculateStageProgress(nextStage, stageProgress),
+        stageProgress,
+        stageCompletions,
+        stageAdvancedAt: serverTimestamp(),
+        updatedBy: auth.currentUser.uid
+      });
+    }));
+    return loadAdminData();
+  }
   const activeParentDocs = usersSnapshot.docs.filter(userDoc => userDoc.data().accountStatus !== 'inactive');
   document.getElementById('adminParentCount').textContent = `${usersSnapshot.size} parent account${usersSnapshot.size === 1 ? '' : 's'}`;
   document.getElementById('adminSwimmerCount').textContent = `${activeSwimmerDocs.length} active swimmer${activeSwimmerDocs.length === 1 ? '' : 's'}`;
@@ -644,8 +690,15 @@ swimmerForm.addEventListener('submit', async event => {
   const data = new FormData(swimmerForm);
   const swimmerId = data.get('swimmerId');
   captureStageChecklist();
-  const stage = data.get('stage').trim();
+  let stage = data.get('stage').trim();
+  const assessedStage = stage;
   recordStageCompletion(stage);
+  const hasPassedAssessment = isStagePassed(stage, activeStageProgress);
+  const nextStage = hasPassedAssessment ? getNextStage(stage) : null;
+  if (nextStage) {
+    stage = nextStage;
+    activeStageProgress[stage] = activeStageProgress[stage] || initialStageRatings(stage);
+  }
   const calculatedProgress = calculateStageProgress(stage, activeStageProgress);
   const swimmerData = {
     name: data.get('name').trim(),
@@ -675,7 +728,11 @@ swimmerForm.addEventListener('submit', async event => {
     activeStageProgress = {};
     activeStageCompletions = {};
     await loadAdminData();
-    showNotice('The swimmer’s progress has been saved.', 'success');
+    showNotice(nextStage
+      ? `${swimmerData.name} has passed ${assessedStage} and moved to ${nextStage}.`
+      : hasPassedAssessment
+        ? `${swimmerData.name} has passed ${assessedStage}.`
+        : 'The swimmer’s progress has been saved.', 'success');
   } catch (error) {
     showNotice('The progress could not be saved. Please check your instructor access and try again.', 'error');
   }

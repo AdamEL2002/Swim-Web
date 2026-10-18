@@ -3092,24 +3092,22 @@ footer {
   gap: 10px;
 }
 .portal-passed-awards article {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
   padding: 14px 16px;
   border: 1px solid #b9d9c7;
   border-radius: 7px;
   background: #eef8f2;
 }
-.portal-passed-awards article > div {
-  display: grid;
-  gap: 2px;
+.portal-passed-award-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
 }
 .portal-passed-awards strong {
   color: #1f5139;
   font-size: 1rem;
 }
-.portal-passed-awards span,
 .portal-passed-awards time {
   color: #496c5b;
   font-size: 0.8rem;
@@ -3117,6 +3115,34 @@ footer {
 }
 .portal-passed-awards time {
   white-space: nowrap;
+}
+.portal-assessment-requirements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
+.portal-assessment-requirements li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 1px solid #cfe3d7;
+  border-radius: 5px;
+  background: var(--white);
+  color: #315541;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+.portal-assessment-requirements span {
+  min-width: 52px;
+  padding: 4px 7px;
+  border-radius: 50px;
+  background: #dcefe4;
+  color: #246241;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 800;
 }
 .portal-instructor-note > p {
   color: #334b60;
@@ -3606,6 +3632,9 @@ footer {
   .portal-stage-checklist ul {
     grid-template-columns: 1fr;
   }
+  .portal-assessment-requirements {
+    grid-template-columns: 1fr;
+  }
   .portal-stage-checklist-head,
   .portal-stage-editor-head {
     flex-direction: column;
@@ -3615,7 +3644,7 @@ footer {
   }
   .portal-instructor-note > div,
   .portal-admin-row,
-  .portal-passed-awards article,
+  .portal-passed-award-head,
   .portal-footer {
     align-items: flex-start;
     flex-direction: column;
