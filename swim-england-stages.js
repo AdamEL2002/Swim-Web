@@ -1,6 +1,47 @@
 export const swimEnglandSource = 'https://www.swimming.org/learntoswim/swim-england-learn-to.swim-awards-1-7/';
+export const swimEnglandDucklingSource = 'https://www.swimming.org/learntoswim/swim-england-duckling-awards/';
 
 export const swimEnglandStages = {
+  'Duckling 1': [
+    'Enter the water safely under supervision, with adult support if needed',
+    'Float on the back without flotation equipment while an adult supports behind the head',
+    'Blow bubbles at the surface of the water',
+    'Wet the head without going underwater',
+    'Kick for 5 metres on the back with adult support',
+    'Travel 2 metres to a floating object without adult support',
+    'Enter the pool, turn and return to the side with adult support',
+    'Leave the water safely with minimal adult support'
+  ],
+  'Duckling 2': [
+    'Make a seated entry with adult support if needed',
+    'Rotate 180 degrees using a log roll or upright turn, with flotation equipment and no adult support',
+    'Confidently put the face underwater with adult supervision',
+    'Blow an object across the water for 2 metres',
+    'Travel 3 metres using the arms and/or legs without adult support',
+    'Move 5 metres along the pool wall or rail without adult support',
+    'Enter the pool, turn and return to the side with minimal adult support',
+    'Leave the water safely with minimal adult support'
+  ],
+  'Duckling 3': [
+    'Make a supervised jump towards an adult, with or without support',
+    'Float on the front or back without adult support',
+    'Push away from a supporting adult in a streamlined position on the front or back',
+    'Blow bubbles through the mouth and nose underwater',
+    'Travel 5 metres on the front to the poolside without adult support',
+    'Kick 5 metres on the front while holding a float',
+    'Enter the pool, turn and return to the side without adult support',
+    'Climb out of the water with adult support if needed'
+  ],
+  'Duckling 4': [
+    'Jump into the water independently while supervised',
+    'Perform a mushroom float or star float',
+    'Rotate through 360 degrees using a log roll or upright turn',
+    'Push and glide in a streamlined position on the front or back',
+    'Go completely underwater',
+    'Travel 10 metres on the front or back without adult support',
+    'Jump in, turn, return to the entry point and hold the side or rail',
+    'Climb out of the water with adult support if needed'
+  ],
   'Stage 1': [
     'Enter the water safely',
     'Travel forwards for 5 metres, with or without feet on the floor',
@@ -96,4 +137,4 @@ export const swimEnglandStages = {
   ]
 };
 
-export const stageOutcomeId = (stage, index) => `${stage.toLowerCase().replace(' ', '-')}-${index + 1}`;
+export const stageOutcomeId = (stage, index) => `${stage.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${index + 1}`;

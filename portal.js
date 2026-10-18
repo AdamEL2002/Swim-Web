@@ -22,7 +22,12 @@ import {
   where
 } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
-import { stageOutcomeId, swimEnglandSource, swimEnglandStages } from './swim-england-stages.js';
+import {
+  stageOutcomeId,
+  swimEnglandDucklingSource,
+  swimEnglandSource,
+  swimEnglandStages
+} from './swim-england-stages.js?v=20261018-1';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -184,6 +189,11 @@ const stageChecklistMarkup = data => {
   if (!outcomes.length) return '';
   const completed = new Set(getCompletedOutcomes(data.stageProgress, data.stage));
   const headingId = `stage-checklist-${String(data.name || 'swimmer').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const isDuckling = data.stage?.startsWith('Duckling');
+  const officialSource = isDuckling ? swimEnglandDucklingSource : swimEnglandSource;
+  const officialLinkText = isDuckling
+    ? 'View the official Swim England Duckling 1–4 outcomes'
+    : 'View the official Swim England Stage 1–7 outcomes';
   return `
     <section class="portal-stage-checklist" aria-labelledby="${headingId}">
       <div class="portal-stage-checklist-head">
@@ -200,7 +210,7 @@ const stageChecklistMarkup = data => {
           return `<li class="${achieved ? 'is-complete' : ''}"><span aria-hidden="true">${achieved ? '✓' : ''}</span><p>${escapeHtml(outcome)}</p></li>`;
         }).join('')}
       </ul>
-      <a href="${swimEnglandSource}" target="_blank" rel="noopener noreferrer">View the official Swim England Stage 1–7 outcomes</a>
+      <a href="${officialSource}" target="_blank" rel="noopener noreferrer">${officialLinkText}</a>
     </section>`;
 };
 
