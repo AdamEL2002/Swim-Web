@@ -314,16 +314,18 @@ const swimmerCardMarkup = data => {
         <span class="portal-stage">${escapeHtml(data.stage)}</span>
       </div>
       <div class="portal-swimmer-view-options ${passedAssessments.length ? '' : 'has-one-option'}">
-        <button class="portal-swimmer-view-button is-active" type="button" data-swimmer-view="progress">
-          <span>Current stage progress</span>
-          <small>${escapeHtml(data.stage)} &middot; ${progress}%</small>
-        </button>
-        ${passedAssessments.length ? `<button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments">
+        ${passedAssessments.length ? `<button class="portal-swimmer-view-button" type="button" data-swimmer-view="assessments" aria-expanded="false">
           <span>View assessment results</span>
           <small>${escapeHtml(passedAssessments[0].stage)} passed</small>
+          <b aria-hidden="true">+</b>
         </button>` : ''}
+        <button class="portal-swimmer-view-button" type="button" data-swimmer-view="progress" aria-expanded="false">
+          <span>Current stage progress</span>
+          <small>${escapeHtml(data.stage)} &middot; ${progress}%</small>
+          <b aria-hidden="true">+</b>
+        </button>
       </div>
-      <div data-swimmer-panel="progress">
+      <div data-swimmer-panel="progress" hidden>
         <div class="portal-progress-label"><span>Overall progress</span><strong>${progress}%</strong></div>
         <div class="portal-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
           <span style="width:${progress}%"></span>
@@ -362,10 +364,21 @@ const wireSwimmerCardViews = container => {
     const panels = card.querySelectorAll('[data-swimmer-panel]');
     buttons.forEach(button => {
       button.addEventListener('click', () => {
-        buttons.forEach(item => item.classList.toggle('is-active', item === button));
-        panels.forEach(panel => {
-          panel.hidden = panel.dataset.swimmerPanel !== button.dataset.swimmerView;
+        const shouldClose = button.classList.contains('is-active');
+        buttons.forEach(item => {
+          item.classList.remove('is-active');
+          item.setAttribute('aria-expanded', 'false');
+          const indicator = item.querySelector('b');
+          if (indicator) indicator.textContent = '+';
         });
+        panels.forEach(panel => { panel.hidden = true; });
+        if (shouldClose) return;
+        button.classList.add('is-active');
+        button.setAttribute('aria-expanded', 'true');
+        const indicator = button.querySelector('b');
+        if (indicator) indicator.textContent = '−';
+        const activePanel = card.querySelector(`[data-swimmer-panel="${button.dataset.swimmerView}"]`);
+        if (activePanel) activePanel.hidden = false;
       });
     });
   });

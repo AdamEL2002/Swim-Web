@@ -2913,18 +2913,21 @@ footer {
 }
 .portal-swimmer-view-options {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 28px;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 .portal-swimmer-view-options.has-one-option {
-  grid-template-columns: minmax(220px, 0.55fr);
+  grid-template-columns: 1fr;
 }
 .portal-swimmer-view-button {
   display: grid;
-  gap: 4px;
-  padding: 16px 18px;
-  border: 1px solid #b8d7dd;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px 18px;
+  align-items: center;
+  min-height: 94px;
+  padding: 20px 22px;
+  border: 2px solid #a9ced6;
   border-radius: 7px;
   background: var(--white);
   color: var(--navy);
@@ -2932,12 +2935,28 @@ footer {
   cursor: pointer;
 }
 .portal-swimmer-view-button span {
+  grid-column: 1;
   font-weight: 800;
+  font-size: 1.08rem;
 }
 .portal-swimmer-view-button small {
+  grid-column: 1;
   color: #5b7182;
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 700;
+}
+.portal-swimmer-view-button b {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #dff4f7;
+  color: var(--navy);
+  font-size: 1.35rem;
+  line-height: 1;
 }
 .portal-swimmer-view-button:hover,
 .portal-swimmer-view-button:focus-visible,
