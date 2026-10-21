@@ -3604,7 +3604,8 @@ footer {
   color: var(--navy);
   font-weight: 700;
 }
-.portal-search input {
+.portal-search input,
+.portal-search select {
   width: 100%;
   min-width: 0;
   padding: 12px 14px;
@@ -3614,7 +3615,8 @@ footer {
   color: var(--navy);
   font: inherit;
 }
-.portal-search input:focus-visible {
+.portal-search input:focus-visible,
+.portal-search select:focus-visible {
   outline: 2px solid #258da1;
   outline-offset: 2px;
 }
@@ -3624,6 +3626,16 @@ footer {
 .portal-search-empty {
   padding: 16px 0;
   color: var(--navy);
+}
+.portal-directory-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 560px) {
+  .portal-directory-filters {
+    grid-template-columns: 1fr;
+  }
 }
 .portal-parent-account-row[hidden],
 .portal-admin-row[hidden] {

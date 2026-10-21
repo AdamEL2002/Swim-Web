@@ -80,9 +80,59 @@ const filterDirectory = (inputId, listId, emptyId) => {
 };
 
 const filterParents = () => filterDirectory('parentSearch', 'parentAccountList', 'noParentSearchResults');
-const filterSwimmers = () => filterDirectory('swimmerSearch', 'adminSwimmerList', 'noSwimmerSearchResults');
+const lessonDays = ['Monday', 'Thursday'];
+const instructors = ['Vahid', 'Adam', 'Victoria', 'Ikram'];
+const matchingChoices = (value, choices) => choices.filter(choice =>
+  new RegExp(`\\b${choice}s?\\b`, 'i').test(String(value || ''))
+);
+const normalizedChoice = (value, choices) => {
+  const matches = matchingChoices(value, choices);
+  return matches.length === 1 ? matches[0] : String(value || '').trim();
+};
+const setExistingChoice = (select, value, choices) => {
+  select.querySelectorAll('[data-existing-choice]').forEach(option => option.remove());
+  const normalized = normalizedChoice(value, choices);
+  if (normalized && !choices.includes(normalized)) {
+    const option = new Option(normalized, normalized);
+    option.dataset.existingChoice = 'true';
+    select.add(option);
+  }
+  select.value = normalized;
+};
+const filterSwimmers = () => {
+  filterDirectory('swimmerSearch', 'adminSwimmerList', 'noSwimmerSearchResults');
+  const list = document.getElementById('adminSwimmerList');
+  const rows = Array.from(list.children);
+  const day = document.getElementById('swimmerDayFilter').value;
+  const instructor = document.getElementById('swimmerInstructorFilter').value;
+  const sort = document.getElementById('swimmerSort').value;
+  rows.forEach(row => {
+    row.hidden = row.hidden
+      || (Boolean(day) && !matchingChoices(row.dataset.day, lessonDays).includes(day))
+      || (Boolean(instructor) && !matchingChoices(row.dataset.instructor, instructors).includes(instructor));
+  });
+  const compareNames = (a, b) => a.dataset.name.localeCompare(b.dataset.name, 'en-GB', { sensitivity: 'base' });
+  rows.sort((a, b) => {
+    if (sort === 'day') {
+      const dayOrder = value => {
+        const matches = matchingChoices(value, lessonDays);
+        return matches.length ? lessonDays.indexOf(matches[0]) : lessonDays.length;
+      };
+      return dayOrder(a.dataset.day) - dayOrder(b.dataset.day) || compareNames(a, b);
+    }
+    if (sort === 'instructor') {
+      return a.dataset.instructor.localeCompare(b.dataset.instructor, 'en-GB', { sensitivity: 'base' }) || compareNames(a, b);
+    }
+    return compareNames(a, b);
+  });
+  rows.forEach(row => list.append(row));
+  document.getElementById('noSwimmerSearchResults').hidden = !rows.length || rows.some(row => !row.hidden);
+};
 document.getElementById('parentSearch').addEventListener('input', filterParents);
 document.getElementById('swimmerSearch').addEventListener('input', filterSwimmers);
+['swimmerDayFilter', 'swimmerInstructorFilter', 'swimmerSort'].forEach(id => {
+  document.getElementById(id).addEventListener('change', filterSwimmers);
+});
 
 const showAdminView = view => {
   adminHome.hidden = view !== 'home';
@@ -673,8 +723,10 @@ const loadAdminData = async () => {
   list.innerHTML = activeSwimmerDocs.map(swimmerDoc => {
     const swimmer = swimmerDoc.data();
     const parentUid = swimmer.parentIds?.[0] || '';
-    return `<article class="portal-admin-row" data-search="${escapeHtml(`${swimmer.name || ''} ${swimmer.stage || ''} ${swimmer.lessonDay || ''}`)}">
-      <div><strong>${escapeHtml(swimmer.name)}</strong><span>${escapeHtml(swimmer.stage)} · ${escapeHtml(swimmer.lessonDay || 'Day not set')}</span></div>
+    const day = normalizedChoice(swimmer.lessonDay, lessonDays);
+    const instructor = normalizedChoice(swimmer.instructor, instructors);
+    return `<article class="portal-admin-row" data-name="${escapeHtml(swimmer.name)}" data-day="${escapeHtml(day)}" data-instructor="${escapeHtml(instructor)}" data-search="${escapeHtml(`${swimmer.name || ''} ${swimmer.stage || ''} ${day} ${instructor}`)}">
+      <div><strong>${escapeHtml(swimmer.name)}</strong><span>${escapeHtml(swimmer.stage)} · ${escapeHtml(day || 'Day not set')}</span><span>${escapeHtml(instructor || 'Instructor not set')}</span></div>
       <div class="portal-admin-row-actions">
         <button class="portal-preview-button" type="button" data-preview-parent="${escapeHtml(parentUid)}" ${parentUid ? '' : 'disabled'}>Preview parent view</button>
         <button class="portal-edit-button" type="button" data-edit-swimmer="${escapeHtml(swimmerDoc.id)}">Edit progress</button>
@@ -727,8 +779,8 @@ const loadAdminData = async () => {
       swimmerForm.elements.stage.value = swimmer.stage || '';
       activeStageProgress = structuredClone(swimmer.stageProgress || {});
       activeStageCompletions = { ...(swimmer.stageCompletions || {}) };
-      swimmerForm.elements.instructor.value = swimmer.instructor || '';
-      swimmerForm.elements.lessonDay.value = swimmer.lessonDay || '';
+      setExistingChoice(swimmerForm.elements.instructor, swimmer.instructor, instructors);
+      setExistingChoice(swimmerForm.elements.lessonDay, swimmer.lessonDay, lessonDays);
       renderStageEditor(swimmer.stage || '');
       swimmerForm.elements.latestNote.value = swimmer.latestNote || '';
       document.getElementById('swimmerFormTitle').textContent = `Update ${swimmer.name}`;

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261021-2" />
+  <link rel="stylesheet" href="styles.css?v=20261021-3" />
 </head>
 <body class="portal-page">
   <header class="portal-topbar">
@@ -176,11 +176,21 @@
                   </select>
                 </label>
                 <label>Instructor
-                  <input type="text" name="instructor" placeholder="e.g. Adam" required />
+                  <select name="instructor" required>
+                    <option value="">Select an instructor</option>
+                    <option>Vahid</option>
+                    <option>Adam</option>
+                    <option>Victoria</option>
+                    <option>Ikram</option>
+                  </select>
                 </label>
               </div>
               <label>Lesson day
-                <input type="text" name="lessonDay" placeholder="e.g. Monday" />
+                <select name="lessonDay" required>
+                  <option value="">Select a day</option>
+                  <option>Monday</option>
+                  <option>Thursday</option>
+                </select>
               </label>
               <fieldset class="portal-stage-editor" id="stageChecklistEditor" hidden>
                 <legend>Swim England requirements</legend>
@@ -202,8 +212,33 @@
 
             <div class="portal-swimmer-directory">
               <label class="portal-search">Search swimmers
-                <input id="swimmerSearch" type="search" placeholder="Name, stage or lesson day" aria-controls="adminSwimmerList" />
+                <input id="swimmerSearch" type="search" placeholder="Name, stage, lesson day or instructor" aria-controls="adminSwimmerList" />
               </label>
+              <div class="portal-directory-filters">
+                <label class="portal-search">Lesson day
+                  <select id="swimmerDayFilter" aria-controls="adminSwimmerList">
+                    <option value="">All days</option>
+                    <option>Monday</option>
+                    <option>Thursday</option>
+                  </select>
+                </label>
+                <label class="portal-search">Instructor
+                  <select id="swimmerInstructorFilter" aria-controls="adminSwimmerList">
+                    <option value="">All instructors</option>
+                    <option>Vahid</option>
+                    <option>Adam</option>
+                    <option>Victoria</option>
+                    <option>Ikram</option>
+                  </select>
+                </label>
+                <label class="portal-search">Sort by
+                  <select id="swimmerSort" aria-controls="adminSwimmerList">
+                    <option value="name">First name A-Z</option>
+                    <option value="day">Lesson day</option>
+                    <option value="instructor">Instructor</option>
+                  </select>
+                </label>
+              </div>
               <div id="adminSwimmerList" class="portal-admin-list"></div>
               <p id="noSwimmerSearchResults" class="portal-search-empty" role="status" hidden>No swimmers match your search.</p>
               <div id="noAdminSwimmers" class="portal-empty" hidden>
@@ -238,6 +273,6 @@
     <a href="mailto:barnetpremierswim@gmail.com">Need help?</a>
   </footer>
 
-  <script type="module" src="portal.js?v=20261021-2"></script>
+  <script type="module" src="portal.js?v=20261021-3"></script>
 </body>
 </html>
