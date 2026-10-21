@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261021-1" />
+  <link rel="stylesheet" href="styles.css?v=20261021-2" />
 </head>
 <body class="portal-page">
   <header class="portal-topbar">
@@ -121,7 +121,11 @@
               <h3 id="parentAccountsTitle">Parent Accounts</h3>
               <p>View login emails, send password resets, or deactivate accounts that are no longer needed.</p>
             </div>
+            <label class="portal-search">Search parents
+              <input id="parentSearch" type="search" placeholder="Name or email address" aria-controls="parentAccountList" />
+            </label>
             <div id="parentAccountList" class="portal-parent-account-list"></div>
+            <p id="noParentSearchResults" class="portal-search-empty" role="status" hidden>No parents match your search.</p>
             <p id="noParentAccounts" class="portal-parent-account-empty" hidden>No parent accounts have been created yet.</p>
           </section>
         </section>
@@ -196,8 +200,12 @@
               </div>
             </form>
 
-            <div>
+            <div class="portal-swimmer-directory">
+              <label class="portal-search">Search swimmers
+                <input id="swimmerSearch" type="search" placeholder="Name, stage or lesson day" aria-controls="adminSwimmerList" />
+              </label>
               <div id="adminSwimmerList" class="portal-admin-list"></div>
+              <p id="noSwimmerSearchResults" class="portal-search-empty" role="status" hidden>No swimmers match your search.</p>
               <div id="noAdminSwimmers" class="portal-empty" hidden>
                 <h3>No swimmers added yet</h3>
                 <p>Create the first swimmer record and link it to a registered parent.</p>
@@ -230,6 +238,6 @@
     <a href="mailto:barnetpremierswim@gmail.com">Need help?</a>
   </footer>
 
-  <script type="module" src="portal.js?v=20261021-1"></script>
+  <script type="module" src="portal.js?v=20261021-2"></script>
 </body>
 </html>

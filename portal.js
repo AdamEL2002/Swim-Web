@@ -70,6 +70,20 @@ const clearNotice = () => {
   portalNotice.hidden = true;
 };
 
+const filterDirectory = (inputId, listId, emptyId) => {
+  const term = document.getElementById(inputId).value.trim().toLocaleLowerCase('en-GB');
+  const rows = Array.from(document.getElementById(listId).children);
+  rows.forEach(row => {
+    row.hidden = !row.dataset.search.toLocaleLowerCase('en-GB').includes(term);
+  });
+  document.getElementById(emptyId).hidden = !rows.length || rows.some(row => !row.hidden);
+};
+
+const filterParents = () => filterDirectory('parentSearch', 'parentAccountList', 'noParentSearchResults');
+const filterSwimmers = () => filterDirectory('swimmerSearch', 'adminSwimmerList', 'noSwimmerSearchResults');
+document.getElementById('parentSearch').addEventListener('input', filterParents);
+document.getElementById('swimmerSearch').addEventListener('input', filterSwimmers);
+
 const showAdminView = view => {
   adminHome.hidden = view !== 'home';
   parentsAdminView.hidden = view !== 'parents';
@@ -590,7 +604,7 @@ const loadAdminData = async () => {
     const parentName = user.displayName || 'Parent account';
     const isInactive = user.accountStatus === 'inactive';
     const linkedSwimmers = activeSwimmerDocs.filter(swimmerDoc => swimmerDoc.data().parentIds?.includes(userDoc.id)).length;
-    return `<article class="portal-parent-account-row">
+    return `<article class="portal-parent-account-row" data-search="${escapeHtml(`${parentName} ${user.email || ''}`)}">
       <div class="portal-parent-account-details">
         <strong>${escapeHtml(parentName)}</strong>
         <a href="mailto:${escapeHtml(user.email)}">${escapeHtml(user.email)}</a>
@@ -603,6 +617,7 @@ const loadAdminData = async () => {
     </article>`;
   }).join('');
   document.getElementById('noParentAccounts').hidden = !usersSnapshot.empty;
+  filterParents();
 
   parentAccountList.querySelectorAll('[data-reset-email]').forEach(button => {
     button.addEventListener('click', async () => {
@@ -658,7 +673,7 @@ const loadAdminData = async () => {
   list.innerHTML = activeSwimmerDocs.map(swimmerDoc => {
     const swimmer = swimmerDoc.data();
     const parentUid = swimmer.parentIds?.[0] || '';
-    return `<article class="portal-admin-row">
+    return `<article class="portal-admin-row" data-search="${escapeHtml(`${swimmer.name || ''} ${swimmer.stage || ''} ${swimmer.lessonDay || ''}`)}">
       <div><strong>${escapeHtml(swimmer.name)}</strong><span>${escapeHtml(swimmer.stage)} · ${escapeHtml(swimmer.lessonDay || 'Day not set')}</span></div>
       <div class="portal-admin-row-actions">
         <button class="portal-preview-button" type="button" data-preview-parent="${escapeHtml(parentUid)}" ${parentUid ? '' : 'disabled'}>Preview parent view</button>
@@ -668,6 +683,7 @@ const loadAdminData = async () => {
     </article>`;
   }).join('');
   document.getElementById('noAdminSwimmers').hidden = activeSwimmerDocs.length > 0;
+  filterSwimmers();
 
   list.querySelectorAll('[data-preview-parent]').forEach(button => {
     button.addEventListener('click', async () => {

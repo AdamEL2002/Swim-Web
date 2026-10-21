@@ -3274,7 +3274,7 @@ footer {
 }
 .portal-admin-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 28px;
   align-items: start;
 }
@@ -3594,8 +3594,40 @@ footer {
 .portal-admin-layout:has(.portal-editor[hidden]) {
   grid-template-columns: 1fr;
 }
-.portal-admin-layout:not(:has(.portal-editor[hidden])) .portal-admin-list {
-  grid-template-columns: 1fr;
+.portal-admin-layout:has(.portal-editor:not([hidden])) .portal-swimmer-directory {
+  display: none;
+}
+.portal-search {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--navy);
+  font-weight: 700;
+}
+.portal-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid #9db4bd;
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+}
+.portal-search input:focus-visible {
+  outline: 2px solid #258da1;
+  outline-offset: 2px;
+}
+.portal-parent-accounts .portal-search {
+  margin-bottom: 0;
+}
+.portal-search-empty {
+  padding: 16px 0;
+  color: var(--navy);
+}
+.portal-parent-account-row[hidden],
+.portal-admin-row[hidden] {
+  display: none;
 }
 .portal-preview-dialog {
   width: min(900px, calc(100% - 32px));
