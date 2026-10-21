@@ -3343,7 +3343,7 @@ footer {
 }
 .portal-parent-accounts {
   display: grid;
-  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 2fr);
+  grid-template-columns: 1fr;
   gap: 22px;
   align-items: start;
   margin-bottom: 28px;
@@ -3365,14 +3365,17 @@ footer {
 }
 .portal-parent-account-list {
   display: grid;
-  gap: 9px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 .portal-parent-account-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 18px;
-  padding: 12px 14px;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
   border: 1px solid #d8e3e8;
   border-radius: 6px;
   background: #f8fbfc;
@@ -3401,6 +3404,10 @@ footer {
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+}
+.portal-parent-account-actions {
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 .portal-reset-button {
   flex: 0 0 auto;
@@ -3525,18 +3532,25 @@ footer {
   flex-wrap: wrap;
 }
 .portal-admin-list {
-  padding: 8px 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .portal-admin-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-  padding: 18px 0;
-  border-bottom: 1px solid #dce7ea;
-}
-.portal-admin-row:last-child {
-  border-bottom: 0;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #d8e3e8;
+  border-radius: 6px;
+  background: #f8fbfc;
 }
 .portal-admin-row div {
   display: grid;
@@ -3573,6 +3587,15 @@ footer {
 }
 .portal-admin-row-actions {
   flex: 0 0 auto;
+  display: flex !important;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.portal-admin-layout:has(.portal-editor[hidden]) {
+  grid-template-columns: 1fr;
+}
+.portal-admin-layout:not(:has(.portal-editor[hidden])) .portal-admin-list {
+  grid-template-columns: 1fr;
 }
 .portal-preview-dialog {
   width: min(900px, calc(100% - 32px));
@@ -3663,6 +3686,10 @@ footer {
     align-items: stretch;
   }
   .portal-parent-accounts {
+    grid-template-columns: 1fr;
+  }
+  .portal-parent-account-list,
+  .portal-admin-list {
     grid-template-columns: 1fr;
   }
   .portal-parent-creator .btn {

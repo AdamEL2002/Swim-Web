@@ -451,7 +451,12 @@ const loadParentSwimmers = async uid => {
   const container = document.getElementById('swimmerCards');
   const swimmers = snapshot.docs
     .map(swimmer => swimmer.data())
-    .filter(swimmer => !swimmer.archived);
+    .filter(swimmer => !swimmer.archived)
+    .sort((a, b) => (a.name || '').trim().localeCompare(
+      (b.name || '').trim(),
+      'en-GB',
+      { sensitivity: 'base' }
+    ));
 
   renderParentSwimmers(container, swimmers);
   document.getElementById('noSwimmers').hidden = swimmers.length > 0;
@@ -527,7 +532,18 @@ const loadAdminData = async () => {
     getDocs(query(collection(db, 'users'), where('role', '==', 'parent'))),
     getDocs(collection(db, 'swimmers'))
   ]);
-  const activeSwimmerDocs = swimmersSnapshot.docs.filter(swimmerDoc => !swimmerDoc.data().archived);
+  const sortedParentDocs = [...usersSnapshot.docs].sort((a, b) => {
+    const firstNameA = (a.data().displayName || a.data().email || '').trim();
+    const firstNameB = (b.data().displayName || b.data().email || '').trim();
+    return firstNameA.localeCompare(firstNameB, 'en-GB', { sensitivity: 'base' });
+  });
+  const activeSwimmerDocs = swimmersSnapshot.docs
+    .filter(swimmerDoc => !swimmerDoc.data().archived)
+    .sort((a, b) => (a.data().name || '').trim().localeCompare(
+      (b.data().name || '').trim(),
+      'en-GB',
+      { sensitivity: 'base' }
+    ));
   const swimmersAwaitingNextStage = activeSwimmerDocs.filter(swimmerDoc => {
     const swimmer = swimmerDoc.data();
     return isStagePassed(swimmer.stage, swimmer.stageProgress) && getNextStage(swimmer.stage);
@@ -555,7 +571,7 @@ const loadAdminData = async () => {
     }));
     return loadAdminData();
   }
-  const activeParentDocs = usersSnapshot.docs.filter(userDoc => userDoc.data().accountStatus !== 'inactive');
+  const activeParentDocs = sortedParentDocs.filter(userDoc => userDoc.data().accountStatus !== 'inactive');
   document.getElementById('adminParentCount').textContent = `${usersSnapshot.size} parent account${usersSnapshot.size === 1 ? '' : 's'}`;
   document.getElementById('adminSwimmerCount').textContent = `${activeSwimmerDocs.length} active swimmer${activeSwimmerDocs.length === 1 ? '' : 's'}`;
 
@@ -569,7 +585,7 @@ const loadAdminData = async () => {
   parentSelect.value = currentValue;
 
   const parentAccountList = document.getElementById('parentAccountList');
-  parentAccountList.innerHTML = usersSnapshot.docs.map(userDoc => {
+  parentAccountList.innerHTML = sortedParentDocs.map(userDoc => {
     const user = userDoc.data();
     const parentName = user.displayName || 'Parent account';
     const isInactive = user.accountStatus === 'inactive';
@@ -665,7 +681,12 @@ const loadAdminData = async () => {
         ));
         const familySwimmers = familySnapshot.docs
           .map(swimmer => swimmer.data())
-          .filter(swimmer => !swimmer.archived);
+          .filter(swimmer => !swimmer.archived)
+          .sort((a, b) => (a.name || '').trim().localeCompare(
+            (b.name || '').trim(),
+            'en-GB',
+            { sensitivity: 'base' }
+          ));
         if (!familySwimmers.length) throw new Error('No linked swimmers found');
         document.getElementById('swimmerPreviewTitle').textContent = 'Family Progress';
         renderParentSwimmers(swimmerPreviewContent, familySwimmers);
