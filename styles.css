@@ -390,6 +390,8 @@ nav {
 }
 #group-lessons::before,
 #group-lessons::after,
+#adult-group-lessons::before,
+#adult-group-lessons::after,
 #pricing::before,
 #pricing::after {
   display: none;
@@ -833,6 +835,30 @@ nav {
   gap: 16px;
   margin: 2px auto 18px;
   text-align: left;
+}
+.group-info-card .group-session-time {
+  color: #111;
+  font-weight: 800;
+  font-size: 1.08rem;
+}
+.adult-session-times {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.group-info-card .adult-session-times p {
+  margin: 0;
+  padding: 12px;
+  border-bottom: 3px solid var(--aqua);
+  color: #111;
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+@media (max-width: 560px) {
+  .adult-session-times {
+    grid-template-columns: 1fr;
+  }
 }
 .group-lesson-card {
   position: relative;
