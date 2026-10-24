@@ -99,6 +99,11 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--white); }
+.nav-links a:not(.nav-cta):not(.nav-parent-login) {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--white);
+}
 .nav-cta {
   background: var(--aqua) !important;
   color: var(--navy) !important;
@@ -158,6 +163,12 @@ nav {
   color: var(--white);
   font-size: 1.2rem;
   font-weight: 500;
+}
+.mobile-menu a[href$="#venue"],
+.mobile-menu a[href$="#timetable"],
+.mobile-menu a[href$="#about"],
+.mobile-menu a[href$="#faq"] {
+  font-weight: 800;
 }
 @media (max-width: 1200px) {
   .nav-inner { justify-content: space-between; }
