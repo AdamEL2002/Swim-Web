@@ -1001,8 +1001,8 @@ nav {
 .timetable-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-  max-width: 760px;
+  gap: 24px;
+  max-width: 960px;
   margin: 0 auto;
 }
 .timetable-day {
@@ -1019,9 +1019,9 @@ nav {
   margin-bottom: 4px;
 }
 .time-day-location {
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   color: var(--blue);
-  font-size: 0.84rem;
+  font-size: 0.94rem;
   font-weight: 800;
   line-height: 1.35;
   text-align: center;
@@ -1034,7 +1034,7 @@ nav {
   border-radius: var(--radius);
   display: block;
   flex: 1;
-  padding: 22px 20px;
+  padding: 30px 28px;
   text-align: center;
   box-shadow: var(--shadow);
   color: inherit;
@@ -1063,7 +1063,7 @@ nav {
   margin-left: 6px;
   color: var(--text-muted);
   font-family: var(--ff-body);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -1076,11 +1076,11 @@ nav {
 }
 .time-card-list {
   list-style: disc;
-  max-width: 300px;
+  max-width: 360px;
   margin: 12px auto 0;
   padding-left: 18px;
   color: var(--text-muted);
-  font-size: 0.86rem;
+  font-size: 0.94rem;
   line-height: 1.45;
   text-align: left;
 }
@@ -1818,7 +1818,8 @@ footer {
   .time-card {
     flex: none;
     width: 100%;
-    max-width: 320px;
+    max-width: none;
+    padding: 26px 22px;
     margin: 0 auto;
   }
   .faq-q { padding: 16px 18px; font-size: 0.88rem; }
