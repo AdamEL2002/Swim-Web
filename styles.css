@@ -87,8 +87,16 @@ nav {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 9px;
+}
+/* Keep a quarter of the spare link spacing at the right end. */
+.nav-links > li:not(:last-child) {
+  flex: 3 0 auto;
+}
+.nav-links::after {
+  content: "";
+  flex: 7 0 0;
 }
 .nav-links a {
   display: inline-block;
