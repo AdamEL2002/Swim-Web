@@ -89,6 +89,7 @@ nav {
   align-items: center;
   justify-content: flex-start;
   gap: 9px;
+  transform: translateX(12px);
 }
 /* Keep a quarter of the spare link spacing at the right end. */
 .nav-links > li:not(:last-child) {
