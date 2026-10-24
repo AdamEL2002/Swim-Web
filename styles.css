@@ -58,12 +58,12 @@ nav {
   transition: box-shadow 0.3s;
 }
 .nav-inner {
-  max-width: none;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 16px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 12px;
   height: 64px;
 }
@@ -84,11 +84,11 @@ nav {
   object-fit: contain;
 }
 .nav-links {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  justify-content: center;
+  gap: 16px;
 }
 .nav-links a {
   display: inline-block;
